@@ -46,6 +46,7 @@
 			<Add option="-fexceptions" />
 			<Add directory="../../Libraries/SFML-2.5.1/include" />
 			<Add directory="../../Libraries/libconfig/include" />
+			<Add directory="Include" />
 		</Compiler>
 		<Linker>
 			<Add library="liblibconfig++" />
@@ -53,9 +54,30 @@
 			<Add directory="../../Libraries/SFML-2.5.1/bin" />
 			<Add directory="../../Libraries/libconfig/lib" />
 		</Linker>
-		<Unit filename="Program.cpp" />
-		<Unit filename="Program.hpp" />
-		<Unit filename="main.cpp" />
+		<Unit filename="Source/Exceptions/Exception.cpp" />
+		<Unit filename="Source/Exceptions/Exception.hpp" />
+		<Unit filename="Source/Exceptions/FileIOException.hpp" />
+		<Unit filename="Source/Exceptions/FileNotFoundException.hpp" />
+		<Unit filename="Source/Maps/CollisionMap.cpp" />
+		<Unit filename="Source/Maps/CollisionMap.hpp" />
+		<Unit filename="Source/Maps/MapGenerator.cpp" />
+		<Unit filename="Source/Maps/MapGenerator.hpp" />
+		<Unit filename="Source/Maps/Minimap.cpp" />
+		<Unit filename="Source/Maps/Minimap.hpp" />
+		<Unit filename="Source/Maps/Room.cpp" />
+		<Unit filename="Source/Maps/Room.hpp" />
+		<Unit filename="Source/Maps/Section.cpp" />
+		<Unit filename="Source/Maps/Section.hpp" />
+		<Unit filename="Source/Maps/Tilemap.cpp" />
+		<Unit filename="Source/Maps/Tilemap.hpp" />
+		<Unit filename="Source/Platform/Entity.cpp" />
+		<Unit filename="Source/Platform/Entity.hpp" />
+		<Unit filename="Source/Platform/TilemapCollider.cpp" />
+		<Unit filename="Source/Platform/TilemapCollider.hpp" />
+		<Unit filename="Source/Program.cpp" />
+		<Unit filename="Source/Program.hpp" />
+		<Unit filename="Source/Utilities/HSVtoRGB.cpp" />
+		<Unit filename="Source/Utilities/HSVtoRGB.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

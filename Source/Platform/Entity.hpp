@@ -1,0 +1,50 @@
+#pragma once
+
+#include <cstdint>
+
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Vector2.hpp>
+
+namespace RoguelikeMetroidvania {
+namespace Platform {
+using namespace sf;
+
+class Entity : public Sprite {
+        
+    public:
+        using Sprite::Sprite;
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Get the velocity of this entity.
+        ////////////////////////////////////////////////////////////////////////
+        const Vector2f& getVelocity() const;
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Set the velocity of this entity.
+        ////////////////////////////////////////////////////////////////////////
+        void setVelocity(const Vector2f& value);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Set the velocity of this entity.
+        ////////////////////////////////////////////////////////////////////////
+        void setVelocity(float x, float y);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Called on every frame to update the entity and do game logic.
+        /// 
+        /// @param delta
+        ///     A multiplier value calculated based on the frames per second.
+        ///     1.0 is 60fps, 0.5 is 30fps, and 2.0 is 120fps.
+        ////////////////////////////////////////////////////////////////////////
+        void update(float delta);
+        
+    private:
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// The velocity of this entity, measured in pixels per frame.
+        ////////////////////////////////////////////////////////////////////////
+        Vector2f velocity;
+        
+};
+};
+};

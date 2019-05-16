@@ -1,6 +1,9 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <cstdint>
+#include <iostream>
+
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace RoguelikeMetroidvania {
 using namespace sf;
@@ -8,7 +11,7 @@ using namespace sf;
 ////////////////////////////////////////////////////////////////////////////////
 /// A class to contain the entry point of the program, similar to C# or Java.
 ////////////////////////////////////////////////////////////////////////////////
-class Program final {
+class Program {
     
     public:
         ////////////////////////////////////////////////////////////////////////
@@ -17,10 +20,17 @@ class Program final {
         static RenderWindow window;
         
         ////////////////////////////////////////////////////////////////////////
+        /// The view used to render the main game area.
+        ////////////////////////////////////////////////////////////////////////
+        static View gameView;
+        
+        ////////////////////////////////////////////////////////////////////////
         /// The main program entry point.
         ///
-        /// @param argc The number of arguments in ‘argv’.
-        /// @param argv A C array of C strings containing program arguments.
+        /// @param argc
+        ///     The number of arguments in ‘argv’.
+        /// @param argv
+        ///     A C array of C strings containing program arguments.
         /// 
         /// @note
         ///   - This is not the real entry point, instead this method is called 
