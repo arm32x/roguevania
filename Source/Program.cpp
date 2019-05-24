@@ -156,12 +156,13 @@ void Program::main(int argc, char** argv) {
         
         Time frameTime = frameClock.restart();
         float delta = frameTime / optimalTime;
-        int subSteps = 1;
+        int substeps = 1;
         while (delta >= 2) {
             delta    /= 2;
-            subSteps *= 2;
+            substeps *= 2;
         }
-        for (; subSteps > 0; subSteps--) {
+        Program::log(Log::Debug, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << "." << std::endl;
+        for (; substeps > 0; substeps--) {
             testEntity.update(delta);
         }
         
