@@ -157,11 +157,11 @@ void Program::main(int argc, char** argv) {
         Time frameTime = frameClock.restart();
         float delta = frameTime / optimalTime;
         int substeps = 1;
-        while (delta >= 1.25f) {
+        while (delta >= 1.5f) {
             delta    /= 2;
             substeps *= 2;
         }
-        if (substeps > 1) Program::log(Log::Info, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << "." << std::endl;
+        if (substeps > 1) Program::log(Log::Warning, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << "." << std::endl;
         for (; substeps > 0; substeps--) {
             testEntity.update(delta);
         }
