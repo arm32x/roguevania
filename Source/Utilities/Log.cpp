@@ -22,7 +22,7 @@ std::ostream& Log::operator()(Log::Level level) const {
             prefix = "\033[94m   Info\033[00m";
             break;
         case Log::Level::Warning:
-            prefix = "\033[93mWarning\033[00m";
+            prefix = "\033[33mWarning\033[00m";
             break;
         case Log::Level::Error:
             prefix = "\033[31m  Error\033[00m";
@@ -45,7 +45,7 @@ std::ostream& Log::operator()(Log::Level level, const char* tag) const {
             prefix = "\033[94m   Info\033[00m";
             break;
         case Log::Level::Warning:
-            prefix = "\033[93mWarning\033[00m";
+            prefix = "\033[33mWarning\033[00m";
             break;
         case Log::Level::Error:
             prefix = "\033[31m  Error\033[00m";
