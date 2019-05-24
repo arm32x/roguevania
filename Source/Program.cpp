@@ -146,7 +146,13 @@ void Program::main(int argc, char** argv) {
                         }
                         break;
                     case Event::MouseButtonPressed:
-                        Program::log(Log::Info) << "Coordinate location requested:  (" << window.mapPixelToCoords(Mouse::getPosition(window)).x << ", " << window.mapPixelToCoords(Mouse::getPosition(window)).y << ")." << std::endl;
+                        switch (e.mouseButton.button) {
+                            case Mouse::Left:
+                                Program::log(Log::Info) << "Coordinate location requested:  (" << window.mapPixelToCoords(Mouse::getPosition(window)).x << ", " << window.mapPixelToCoords(Mouse::getPosition(window)).y << ")." << std::endl;
+                                break;
+                            case Mouse::Right:
+                                break;
+                        }
                         break;
                 }
                 testEntity.event(e);
