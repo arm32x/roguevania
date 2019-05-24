@@ -157,7 +157,7 @@ void Program::main(int argc, char** argv) {
         Time frameTime = frameClock.restart();
         float delta = frameTime / optimalTime;
         int substeps = 1;
-        while (delta >= 2) {
+        while (delta >= 1.25f) {
             delta    /= 2;
             substeps *= 2;
         }
