@@ -59,7 +59,7 @@ void Entity::update(float delta) {
                 Vector2f velocity = getVelocity() * delta;
                 onGround = true;
                 Vector2f amountMoved;
-                for (amountMoved.y = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved.y) <= std::abs(velocity.y); amountMoved.y += velocity.y >= 0.0f ? -0.125f : 0.125f) {
+                for (amountMoved.y = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved.y) <= std::abs(velocity.y) - (velocity.y >= 0.0f ? -0.125f : 0.125f); amountMoved.y += velocity.y >= 0.0f ? -0.125f : 0.125f) {
                     move(0.0f, velocity.y >= 0.0f ? -0.125f : 0.125f);
                     setVelocity(velocity.x, 0.0f);
                     mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
