@@ -74,10 +74,12 @@ void Entity::update(float delta) {
                         setVelocity(0.0f, velocity.y);
                         mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                     }
-                    for (amountMoved.y = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved.y) <= std::abs(velocity.y); amountMoved.y += velocity.y >= 0.0f ? -increment : increment) {
-                        move(0.0f, velocity.y >= 0.0f ? -increment : increment);
-                        setVelocity(velocity.x, 0.0f);
-                        mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                    if (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) {
+                        for (amountMoved.y = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved.y) <= std::abs(velocity.y); amountMoved.y += velocity.y >= 0.0f ? -increment : increment) {
+                            move(0.0f, velocity.y >= 0.0f ? -increment : increment);
+                            setVelocity(velocity.x, 0.0f);
+                            mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                        }
                     }
                 }
                 break;
