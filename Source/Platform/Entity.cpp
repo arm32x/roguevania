@@ -72,7 +72,7 @@ void Entity::update(float delta) {
             case CollisionMode::None:
                 break;
             default:
-                Program::log(Log::Debug, "EntityCollision") << "Collision mode is " << std::hex << mode << std::dec << "." << std::endl;
+                Program::log(Log::Debug, "EntityCollision") << "Collision mode is " << std::hex << +mode << std::dec << "." << std::endl;
         }
     }
 }
