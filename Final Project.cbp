@@ -54,6 +54,10 @@
 			<Add directory="../../Libraries/SFML-2.5.1/bin" />
 			<Add directory="../../Libraries/libconfig/lib" />
 		</Linker>
+		<ExtraCommands>
+			<Add after="git add -A ." />
+			<Add after='git commit -m &quot;Automatic commit by Code::Blocks.&quot;' />
+		</ExtraCommands>
 		<Unit filename="Source/Collision/CollisionMap.cpp" />
 		<Unit filename="Source/Collision/CollisionMap.hpp" />
 		<Unit filename="Source/Collision/CollisionMode.cpp" />
