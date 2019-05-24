@@ -56,7 +56,7 @@ void Entity::update(float delta) {
             }
             case CollisionMode::SolidFloor:
             case CollisionMode::Solid: {
-                Vector2f velocity = getVelocity();
+                Vector2f velocity = getVelocity() * delta;
                 onGround = true;
                 Vector2f amountMoved;
                 for (amountMoved.y = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved.y) <= std::abs(velocity.y); amountMoved.y += velocity.y >= 0.0f ? -0.125f : 0.125f) {
