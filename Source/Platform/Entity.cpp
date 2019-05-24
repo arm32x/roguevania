@@ -56,11 +56,12 @@ void Entity::update(float delta) {
             }
             case CollisionMode::SolidFloor:
             case CollisionMode::Solid: {
+                constexpr float increment = 0.0625f;
                 Vector2f velocity = getVelocity() * delta;
                 onGround = true;
                 Vector2f amountMoved;
-                for (amountMoved.y = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved.y) <= std::abs(velocity.y); amountMoved.y += velocity.y >= 0.0f ? -0.125f : 0.125f) {
-                    move(0.0f, velocity.y >= 0.0f ? -0.125f : 0.125f);
+                for (amountMoved.y = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved.y) <= std::abs(velocity.y); amountMoved.y += velocity.y >= 0.0f ? -increment : increment) {
+                    move(0.0f, velocity.y >= 0.0f ? -increment : increment);
                     setVelocity(velocity.x, 0.0f);
                     mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                 }
@@ -68,13 +69,13 @@ void Entity::update(float delta) {
                     // TODO:  Implement this.
                     Program::log(Log::Debug, "EntityCollision") << "Horizontal collision detected." << std::endl;
                     move(0.0f, -amountMoved.y);
-                    for (amountMoved.x = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved.x) <= std::abs(velocity.x); amountMoved.x += velocity.x >= 0.0f ? -0.125f : 0.125f) {
-                        move(velocity.x >= 0.0f ? -0.125f : 0.125f, 0.0f);
+                    for (amountMoved.x = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved.x) <= std::abs(velocity.x); amountMoved.x += velocity.x >= 0.0f ? -increment : increment) {
+                        move(velocity.x >= 0.0f ? -increment : increment, 0.0f);
                         setVelocity(0.0f, velocity.y);
                         mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                     }
-                    for (amountMoved.y = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved.y) <= std::abs(velocity.y); amountMoved.y += velocity.y >= 0.0f ? -0.125f : 0.125f) {
-                        move(0.0f, velocity.y >= 0.0f ? -0.125f : 0.125f);
+                    for (amountMoved.y = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved.y) <= std::abs(velocity.y); amountMoved.y += velocity.y >= 0.0f ? -increment : increment) {
+                        move(0.0f, velocity.y >= 0.0f ? -increment : increment);
                         setVelocity(velocity.x, 0.0f);
                         mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                     }
