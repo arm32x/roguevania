@@ -73,9 +73,9 @@ void Entity::update(float delta) {
     }
     
     // Handle movement controls.
-    /**/ if (Keyboard::isKeyPressed(Keyboard::D)) accelerate(( 2.0f - getVelocity().x) / 2.0f, 0.0f);
-    else if (Keyboard::isKeyPressed(Keyboard::A)) accelerate((-2.0f - getVelocity().x) / 2.0f, 0.0f);
-    else /**************************************/ accelerate(getVelocity().x / -4.0f, 0.0f);
+    /**/ if (Keyboard::isKeyPressed(Keyboard::D)) accelerate(( 2.0f - getVelocity().x) / 2.0f * delta, 0.0f);
+    else if (Keyboard::isKeyPressed(Keyboard::A)) accelerate((-2.0f - getVelocity().x) / 2.0f * delta, 0.0f);
+    else /**************************************/ accelerate(getVelocity().x / -4.0f * delta, 0.0f);
 }
 
 void Entity::event(const Event& e) {
