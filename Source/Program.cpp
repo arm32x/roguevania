@@ -166,10 +166,6 @@ void Program::main(int argc, char** argv) {
             testEntity.update(delta);
         }
         
-        /**/ if (Keyboard::isKeyPressed(Keyboard::D)) testEntity.accelerate(( 2.0f - testEntity.getVelocity().x) / 2.0f, 0.0f);
-        else if (Keyboard::isKeyPressed(Keyboard::A)) testEntity.accelerate((-2.0f - testEntity.getVelocity().x) / 2.0f, 0.0f);
-        else /**************************************/ testEntity.accelerate(testEntity.getVelocity().x / -4.0f, 0.0f);
-        
         window.clear();
         window.draw(testTilemap);
         Vector2f testEntityOldPosition = testEntity.alignPosition();
