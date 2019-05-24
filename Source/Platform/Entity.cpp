@@ -38,10 +38,10 @@ Vector2f Entity::alignPosition() {
     return old;
 }
 
-void Entity::update(float delta) {
+void Entity::update() {
     // Apply the current velocity and apply gravity.
-    accelerate(0.0f, 9.801f / 60 * delta);
-    move(getVelocity() * delta);
+    accelerate(0.0f, 9.801f / 60);
+    move(getVelocity());
     onGround = false;
     
     // Detect and handle collisions.
@@ -69,10 +69,6 @@ void Entity::update(float delta) {
                 }
                 break;
             }
-            case CollisionMode::None:
-                break;
-            default:
-                Program::log(Log::Debug, "EntityCollision") << "Collision mode is " << std::hex << +mode << std::dec << "." << std::endl;
         }
     }
 }
@@ -84,6 +80,8 @@ void Entity::event(const Event& e) {
                 setVelocity(getVelocity().x, -4.25f);
                 break;
             }
+            break;
+        default:
             break;
     }
 }

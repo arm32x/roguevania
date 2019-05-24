@@ -156,8 +156,8 @@ void Program::main(int argc, char** argv) {
         
         Time frameTime = frameClock.restart();
         float delta = frameTime / optimalTime;
-        Program::log(Log::Debug) << "Entity position:  (" << testEntity.getPosition().x << ", " << testEntity.getPosition().y << ").  Entity velocity:  (" << testEntity.getVelocity().x << ", " << testEntity.getVelocity().y << ")." << std::endl;
-        testEntity.update(delta);
+        //Program::log(Log::Debug) << "Entity position:  (" << testEntity.getPosition().x << ", " << testEntity.getPosition().y << ").  Entity velocity:  (" << testEntity.getVelocity().x << ", " << testEntity.getVelocity().y << ")." << std::endl;
+        for (; delta >= 1.0f; delta -= 1) testEntity.update();
         
         /**/ if (Keyboard::isKeyPressed(Keyboard::D)) testEntity.accelerate(( 2.0f - testEntity.getVelocity().x) / 2.0f, 0.0f);
         else if (Keyboard::isKeyPressed(Keyboard::A)) testEntity.accelerate((-2.0f - testEntity.getVelocity().x) / 2.0f, 0.0f);

@@ -50,12 +50,8 @@ class Entity : public Sprite {
         
         ////////////////////////////////////////////////////////////////////////
         /// Called on every frame to update the entity and do game logic.
-        /// 
-        /// @param delta
-        ///     A multiplier value calculated based on the frames per second.
-        ///     1.0 is 60fps, 0.5 is 30fps, and 2.0 is 120fps.
         ////////////////////////////////////////////////////////////////////////
-        virtual void update(float delta);
+        virtual void update();
         
         ////////////////////////////////////////////////////////////////////////
         /// Allows entities to handle events taken from the window event loop.
