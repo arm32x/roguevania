@@ -161,7 +161,7 @@ void Program::main(int argc, char** argv) {
             delta    /= 2;
             substeps *= 2;
         }
-        if (substeps > 1) Program::log(Log::Warning, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << ".  Is the game overloaded?" << std::endl;
+        if (substeps > 1) Program::log(Log::Info, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << ".  Is the game overloaded?" << std::endl;
         for (; substeps > 0; substeps--) {
             testEntity.update(delta);
         }
