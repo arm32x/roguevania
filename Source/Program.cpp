@@ -161,7 +161,7 @@ void Program::main(int argc, char** argv) {
             delta    /= 2;
             substeps *= 2;
         }
-        if (substeps > 1) Program::log(Log::Debug, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << "." << std::endl;
+        if (substeps > 1) Program::log(Log::Info, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << "." << std::endl;
         for (; substeps > 0; substeps--) {
             testEntity.update(delta);
         }
