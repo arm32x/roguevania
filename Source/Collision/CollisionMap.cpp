@@ -10,7 +10,7 @@
 #include "../Exceptions/FileNotFoundException.hpp"
 
 using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Maps;
+using namespace RoguelikeMetroidvania::Collision;
 using namespace sf;
 
 bool CollisionMap::loadFromFile(const std::string& filename) {
@@ -30,6 +30,6 @@ bool CollisionMap::loadFromMemory(const void* data) {
     return true;
 }
 
-CollisionMap::Mode CollisionMap::operator[](uint8_t index) const {
+CollisionMode CollisionMap::operator[](uint8_t index) const {
     return buffer[index];
 }

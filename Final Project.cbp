@@ -54,12 +54,16 @@
 			<Add directory="../../Libraries/SFML-2.5.1/bin" />
 			<Add directory="../../Libraries/libconfig/lib" />
 		</Linker>
+		<Unit filename="Source/Collision/CollisionMap.cpp" />
+		<Unit filename="Source/Collision/CollisionMap.hpp" />
+		<Unit filename="Source/Collision/CollisionMode.cpp" />
+		<Unit filename="Source/Collision/CollisionMode.hpp" />
+		<Unit filename="Source/Collision/TilemapCollider.cpp" />
+		<Unit filename="Source/Collision/TilemapCollider.hpp" />
 		<Unit filename="Source/Exceptions/Exception.cpp" />
 		<Unit filename="Source/Exceptions/Exception.hpp" />
 		<Unit filename="Source/Exceptions/FileIOException.hpp" />
 		<Unit filename="Source/Exceptions/FileNotFoundException.hpp" />
-		<Unit filename="Source/Maps/CollisionMap.cpp" />
-		<Unit filename="Source/Maps/CollisionMap.hpp" />
 		<Unit filename="Source/Maps/MapGenerator.cpp" />
 		<Unit filename="Source/Maps/MapGenerator.hpp" />
 		<Unit filename="Source/Maps/Minimap.cpp" />
@@ -72,12 +76,14 @@
 		<Unit filename="Source/Maps/Tilemap.hpp" />
 		<Unit filename="Source/Platform/Entity.cpp" />
 		<Unit filename="Source/Platform/Entity.hpp" />
-		<Unit filename="Source/Platform/TilemapCollider.cpp" />
-		<Unit filename="Source/Platform/TilemapCollider.hpp" />
 		<Unit filename="Source/Program.cpp" />
 		<Unit filename="Source/Program.hpp" />
 		<Unit filename="Source/Utilities/HSVtoRGB.cpp" />
 		<Unit filename="Source/Utilities/HSVtoRGB.hpp" />
+		<Unit filename="Source/Utilities/Log.cpp" />
+		<Unit filename="Source/Utilities/Log.hpp" />
+		<Unit filename="Source/Utilities/clamp.hpp" />
+		<Unit filename="Source/Utilities/clamp.tpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

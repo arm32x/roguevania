@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace RoguelikeMetroidvania {
 namespace Platform {
@@ -30,13 +31,36 @@ class Entity : public Sprite {
         void setVelocity(float x, float y);
         
         ////////////////////////////////////////////////////////////////////////
+        /// Change the velocity of this entity.
+        ////////////////////////////////////////////////////////////////////////
+        void accelerate(const Vector2f& value);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Change the velocity of this entity.
+        ////////////////////////////////////////////////////////////////////////
+        void accelerate(float x, float y);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Align this entity’s position to the nearest pixel.
+        /// 
+        /// @return
+        ///     The position before alignment.
+        ////////////////////////////////////////////////////////////////////////
+        Vector2f alignPosition();
+        
+        ////////////////////////////////////////////////////////////////////////
         /// Called on every frame to update the entity and do game logic.
         /// 
         /// @param delta
         ///     A multiplier value calculated based on the frames per second.
         ///     1.0 is 60fps, 0.5 is 30fps, and 2.0 is 120fps.
         ////////////////////////////////////////////////////////////////////////
-        void update(float delta);
+        virtual void update(float delta);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Allows entities to handle events taken from the window event loop.
+        ////////////////////////////////////////////////////////////////////////
+        virtual void event(const Event& e);
         
     private:
         
@@ -45,6 +69,14 @@ class Entity : public Sprite {
         ////////////////////////////////////////////////////////////////////////
         Vector2f velocity;
         
+        ////////////////////////////////////////////////////////////////////////
+        /// Whether or not this entity is currently on the ground.  Used to
+        /// check whether this entity can jump or not.
+        ////////////////////////////////////////////////////////////////////////
+        // TODO:  Abstract this, and jumping functionality, into a “player” class.
+        bool onGround = false;
+        
 };
+
 };
 };

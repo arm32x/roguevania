@@ -3,9 +3,8 @@
 #include <SFML/Graphics/Color.hpp>
 
 namespace RoguelikeMetroidvania {
-using namespace sf;
-
 namespace Utilities {
+using namespace sf;
         
         ////////////////////////////////////////////////////////////////////////
         /// Converts an HSV color to an RGB color.
