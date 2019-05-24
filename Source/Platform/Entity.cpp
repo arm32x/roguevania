@@ -39,7 +39,6 @@ Vector2f Entity::alignPosition() {
 }
 
 void Entity::update(float delta) {
-    Program::log(Log::Debug, "Entity") << "Updating..." << std::endl;
     // Apply the current velocity and apply gravity.
     accelerate(0.0f, 9.801f / 60 * delta);
     move(getVelocity() * delta);
