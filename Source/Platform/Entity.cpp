@@ -66,7 +66,6 @@ void Entity::update(float delta) {
                 }
                 if (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) {
                     onGround = false;
-                    move(0.0f, velocity.y);
                     Program::log(Log::Debug, "EntityCollision") << "Horizontal collision detected." << std::endl;
                     mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                     for (float amountMoved = 0.0f; (mode == CollisionMode::Solid || mode == CollisionMode::SolidFloor) && std::abs(amountMoved) <= std::abs(velocity.x); amountMoved += velocity.x >= 0.0f ? -increment : increment) {
@@ -74,6 +73,7 @@ void Entity::update(float delta) {
                         setVelocity(0.0f, velocity.y);
                         mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                     }
+                    move(0.0f, velocity.y);
                 }
                 break;
             }
