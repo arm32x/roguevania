@@ -98,9 +98,16 @@ void Program::main(int argc, char** argv) {
     testTilemap.setTileType(15, 16, 0x63);
     testTilemap.setTileType( 8, 13, 0x74);
     testTilemap.setTileType(14, 10, 0x74);
+    Color color;
+    for (Room& room : rooms) {
+        if (room.section != nullptr) {
+            color = room.section->color;
+            break;
+        }
+    }
     for (uint16_t y = 0; y < 23; y++) {
         for (uint16_t x = 0; x < 40; x++) {
-            testTilemap.setTileColor(x, y, Color::Blue);
+            testTilemap.setTileColor(x, y, color);
         }
     }
     
