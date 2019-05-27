@@ -100,7 +100,7 @@ void Program::main(int argc, char** argv) {
     testTilemap.setTileType(14, 10, 0x74);
     for (uint16_t y = 0; y < 23; y++) {
         for (uint16_t x = 0; x < 40; x++) {
-            testTilemap.setTileColor(x, y, Color::Yellow);
+            testTilemap.setTileColor(x, y, Color::Blue);
         }
     }
     
