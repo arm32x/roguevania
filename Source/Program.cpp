@@ -107,6 +107,7 @@ void Program::main(int argc, char** argv) {
     for (Room& room : rooms) {
         if (room.section != nullptr) {
             color = room.section->color;
+            minimap.setPosition(room.x * -8, room.y * -8);
             break;
         }
     }
