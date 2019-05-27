@@ -70,10 +70,9 @@ class Entity : public Sprite {
         Vector2f velocity;
         
         ////////////////////////////////////////////////////////////////////////
-        /// Whether or not this entity is currently on the ground.  Used to
-        /// check whether this entity can jump or not.
+        /// Whether or not this entity is currently on the ground.  Used in 
+        /// subclasses for various purposes.
         ////////////////////////////////////////////////////////////////////////
-        // TODO:  Abstract this, and jumping functionality, into a “player” class.
         bool onGround = false;
         
 };
