@@ -49,11 +49,6 @@ void Entity::update(float delta) {
         std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
         CollisionMode mode = collider->prioritizeTileModes(tiles);
         switch (mode) {
-            case CollisionMode::Undefined: {
-                Program::log(Log::Error, "EntityCollision") << "Undefined collision mode." << std::endl;
-                throw Exceptions::Exception("Undefined collision mode.");
-                break;
-            }
             case CollisionMode::SolidFloor:
             case CollisionMode::Solid: {
                 constexpr float increment = 0.0625f;
@@ -83,6 +78,11 @@ void Entity::update(float delta) {
                         }
                     }
                 }
+                break;
+            }
+            default: {
+                Program::log(Log::Error, "EntityCollision") << "Undefined collision mode " << std::uppercase << std::hex << +mode << std::dec << std::nouppercase << "." << std::endl;
+                throw Exceptions::Exception("Undefined collision mode.");
                 break;
             }
         }
