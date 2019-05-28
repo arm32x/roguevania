@@ -156,10 +156,11 @@ void Program::main(int argc, char** argv) {
         }
         gameView.setCenter(testEntity.getPosition());
         
+        Vector2f testEntityOldPosition = testEntity.alignPosition();
+        gameView.setCenter(testEntity.getPosition());
         window.setView(gameView);
         window.clear();
         window.draw(testTilemap);
-        Vector2f testEntityOldPosition = testEntity.alignPosition();
         window.draw(testEntity);
         testEntity.setPosition(testEntityOldPosition);
         window.draw(minimap);
