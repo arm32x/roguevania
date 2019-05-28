@@ -40,7 +40,7 @@ Vector2f Entity::alignPosition() {
 
 void Entity::update(float delta) {
     // Apply the current velocity and apply gravity.
-    accelerate(0.0f, 0.5f * delta);
+    accelerate(0.0f, 0.25f * delta);
     move(getVelocity() * delta);
     onGround = false;
     
