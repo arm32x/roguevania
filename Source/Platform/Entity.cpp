@@ -82,6 +82,9 @@ void Entity::update(float delta) {
                 }
                 break;
             }
+            case CollisionMode::NotTouching: {
+                break;
+            }
             default: {
                 Program::log(Log::Error, "EntityCollision") << "Undefined collision mode " << std::uppercase << std::hex << +mode << std::dec << std::nouppercase << "." << std::endl;
                 throw Exceptions::Exception("Undefined collision mode.");
