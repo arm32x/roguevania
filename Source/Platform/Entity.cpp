@@ -49,6 +49,9 @@ void Entity::update(float delta) {
         std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
         CollisionMode mode = collider->prioritizeTileModes(tiles);
         switch (mode) {
+            case CollisionMode::None: {
+                break;
+            }
             case CollisionMode::SolidFloor:
             case CollisionMode::Solid: {
                 constexpr float increment = 0.0625f;
