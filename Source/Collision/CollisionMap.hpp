@@ -22,20 +22,25 @@ class CollisionMap {
     public:
         
         ////////////////////////////////////////////////////////////////////////
-        /// Load 256 collision modes from the given file.  The file must be in
-        /// binary format with each collision mode occupying one byte.
+        /// Load 256 collision modes from the given file.
         /// 
+        /// @param filename
+        ///     The name of the file to read the collision modes from.  The file
+        ///     should be in binary format with each mode taking one byte.
         /// @return
         ///     True if the file could be opened and the data could be read.
         ////////////////////////////////////////////////////////////////////////
         bool loadFromFile(const std::string& filename);
         
         ////////////////////////////////////////////////////////////////////////
-        /// Load 256 collision modes from the given input stream.  The data must
-        /// be in binary format with each collision mode occupying one byte.
+        /// Load 256 collision modes from the given input stream.
         /// 
+        /// @param stream
+        ///     The input stream to read the collision modes from.  Should be
+        ///     reading in binary format (no newline processing), with each mode
+        ///     taking one byte.
         /// @return
-        ///     True if the data could be read.
+        ///     True if the data could be read from the input stream.
         ////////////////////////////////////////////////////////////////////////
         bool loadFromStream(InputStream& stream);
         

@@ -7,6 +7,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
+#include <SFML/System/InputStream.hpp>
 
 namespace RoguelikeMetroidvania {
 namespace Maps {
@@ -117,6 +118,41 @@ class Tilemap : public Drawable, public Transformable {
         /// The width and height of the square tiles in this tilemap.
         ////////////////////////////////////////////////////////////////////////
         const uint32_t tileSize;
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Load the tile types for this tilemap from the given file.
+        /// 
+        /// @param filename
+        ///     The name of the file to read the tile types from.  The file
+        ///     should be in binary formatm with each tile type taking one byte.
+        /// @return
+        ///     True if the file could be opened and the data could be read.
+        ////////////////////////////////////////////////////////////////////////
+        bool loadFromFile(const std::string& filename);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Load the tile types for this tilemap from the given input stream.
+        /// 
+        /// @param stream
+        ///     The input stream to read the tile types from.  Should be reading
+        ///     in binary format (no newline processing), with each tile type
+        ///     taking one byte.
+        /// @return
+        ///     True if the data could be read from the input stream.
+        ////////////////////////////////////////////////////////////////////////
+        bool loadFromStream(InputStream& stream);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Load the tile types for this tilemap from the given memory location.
+        /// Does no sanity-checks.
+        /// 
+        /// @param data
+        ///     The memory location to load the tile types from.  Expected to 
+        ///     have enough tile types to fill the entire tilemap.
+        /// @return
+        ///     True, regardless of whether or not the operation succeeded.
+        ////////////////////////////////////////////////////////////////////////
+        bool loadFromMemory(const void* data);
         
     protected:
         ////////////////////////////////////////////////////////////////////////

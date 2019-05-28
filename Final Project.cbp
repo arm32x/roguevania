@@ -80,6 +80,7 @@
 		<Unit filename="Source/Maps/Tilemap.hpp" />
 		<Unit filename="Source/Platform/Entity.cpp" />
 		<Unit filename="Source/Platform/Entity.hpp" />
+		<Unit filename="Source/Platform/Player.hpp" />
 		<Unit filename="Source/Program.cpp" />
 		<Unit filename="Source/Program.hpp" />
 		<Unit filename="Source/Utilities/HSVtoRGB.cpp" />

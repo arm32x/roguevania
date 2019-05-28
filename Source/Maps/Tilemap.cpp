@@ -3,6 +3,7 @@
 #include <SFML/Graphics/PrimitiveType.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/System/FileInputStream.hpp>
 #include <SFML/System/Vector2.hpp>
 
 #include "../Exceptions/FileIOException.hpp"
@@ -64,6 +65,29 @@ void Tilemap::setTileColor(uint16_t x, uint16_t y, const Color& color) {
     vertices[(x + width * y) * 4 + 1].color = color;
     vertices[(x + width * y) * 4 + 2].color = color;
     vertices[(x + width * y) * 4 + 3].color = color;
+}
+
+bool Tilemap::loadFromFile(const std::string& filename) {
+    FileInputStream stream;
+    if (!stream.open(filename)) return false;
+    return loadFromStream(stream);
+}
+
+bool Tilemap::loadFromStream(InputStream& stream) {
+    std::vector<uint8_t> data;
+    data.resize(width * height);
+    if (stream.read(&*data.begin(), width * height) != -1);
+    return loadFromMemory(&*data.begin());
+}
+
+bool Tilemap::loadFromMemory(const void* data) {
+    const uint8_t* values = reinterpret_cast<const uint8_t*>(data);
+    for (uint16_t y = 0; y < height; y++) {
+        for (uint16_t x = 0; x < width; x++) {
+            setTileType(x, y, values[x + width * y]);
+        }
+    }
+    return true;
 }
 
 void Tilemap::draw(RenderTarget& target, RenderStates states) const {
