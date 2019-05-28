@@ -24,12 +24,18 @@ void Player::event(const Event& e) {
                         setVelocity(getVelocity().x, -3.75f);
                     }
                     break;
+                default:
+                    Entity::event(e);
+                    break;
             }
             break;
         case Event::KeyReleased:
             switch (e.key.code) {
                 case Keyboard::Space:
                     jumping = false;
+                    break;
+                default:
+                    Entity::event(e);
                     break;
             }
         default:
