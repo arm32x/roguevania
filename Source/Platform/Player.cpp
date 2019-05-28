@@ -5,7 +5,7 @@ using namespace RoguelikeMetroidvania::Platform;
 using namespace sf;
 
 void Player::update(float delta) {
-    if (jumping && getVelocity().y > 0.0f) accelerate(0.0f, -0.125f * delta);
+    if (jumping && getVelocity().y <= 0.0f) accelerate(0.0f, -0.125f * delta);
     Entity::update(delta);
     
     // Handle movement controls.
