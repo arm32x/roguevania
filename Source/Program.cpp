@@ -143,6 +143,12 @@ void Program::main(int argc, char** argv) {
             }
         }
         
+        {
+            Vector2f testEntityOldPosition = testEntity.alignPosition();
+            gameView.setCenter(testEntity.getPosition());
+            testEntity.setPosition(testEntityOldPosition);
+        }
+        
         Time frameTime = frameClock.restart();
         float delta = frameTime / optimalTime;
         int substeps = 1;
@@ -154,15 +160,15 @@ void Program::main(int argc, char** argv) {
         for (; substeps > 0; substeps--) {
             testEntity.update(delta);
         }
-        gameView.setCenter(testEntity.getPosition());
         
-        Vector2f testEntityOldPosition = testEntity.alignPosition();
-        gameView.setCenter(testEntity.getPosition());
         window.setView(gameView);
         window.clear();
         window.draw(testTilemap);
-        window.draw(testEntity);
-        testEntity.setPosition(testEntityOldPosition);
+        {
+            Vector2f testEntityOldPosition = testEntity.alignPosition();
+            window.draw(testEntity);
+            testEntity.setPosition(testEntityOldPosition);
+        }
         window.draw(minimap);
         window.display();
     }
