@@ -154,7 +154,9 @@ void Program::main(int argc, char** argv) {
         for (; substeps > 0; substeps--) {
             testEntity.update(delta);
         }
+        gameView.setCenter(testEntity.getPosition());
         
+        window.setView(gameView);
         window.clear();
         window.draw(testTilemap);
         Vector2f testEntityOldPosition = testEntity.alignPosition();
