@@ -143,12 +143,6 @@ void Program::main(int argc, char** argv) {
             }
         }
         
-        {
-            Vector2f testEntityOldPosition = testEntity.alignPosition();
-            gameView.setCenter(testEntity.getPosition());
-            testEntity.setPosition(testEntityOldPosition);
-        }
-        
         Time frameTime = frameClock.restart();
         float delta = frameTime / optimalTime;
         int substeps = 1;
