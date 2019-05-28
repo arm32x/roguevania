@@ -20,6 +20,7 @@
 #include "Maps/Section.hpp"
 #include "Maps/Tilemap.hpp"
 #include "Platform/Entity.hpp"
+#include "Platform/Player.hpp"
 #include "Utilities/HSVtoRGB.hpp"
 
 using namespace RoguelikeMetroidvania;
@@ -94,9 +95,9 @@ void Program::main(int argc, char** argv) {
     
     Texture entitiesTexture;
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
-    Entity testEntity(entitiesTexture, IntRect(0, 0, 16, 32));
-    testEntity.setPosition(32.0f, 64.0f);
-    testEntity.setVelocity(0.0f, -4.0f);
+    Player player(entitiesTexture, IntRect(0, 0, 16, 32));
+    player.setPosition(32.0f, 64.0f);
+    player.setVelocity(0.0f, -4.0f);
     
     Clock frameClock;
     const Time optimalTime = seconds(1.0f) / 60.0f;
@@ -138,7 +139,7 @@ void Program::main(int argc, char** argv) {
                         }
                         break;
                 }
-                testEntity.event(e);
+                player.event(e);
                 #pragma GCC diagnostic pop
             }
         }
@@ -152,16 +153,16 @@ void Program::main(int argc, char** argv) {
         }
         if (substeps > 1) Program::log(Log::Warning, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << ".  Is the game overloaded?" << std::endl;
         for (; substeps > 0; substeps--) {
-            testEntity.update(delta);
+            player.update(delta);
         }
         
         window.setView(gameView);
         window.clear();
         window.draw(testTilemap);
         {
-            Vector2f testEntityOldPosition = testEntity.alignPosition();
-            window.draw(testEntity);
-            testEntity.setPosition(testEntityOldPosition);
+            Vector2f playerOldPosition = player.alignPosition();
+            window.draw(player);
+            player.setPosition(playerOldPosition);
         }
         window.draw(minimap);
         window.display();
