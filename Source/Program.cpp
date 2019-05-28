@@ -72,38 +72,7 @@ void Program::main(int argc, char** argv) {
     
     Tilemap testTilemap(40, 23, 16, "Resources/Tilemaps/Default.png");
     testTilemap.setPosition(0.0f, -8.0f);
-    // TODO:  Load this from file.
     testTilemap.loadFromFile("Resources/Tilemaps/Testing.tilmap");
-//    testTilemap.setTileType( 1, 20, 0x31);
-//    testTilemap.setTileType( 2, 20, 0x32);
-//    testTilemap.setTileType( 3, 20, 0x32);
-//    testTilemap.setTileType( 4, 20, 0x32);
-//    testTilemap.setTileType( 5, 20, 0x23);
-//    testTilemap.setTileType( 5, 19, 0x14);
-//    testTilemap.setTileType( 5, 18, 0x14);
-//    testTilemap.setTileType( 5, 17, 0x01);
-//    testTilemap.setTileType( 6, 17, 0x32);
-//    testTilemap.setTileType( 7, 17, 0x32);
-//    testTilemap.setTileType( 8, 17, 0x32);
-//    testTilemap.setTileType( 9, 17, 0x32);
-//    testTilemap.setTileType(10, 17, 0x32);
-//    testTilemap.setTileType(11, 17, 0x33);
-//    testTilemap.setTileType(13, 14, 0x01);
-//    testTilemap.setTileType(14, 14, 0x02);
-//    testTilemap.setTileType(15, 14, 0x03);
-//    testTilemap.setTileType(13, 15, 0x11);
-//    testTilemap.setTileType(14, 15, 0x12);
-//    testTilemap.setTileType(15, 15, 0x13);
-//    testTilemap.setTileType(13, 16, 0x21);
-//    testTilemap.setTileType(14, 16, 0x22);
-//    testTilemap.setTileType(15, 16, 0x23);
-//    testTilemap.setTileType( 8, 13, 0x34);
-//    testTilemap.setTileType(14, 10, 0x34);
-//    testTilemap.setTileType(17, 14, 0x71);
-//    testTilemap.setTileType(18, 14, 0x72);
-//    testTilemap.setTileType(19, 14, 0x72);
-//    testTilemap.setTileType(20, 14, 0x72);
-//    testTilemap.setTileType(21, 14, 0x73);
     Color color;
     for (Room& room : rooms) {
         if (room.section != nullptr) {
