@@ -5,6 +5,7 @@ using namespace RoguelikeMetroidvania::Platform;
 using namespace sf;
 
 void Player::update(float delta) {
+    if (jumping) accelerate(0.0f, -0.125f * delta);
     Entity::update(delta);
     
     // Handle movement controls.
@@ -19,11 +20,18 @@ void Player::event(const Event& e) {
             switch (e.key.code) {
                 case Keyboard::Space:
                     if (onGround) {
+                        jumping = true;
                         setVelocity(getVelocity().x, -4.25f);
                     }
                     break;
             }
             break;
+        case Event::KeyReleased:
+            switch (e.key.code) {
+                case Keyboard::Space:
+                    jumping = false;
+                    break;
+            }
         default:
             Entity::event(e);
             break;
