@@ -62,7 +62,7 @@ class Entity : public Sprite {
         ////////////////////////////////////////////////////////////////////////
         virtual void event(const Event& e);
         
-    private:
+    protected:
         
         ////////////////////////////////////////////////////////////////////////
         /// The velocity of this entity, measured in pixels per frame.
