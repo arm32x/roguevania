@@ -30,7 +30,7 @@ class CollisionMap {
         /// @return
         ///     True if the file could be opened and the data could be read.
         ////////////////////////////////////////////////////////////////////////
-        bool loadFromFile(const std::string& filename);
+        void loadFromFile(const char* filename);
         
         ////////////////////////////////////////////////////////////////////////
         /// Load 256 collision modes from the given input stream.
@@ -42,7 +42,7 @@ class CollisionMap {
         /// @return
         ///     True if the data could be read from the input stream.
         ////////////////////////////////////////////////////////////////////////
-        bool loadFromStream(InputStream& stream);
+        void loadFromStream(std::istream& stream);
         
         ////////////////////////////////////////////////////////////////////////
         /// Load 256 collision modes from the given memory location and store
@@ -51,7 +51,7 @@ class CollisionMap {
         /// @return
         ///     True, regardless of whether or not the operation succeeded.
         ////////////////////////////////////////////////////////////////////////
-        bool loadFromMemory(const void* data);
+        void loadFromMemory(const uint8_t* data);
         
         ////////////////////////////////////////////////////////////////////////
         /// Get a collision mode by index, typically a tile type.

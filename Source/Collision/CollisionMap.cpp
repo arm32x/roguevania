@@ -8,26 +8,40 @@
 
 #include "../Exceptions/FileIOException.hpp"
 #include "../Exceptions/FileNotFoundException.hpp"
+#include "../Program.hpp"
 
 using namespace RoguelikeMetroidvania;
 using namespace RoguelikeMetroidvania::Collision;
 using namespace sf;
 
-bool CollisionMap::loadFromFile(const std::string& filename) {
-    FileInputStream stream;
-    if (!stream.open(filename)) return false;
-    return loadFromStream(stream);
+void CollisionMap::loadFromFile(const char* filename) {
+    Program::log(Log::Trace, "CollisionMap") << "Loading collision map from file '" << filename << "'..." << std::endl;
+    std::ifstream stream;
+    stream.open(filename, std::ios::in | std::ios::binary);
+    if (stream.fail()) {
+        Program::log(Log::Error, "CollisionMap") << "Could not open file '" << filename << "'." << std::endl;
+        throw Exceptions::FileNotFoundException("Could not open file.");
+    }
+    loadFromStream(stream);
 }
 
-bool CollisionMap::loadFromStream(InputStream& stream) {
+void CollisionMap::loadFromStream(std::istream& stream) {
     uint8_t data[256];
-    if (stream.read(data, 256) == -1) return false;
-    return loadFromMemory(data);
+    stream.read(reinterpret_cast<char*>(data), sizeof(data));
+    if (!stream.good()) {
+        if (stream.eof()) {
+            Program::log(Log::Error, "CollisionMap") << "Could not read data, reached EOF prematurely." << std::endl;
+            throw Exceptions::FileIOException("Could not read data, reached EOF prematurely.");
+        } else {
+            Program::log(Log::Error, "CollisionMap") << "An unexpected error occured while reading data." << std::endl;
+            throw Exceptions::FileIOException("An unexpected error occured while reading data.");
+        }
+    }
+    loadFromMemory(data);
 }
 
-bool CollisionMap::loadFromMemory(const void* data) {
+void CollisionMap::loadFromMemory(const uint8_t* data) {
     memcpy(&*buffer.begin(), data, 256);
-    return true;
 }
 
 CollisionMode CollisionMap::operator[](uint8_t index) const {
