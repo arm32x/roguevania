@@ -41,7 +41,6 @@ void CollisionMap::loadFromStream(std::istream& stream) {
 
 void CollisionMap::loadFromMemory(const uint8_t* data) {
     memcpy(&*buffer.begin(), data, 256);
-    Program::log(Log::Trace, "CollisionMap") << "Done." << std::endl;
 }
 
 CollisionMode CollisionMap::operator[](uint8_t index) const {
