@@ -15,7 +15,6 @@ using namespace RoguelikeMetroidvania::Collision;
 using namespace sf;
 
 void CollisionMap::loadFromFile(const char* filename) {
-    Program::log(Log::Trace, "CollisionMap") << "Loading collision map from file '" << filename << "'..." << std::endl;
     std::ifstream stream;
     stream.open(filename, std::ios::in | std::ios::binary);
     if (stream.fail()) {
@@ -26,7 +25,6 @@ void CollisionMap::loadFromFile(const char* filename) {
 }
 
 void CollisionMap::loadFromStream(std::istream& stream) {
-    Program::log(Log::Trace, "CollisionMap") << "Loading collision map from input stream..." << std::endl;
     uint8_t data[256];
     stream.read(reinterpret_cast<char*>(data), sizeof(data));
     if (!stream.good()) {
@@ -42,7 +40,6 @@ void CollisionMap::loadFromStream(std::istream& stream) {
 }
 
 void CollisionMap::loadFromMemory(const uint8_t* data) {
-    Program::log(Log::Trace, "CollisionMap") << "Loading collision map from memory..." << std::endl;
     memcpy(&*buffer.begin(), data, 256);
     Program::log(Log::Trace, "CollisionMap") << "Done." << std::endl;
 }
