@@ -73,7 +73,7 @@ void Program::main(int argc, char** argv) {
     
     Tilemap testTilemap(40, 23, 16, "Resources/Tilemaps/Default.png");
     testTilemap.setPosition(0.0f, -8.0f);
-    testTilemap.loadFromFile("Resources/Tilemaps/Testing.tilmap");
+    testTilemap.loadFromFile("Resources/Tilemaps/Testing.tlmp");
     Color color;
     for (Room& room : rooms) {
         if (room.section != nullptr) {
@@ -89,7 +89,7 @@ void Program::main(int argc, char** argv) {
     }
     
     CollisionMap testCollisionMap;
-    testCollisionMap.loadFromFile("Resources/Tilemaps/Default.colmap");
+    testCollisionMap.loadFromFile("Resources/Tilemaps/Default.clmp");
     
     TilemapCollider testCollider(testTilemap, testCollisionMap);
     
