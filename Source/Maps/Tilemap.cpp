@@ -84,7 +84,7 @@ void Tilemap::loadFromFile(const char* filename) {
 void Tilemap::loadFromStream(std::istream& stream) {
     std::vector<uint8_t> data;
     data.resize(width * height);
-    stream.read(reinterpret_cast<char*>(&*data.begin()), sizeof(data));
+    stream.read(reinterpret_cast<char*>(&*data.begin()), width * height);
     if (!stream.good()) {
         if (stream.eof()) {
             Program::log(Log::Error, "Tilemap") << "Could not read data, reached EOF prematurely." << std::endl;
