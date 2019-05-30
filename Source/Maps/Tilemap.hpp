@@ -1,13 +1,13 @@
 #pragma once
 
 #include <cstdint>
+#include <istream>
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
-#include <SFML/System/InputStream.hpp>
 
 namespace RoguelikeMetroidvania {
 namespace Maps {
@@ -125,10 +125,8 @@ class Tilemap : public Drawable, public Transformable {
         /// @param filename
         ///     The name of the file to read the tile types from.  The file
         ///     should be in binary formatm with each tile type taking one byte.
-        /// @return
-        ///     True if the file could be opened and the data could be read.
         ////////////////////////////////////////////////////////////////////////
-        bool loadFromFile(const std::string& filename);
+        void loadFromFile(const char* filename);
         
         ////////////////////////////////////////////////////////////////////////
         /// Load the tile types for this tilemap from the given input stream.
@@ -137,10 +135,8 @@ class Tilemap : public Drawable, public Transformable {
         ///     The input stream to read the tile types from.  Should be reading
         ///     in binary format (no newline processing), with each tile type
         ///     taking one byte.
-        /// @return
-        ///     True if the data could be read from the input stream.
         ////////////////////////////////////////////////////////////////////////
-        bool loadFromStream(InputStream& stream);
+        void loadFromStream(std::istream& stream);
         
         ////////////////////////////////////////////////////////////////////////
         /// Load the tile types for this tilemap from the given memory location.
@@ -149,10 +145,8 @@ class Tilemap : public Drawable, public Transformable {
         /// @param data
         ///     The memory location to load the tile types from.  Expected to 
         ///     have enough tile types to fill the entire tilemap.
-        /// @return
-        ///     True, regardless of whether or not the operation succeeded.
         ////////////////////////////////////////////////////////////////////////
-        bool loadFromMemory(const void* data);
+        void loadFromMemory(const uint8_t* data);
         
     protected:
         ////////////////////////////////////////////////////////////////////////

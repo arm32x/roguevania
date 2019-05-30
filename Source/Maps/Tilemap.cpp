@@ -1,5 +1,7 @@
 #include "Tilemap.hpp"
 
+#include <fstream>
+
 #include <SFML/Graphics/PrimitiveType.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -7,6 +9,8 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "../Exceptions/FileIOException.hpp"
+#include "../Exceptions/FileNotFoundException.hpp"
+#include "../Program.hpp"
 
 using namespace RoguelikeMetroidvania;
 using namespace RoguelikeMetroidvania::Maps;
@@ -67,27 +71,38 @@ void Tilemap::setTileColor(uint16_t x, uint16_t y, const Color& color) {
     vertices[(x + width * y) * 4 + 3].color = color;
 }
 
-bool Tilemap::loadFromFile(const std::string& filename) {
-    FileInputStream stream;
-    if (!stream.open(filename)) return false;
-    return loadFromStream(stream);
+void Tilemap::loadFromFile(const char* filename) {
+    std::ifstream stream;
+    stream.open(filename, std::ios::in | std::ios::binary);
+    if (stream.fail()) {
+        Program::log(Log::Error, "Tilemap") << "Could not open file '" << filename << "'." << std::endl;
+        throw Exceptions::FileNotFoundException("Could not open file.");
+    }
+    loadFromStream(stream);
 }
 
-bool Tilemap::loadFromStream(InputStream& stream) {
+void Tilemap::loadFromStream(std::istream& stream) {
     std::vector<uint8_t> data;
     data.resize(width * height);
-    if (stream.read(&*data.begin(), width * height) != -1);
-    return loadFromMemory(&*data.begin());
-}
-
-bool Tilemap::loadFromMemory(const void* data) {
-    const uint8_t* values = reinterpret_cast<const uint8_t*>(data);
-    for (uint16_t y = 0; y < height; y++) {
-        for (uint16_t x = 0; x < width; x++) {
-            setTileType(x, y, values[x + width * y]);
+    stream.read(reinterpret_cast<char*>(&*data.begin()), sizeof(data));
+    if (!stream.good()) {
+        if (stream.eof()) {
+            Program::log(Log::Error, "Tilemap") << "Could not read data, reached EOF prematurely." << std::endl;
+            throw Exceptions::FileIOException("Could not read data, reached EOF prematurely.");
+        } else {
+            Program::log(Log::Error, "Tilemap") << "An unexpected error occured while reading data." << std::endl;
+            throw Exceptions::FileIOException("An unexpected error occured while reading data.");
         }
     }
-    return true;
+    loadFromMemory(&*data.begin());
+}
+
+void Tilemap::loadFromMemory(const uint8_t* data) {
+    for (uint16_t y = 0; y < height; y++) {
+        for (uint16_t x = 0; x < width; x++) {
+            setTileType(x, y, data[x + width * y]);
+        }
+    }
 }
 
 void Tilemap::draw(RenderTarget& target, RenderStates states) const {
