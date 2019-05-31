@@ -11,11 +11,12 @@ using namespace sf;
 
 // Forward declarations.
 class Section;
+class Tilemap;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Represents a room on the map.
 ////////////////////////////////////////////////////////////////////////////////
-class Room {
+class Room final {
         
     public:
         ////////////////////////////////////////////////////////////////////////
@@ -75,11 +76,18 @@ class Room {
         ////////////////////////////////////////////////////////////////////////
         Room();
         
-        uint8_t  doors    :  4; ///< Determines which sides of the room have a door.
-        uint8_t  openings :  4; ///< Determines which sides of the room are open (no wall).
-        Section* section      ; ///< A pointer to the section that this room is in.
-        uint16_t x            ; ///< The X position of the room within the map.
-        uint16_t y            ; ///< The Y position of the room within the map.
+        uint8_t  doors    : 4;      ///< Determines which sides of the room have a door.
+        uint8_t  openings : 4;      ///< Determines which sides of the room are open (no wall).
+        Section* section;           ///< A pointer to the section that this room is in.
+        uint16_t x;                 ///< The X position of the room within the map.
+        uint16_t y;                 ///< The Y position of the room within the map.
+        Tilemap* tilemap = nullptr; ///< A pointer to a tilemap representing the layout of this room.
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Destructs a room and deletes the tilemap pointed to by the tilemap
+        /// pointer, unless it is nullptr.
+        ////////////////////////////////////////////////////////////////////////
+        ~Room();
         
 };
 

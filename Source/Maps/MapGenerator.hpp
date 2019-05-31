@@ -39,18 +39,7 @@ class MapGenerator {
         void setSeed(uint64_t seed);
         
         ////////////////////////////////////////////////////////////////////////
-        /// Generate the type of a single room.  This is an 8-bit mask with
-        /// information such as which sides have exits.  See the table below for
-        /// details for specific bits.
-        /// 
-        /// | Bit | Description                                                |
-        /// |:---:|:---------------------------------------------------------- |
-        /// | 0-1 | The direction in which this room extends.                  |
-        /// | 2-3 | The length of this room’s extension.                       |
-        /// |  4  | Set if the top side of a room has a door.                  |
-        /// |  5  | Set if the right side of a room has a door.                |
-        /// |  6  | Set if the bottom side of a room has a door.               |
-        /// |  7  | Set if the left side of a room has a door.                 |
+        /// Generate a single room.
         ////////////////////////////////////////////////////////////////////////
         Room generateRoom();
         

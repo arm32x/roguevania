@@ -37,3 +37,7 @@ Room::Room()
 }
 
 #pragma GCC diagnostic pop
+
+Room::~Room() {
+    if (tilemap != nullptr) delete tilemap;
+}
