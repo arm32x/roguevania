@@ -1,5 +1,7 @@
 #include "Room.hpp"
 
+#include "../Maps/Tilemap.hpp"
+
 using namespace RoguelikeMetroidvania;
 using namespace RoguelikeMetroidvania::Maps;
 
@@ -39,5 +41,5 @@ Room::Room()
 #pragma GCC diagnostic pop
 
 Room::~Room() {
-    if (tilemap != nullptr) delete tilemap;
+    delete tilemap;
 }
