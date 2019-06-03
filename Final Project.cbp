@@ -97,7 +97,7 @@
 			<DoxyBlocks>
 				<comment_style block="5" line="2" />
 				<doxyfile_project />
-				<doxyfile_build />
+				<doxyfile_build extract_all="1" extract_static="1" />
 				<doxyfile_warnings />
 				<doxyfile_output />
 				<doxyfile_dot />

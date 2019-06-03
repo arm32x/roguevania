@@ -1,29 +1,16 @@
 #include "MapGenerator.hpp"
 
-#define MAP_VISUALIZATION 0
-
+#include <fstream>
 #include <iostream>
 
-#if MAP_VISUALIZATION
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/System/Sleep.hpp>
-#endif // MAP_VISUALIZATION
-
-#if MAP_VISUALIZATION
-#include "../Program.hpp"
-#endif // MAP_VISUALIZATION
+#include "../Exceptions/FileNotFoundException.hpp"
+#include "../Maps/Room.hpp"
+#include "../Maps/Section.hpp"
 #include "../Utilities/HSVtoRGB.hpp"
-#if MAP_VISUALIZATION
-#include "Minimap.hpp"
-#endif // MAP_VISUALIZATION
-#include "Room.hpp"
-#include "Section.hpp"
+#include "../Program.hpp"
 
 using namespace Roguevania;
 using namespace Roguevania::Maps;
-#if MAP_VISUALIZATION
-using namespace sf;
-#endif // MAP_VISUALIZATION
 
 MapGenerator::MapGenerator(uint64_t seed)
     : random(seed) {
@@ -66,9 +53,6 @@ std::deque<Section> MapGenerator::generateSections(std::deque<Room>& rooms, uint
     std::deque<Room*> fillQueue;
     std::deque<Section> sections;
     std::deque<Room*> filledRooms;
-#if MAP_VISUALIZATION
-    Minimap debugMinimap(width, height);
-#endif // MAP_VISUALIZATION
     {
         uint16_t x, y;
         do {
@@ -89,17 +73,7 @@ std::deque<Section> MapGenerator::generateSections(std::deque<Room>& rooms, uint
                 r.section = &section;
                 section.rooms.push_front(&r);
                 filledRooms.push_front(&r);
-#if MAP_VISUALIZATION
-                debugMinimap.setRoomType(r.x, r.y, r.doors | r.openings << 4);
-                debugMinimap.setRoomColor(r.x, r.y, r.section->color);
-#endif // MAP_VISUALIZATION
             }
-#if MAP_VISUALIZATION
-            Program::window.clear();
-            Program::window.draw(debugMinimap);
-            Program::window.display();
-            sleep(milliseconds(MAP_VISUALIZATION));
-#endif // MAP_VISUALIZATION
             if ((r.doors & 0b0001) != 0 && rooms[(r.x - 1) + width * r.y].section == nullptr) fillQueue.push_back(&rooms[(r.x - 1) + width * r.y]);
             if ((r.doors & 0b0010) != 0 && rooms[r.x + width * (r.y + 1)].section == nullptr) fillQueue.push_back(&rooms[r.x + width * (r.y + 1)]);
             if ((r.doors & 0b0100) != 0 && rooms[(r.x + 1) + width * r.y].section == nullptr) fillQueue.push_back(&rooms[(r.x + 1) + width * r.y]);
@@ -150,9 +124,6 @@ std::deque<Section> MapGenerator::generateSections(std::deque<Room>& rooms, uint
             for (Room* rptr : section.rooms) {
                 rptr->doors = 0b0000;
                 rptr->section = nullptr;
-#if MAP_VISUALIZATION
-                debugMinimap.setRoomType(rptr->x, rptr->y, 0b0000);
-#endif // MAP_VISUALIZATION
             }
             section.rooms.clear();
             goto startSection;
@@ -212,4 +183,18 @@ void MapGenerator::connectRooms(std::deque<Room>& rooms, uint16_t width, uint16_
 
 randutils::mt19937_rng& MapGenerator::getRandom() {
     return random;
+}
+
+Tilemap* MapGenerator::generateRoomLayoutFromFile(Room& room, const char* filename) {
+    std::ifstream stream;
+    stream.open(filename, std::ios::in);
+    if (stream.fail()) {
+        Program::log(Log::Error, "MapGenerator") << "Could not open room template file '" << filename << "'." << std::endl;
+        throw Exceptions::FileNotFoundException("Could not open room template file.");
+    }
+    return generateRoomLayoutFromStream(room, stream);
+}
+
+Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream) {
+    
 }
