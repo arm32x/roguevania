@@ -76,6 +76,48 @@ class MapGenerator {
         ////////////////////////////////////////////////////////////////////////
         randutils::mt19937_rng& getRandom();
         
+        ////////////////////////////////////////////////////////////////////////
+        /// Generates the internal layout of a room from a randomly-chosen
+        /// template file.
+        /// 
+        /// @param room
+        ///     The room to generate the internal layout for.
+        /// @return
+        ///     A pointer to a tilemap dynamically allocated using `new`.  This
+        ///     pointer is also assigned to the `tilemap` member variable on the
+        ///     room passed.
+        ////////////////////////////////////////////////////////////////////////
+        Tilemap* generateRoomLayout(Room& room);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Generates the internal layout of a room from a specified file.
+        /// 
+        /// @param room
+        ///     The room to generate the internal layout for.
+        /// @param filename
+        ///     The template file to use for room generation.
+        /// @return
+        ///     A pointer to a tilemap dynamically allocated using `new`.  This
+        ///     pointer is also assigned to the `tilemap` member variable on the
+        ///     room passed.
+        ////////////////////////////////////////////////////////////////////////
+        Tilemap* generateRoomLayoutFromFile(Room& room, const char* filename);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Generates the internal layout of a room from data obtained from an
+        /// input stream.
+        /// 
+        /// @param room
+        ///     The room to generate the internal layout for.
+        /// @param stream
+        ///     The stream to read template data from.
+        /// @return
+        ///     A pointer to a tilemap dynamically allocated using `new`.  This
+        ///     pointer is also assigned to the `tilemap` member variable on the
+        ///     room passed.
+        ////////////////////////////////////////////////////////////////////////
+        Tilemap* generateRoomLayoutFromStream(Room& room, std::istream& stream);
+        
     private:
         ////////////////////////////////////////////////////////////////////////
         /// Processes a deque of rooms by doing a few things:
