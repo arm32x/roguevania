@@ -2,7 +2,7 @@
 
 #include "FileIOException.hpp"
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Exceptions {
 
 ////////////////////////////////////////////////////////////////////////////////

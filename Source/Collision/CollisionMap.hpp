@@ -8,7 +8,7 @@
 
 #include "../Collision/CollisionMode.hpp"
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Collision {
 using namespace sf;
 

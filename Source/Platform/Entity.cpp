@@ -7,9 +7,9 @@
 #include "../Exceptions/Exception.hpp"
 #include "../Program.hpp"
 
-using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Collision;
-using namespace RoguelikeMetroidvania::Platform;
+using namespace Roguevania;
+using namespace Roguevania::Collision;
+using namespace Roguevania::Platform;
 using namespace sf;
 
 const Vector2f& Entity::getVelocity() const {

@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
-using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Platform;
+using namespace Roguevania;
+using namespace Roguevania::Platform;
 using namespace sf;
 
 void Player::update(float delta) {

@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Collision {
 
 ////////////////////////////////////////////////////////////////////////////////

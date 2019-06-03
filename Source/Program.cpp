@@ -23,11 +23,11 @@
 #include "Platform/Player.hpp"
 #include "Utilities/HSVtoRGB.hpp"
 
-using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Collision;
-using namespace RoguelikeMetroidvania::Maps;
-using namespace RoguelikeMetroidvania::Platform;
-using namespace RoguelikeMetroidvania::Utilities;
+using namespace Roguevania;
+using namespace Roguevania::Collision;
+using namespace Roguevania::Maps;
+using namespace Roguevania::Platform;
+using namespace Roguevania::Utilities;
 using namespace sf;
 
 #define WINDOWED_SCALE 2
@@ -38,7 +38,7 @@ RenderWindow Program::window(VideoMode(VideoMode::getDesktopMode().width, VideoM
 RenderWindow Program::window(VideoMode(640 * WINDOWED_SCALE, 360 * WINDOWED_SCALE), "Roguelike Metroidvania (working title)", Style::Titlebar | Style::Close);
 #endif
 View Program::gameView(FloatRect(0, 0, 640, 360));
-Log Program::log("RogueMetroid", Log::Debug);
+Log Program::log("Roguevania", Log::Debug);
 
 void Program::main(int argc, char** argv) {
     window.setVerticalSyncEnabled(true);

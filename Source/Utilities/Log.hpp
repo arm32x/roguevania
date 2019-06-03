@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Utilities {
 
 class Log {

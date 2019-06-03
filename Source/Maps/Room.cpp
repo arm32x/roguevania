@@ -2,8 +2,8 @@
 
 #include "../Maps/Tilemap.hpp"
 
-using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Maps;
+using namespace Roguevania;
+using namespace Roguevania::Maps;
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wreorder"

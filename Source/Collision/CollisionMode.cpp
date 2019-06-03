@@ -1,7 +1,7 @@
 #include "CollisionMode.hpp"
 
-using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Collision;
+using namespace Roguevania;
+using namespace Roguevania::Collision;
 
 CollisionMode::CollisionMode()
     : value(CollisionMode::Undefined) {

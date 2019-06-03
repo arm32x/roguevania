@@ -6,10 +6,10 @@
 #include "../Platform/Entity.hpp"
 #include "../Utilities/clamp.hpp"
 
-using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Collision;
-using namespace RoguelikeMetroidvania::Maps;
-using namespace RoguelikeMetroidvania::Platform;
+using namespace Roguevania;
+using namespace Roguevania::Collision;
+using namespace Roguevania::Maps;
+using namespace Roguevania::Platform;
 using namespace sf;
 
 std::vector<TilemapCollider*> TilemapCollider::all;

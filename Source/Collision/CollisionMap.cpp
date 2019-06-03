@@ -10,8 +10,8 @@
 #include "../Exceptions/FileNotFoundException.hpp"
 #include "../Program.hpp"
 
-using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Collision;
+using namespace Roguevania;
+using namespace Roguevania::Collision;
 using namespace sf;
 
 void CollisionMap::loadFromFile(const char* filename) {

@@ -4,7 +4,7 @@
 
 #include "../Platform/Entity.hpp"
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Platform {
 using namespace sf;
 

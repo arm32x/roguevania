@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/Color.hpp>
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Utilities {
 using namespace sf;
         

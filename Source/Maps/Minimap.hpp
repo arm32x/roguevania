@@ -12,7 +12,7 @@
 
 #include "Tilemap.hpp"
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Maps {
 using namespace sf;
 

@@ -19,8 +19,8 @@
 #include "Room.hpp"
 #include "Section.hpp"
 
-using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Maps;
+using namespace Roguevania;
+using namespace Roguevania::Maps;
 #if MAP_VISUALIZATION
 using namespace sf;
 #endif // MAP_VISUALIZATION

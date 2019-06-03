@@ -1,7 +1,7 @@
 #pragma once
 
-using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Utilities;
+using namespace Roguevania;
+using namespace Roguevania::Utilities;
 
 template <class T>
 T clamp(T value, T min, T max) {

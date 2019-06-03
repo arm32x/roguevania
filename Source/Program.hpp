@@ -7,8 +7,8 @@
 
 #include "Utilities/Log.hpp"
 
-namespace RoguelikeMetroidvania {
-using namespace RoguelikeMetroidvania::Utilities;
+namespace Roguevania {
+using namespace Roguevania::Utilities;
 using namespace sf;
 
 ////////////////////////////////////////////////////////////////////////////////

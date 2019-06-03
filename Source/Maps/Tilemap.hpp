@@ -9,7 +9,7 @@
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Maps {
 using namespace sf;
 

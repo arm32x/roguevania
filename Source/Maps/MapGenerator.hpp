@@ -10,7 +10,7 @@
 
 #include "Room.hpp"
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Maps {
 
 ////////////////////////////////////////////////////////////////////////////////

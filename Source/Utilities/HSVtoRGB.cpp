@@ -1,6 +1,6 @@
 #include "HSVtoRGB.hpp"
 #include <cmath>
-using namespace RoguelikeMetroidvania;
+using namespace Roguevania;
 using namespace sf;
 
 // Translated from JavaScript from a StackOverflow answer.

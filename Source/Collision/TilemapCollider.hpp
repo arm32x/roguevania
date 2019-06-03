@@ -11,10 +11,10 @@
 #include "../Maps/Tilemap.hpp"
 #include "../Platform/Entity.hpp"
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Collision {
-using namespace RoguelikeMetroidvania::Maps;
-using namespace RoguelikeMetroidvania::Platform;
+using namespace Roguevania::Maps;
+using namespace Roguevania::Platform;
 using namespace sf;
 
 ////////////////////////////////////////////////////////////////////////////////

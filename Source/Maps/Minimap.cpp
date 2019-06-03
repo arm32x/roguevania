@@ -9,8 +9,8 @@
 
 #include "../Program.hpp"
 
-using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Maps;
+using namespace Roguevania;
+using namespace Roguevania::Maps;
 using namespace sf;
 
 Minimap::Minimap(uint16_t width, uint16_t height)

@@ -12,8 +12,8 @@
 #include "../Exceptions/FileNotFoundException.hpp"
 #include "../Program.hpp"
 
-using namespace RoguelikeMetroidvania;
-using namespace RoguelikeMetroidvania::Maps;
+using namespace Roguevania;
+using namespace Roguevania::Maps;
 using namespace sf;
 
 Tilemap::Tilemap(uint16_t width, uint16_t height, uint32_t tileSize)

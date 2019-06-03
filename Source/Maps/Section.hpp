@@ -6,7 +6,7 @@
 
 #include <SFML/Graphics/Color.hpp>
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Maps {
 using namespace sf;
 

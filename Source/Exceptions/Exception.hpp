@@ -2,7 +2,7 @@
 
 #include <exception>
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Exceptions {
 
 ////////////////////////////////////////////////////////////////////////////////

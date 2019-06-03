@@ -1,6 +1,6 @@
 #pragma once
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Utilities {
         
         ////////////////////////////////////////////////////////////////////////

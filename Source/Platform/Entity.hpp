@@ -6,7 +6,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Platform {
 using namespace sf;
 

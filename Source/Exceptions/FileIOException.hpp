@@ -2,7 +2,7 @@
 
 #include "Exception.hpp"
 
-namespace RoguelikeMetroidvania {
+namespace Roguevania {
 namespace Exceptions {
 
 ////////////////////////////////////////////////////////////////////////////////

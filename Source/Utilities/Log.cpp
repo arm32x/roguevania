@@ -1,6 +1,6 @@
 #include "Log.hpp"
 
-using namespace RoguelikeMetroidvania;
+using namespace Roguevania;
 using namespace Utilities;
 
 Log::Log(const std::string& mainTag, const Log::Level minimumLevel)
