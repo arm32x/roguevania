@@ -8,7 +8,8 @@
 #include <randutils/randutils.hpp>
 #pragma GCC diagnostic pop
 
-#include "Room.hpp"
+#include "../Maps/Room.hpp"
+#include "../Maps/Tilemap.hpp"
 
 namespace Roguevania {
 namespace Maps {
