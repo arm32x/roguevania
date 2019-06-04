@@ -59,6 +59,8 @@ void Program::main(int argc, char** argv) {
     std::deque<Room> rooms = gen.generateRooms(width, height);
     std::deque<Section> sections = gen.generateSections(rooms, width, height, 32);
     
+    Program::log(Log::Trace, "MapGenerator") << "Done!" << std::endl;
+    
     Minimap minimap(width, height);
     for (Room& room : rooms) {
         minimap.setTileType(room.x, room.y, room.doors | room.openings << 4);
@@ -69,7 +71,6 @@ void Program::main(int argc, char** argv) {
         }
     }
     
-    Program::log(Log::Trace, "MapGenerator") << "Done!" << std::endl;
     
     Tilemap testTilemap(40, 23, /*16,*/ "Resources/Tilemaps/Default.png");
     testTilemap.setPosition(0.0f, -8.0f);
