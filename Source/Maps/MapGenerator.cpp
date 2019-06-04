@@ -203,7 +203,7 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
     Tilemap* tilemap = nullptr;
     char c;
     while (stream.get(c)) {
-        mainswitch: switch (c) {
+        switch (c) {
             case 'R':
                 stream.get(c);
                 switch (c) {
@@ -213,7 +213,7 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
                             throw Exceptions::ParseException("Room layout file is malformed, invalid section header.");
                         }
                         if (tilemap != nullptr) {
-                            Program::log(Log::Error, "MapGenerator") << "Room layout file should not have more than one 'RRM' section, skipping additional section." << std::endl;
+                            Program::log(Log::Error, "MapGenerator") << "Room layout file should not have more than one 'RRM' section.  Skipping additional section." << std::endl;
                             stream.ignore(14);
                             continue;
                         }
@@ -225,11 +225,40 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
                         stream.read(reinterpret_cast<char*>(&height), 2);
                         
                         tilemap = new Tilemap(width, height, "Resources/Tilemaps/Default.png");
+                        
                         break;
                     case 'M':
+                        if (stream.peek() != 'D') {
+                            Program::log(Log::Error, "MapGenerator") << "Room layout file is malformed, invalid section header (expected 'RMD', found 'RM" << stream.peek() << "')." << std::endl;
+                            throw Exceptions::ParseException("Room layout file is malformed, invalid section header.");
+                        }
+                        if (tilemap == nullptr) {
+                            Program::log(Log::Error, "MapGenerator") << "Room layout file should have exactly one 'RRM' section before an 'RMD' section." << std::endl;
+                            throw Exceptions::ParseException("Room layout file should have exactly one 'RRM' section before an 'RMD' section.");
+                        }
+                        
+                        stream.ignore(14);
+                        
+                        // TODO
+                        
                         break;
                 }
                 break;
+            case 'P':
+                uint16_t poolID;
+                stream.read(reinterpret_cast<char*>(&poolID), 2);
+                uint8_t length;
+                stream.read(reinterpret_cast<char*>(&length), 1);
+                for (int index = 0; index < length; index++) {
+                    pools[poolID].push_back(stream.get());
+                }
+                stream.ignore((8 - (length + 4) % 8) % 8);
+                break;
+            case 0xFF:
+                stream.ignore(7);
+                break;
         }
     }
+    room.tilemap = tilemap;
+    return tilemap;
 }
