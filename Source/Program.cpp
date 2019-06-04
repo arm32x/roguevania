@@ -52,7 +52,7 @@ void Program::main(int argc, char** argv) {
     constexpr uint16_t width = 32, height = 16;
     
     MapGenerator gen;
-    gen.setSeed(0);
+    //gen.setSeed(0);
     
     Program::log(Log::Trace, "MapGenerator") << "Generating map..." << std::endl;
     
@@ -69,7 +69,7 @@ void Program::main(int argc, char** argv) {
         }
     }
     
-    Program::log(Log::Level::Trace, "MapGenerator") << "Done!" << std::endl;
+    Program::log(Log::Trace, "MapGenerator") << "Done!" << std::endl;
     
     Tilemap testTilemap(40, 23, 16, "Resources/Tilemaps/Default.png");
     testTilemap.setPosition(0.0f, -8.0f);

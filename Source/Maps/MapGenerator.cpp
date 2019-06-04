@@ -2,8 +2,10 @@
 
 #include <fstream>
 #include <iostream>
+#include <unordered_map>
 
 #include "../Exceptions/FileNotFoundException.hpp"
+#include "../Exceptions/ParseException.hpp"
 #include "../Maps/Room.hpp"
 #include "../Maps/Section.hpp"
 #include "../Utilities/HSVtoRGB.hpp"
@@ -196,5 +198,38 @@ Tilemap* MapGenerator::generateRoomLayoutFromFile(Room& room, const char* filena
 }
 
 Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream) {
-    
+    std::unordered_map<uint16_t, std::vector<uint8_t>> pools;
+    std::unordered_map<uint16_t, uint8_t> instances;
+    Tilemap* tilemap = nullptr;
+    char c;
+    while (stream.get(c)) {
+        mainswitch: switch (c) {
+            case 'R':
+                stream.get(c);
+                switch (c) {
+                    case 'R':
+                        if (stream.peek() != 'M') {
+                            Program::log(Log::Error, "MapGenerator") << "Room layout file is malformed, invalid section header (expected 'RRM', found 'RR" << stream.peek() << "')." << std::endl;
+                            throw Exceptions::ParseException("Room layout file is malformed, invalid section header.");
+                        }
+                        if (tilemap != nullptr) {
+                            Program::log(Log::Error, "MapGenerator") << "Room layout file should not have more than one 'RRM' section, skipping additional section." << std::endl;
+                            stream.ignore(14);
+                            continue;
+                        }
+                        
+                        stream.ignore(10);
+                        
+                        uint16_t width, height;
+                        stream.read(reinterpret_cast<char*>(&width),  2);
+                        stream.read(reinterpret_cast<char*>(&height), 2);
+                        
+                        tilemap = new Tilemap(width, height, "Resources/Tilemaps/Default.png");
+                        break;
+                    case 'M':
+                        break;
+                }
+                break;
+        }
+    }
 }

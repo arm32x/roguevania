@@ -20,15 +20,6 @@ using namespace sf;
 class Tilemap : public Drawable, public Transformable {
         
     public:
-        ////////////////////////////////////////////////////////////////////////
-        /// Creates a tilemap with the given size and tile size.
-        /// 
-        /// @param width, height
-        ///     The width and height of the tilemap, measured in tiles.
-        /// @param tileSize
-        ///     The width and height of the square tiles in this tilemap.
-        ////////////////////////////////////////////////////////////////////////
-        Tilemap(uint16_t width, uint16_t height, uint32_t tileSize);
         
         ////////////////////////////////////////////////////////////////////////
         /// Creates a tilemap with the given size and tile size.
@@ -41,14 +32,6 @@ class Tilemap : public Drawable, public Transformable {
         ///     The filename of the texture used for graphics in this tilemap.
         ////////////////////////////////////////////////////////////////////////
         Tilemap(uint16_t width, uint16_t height, uint32_t tileSize, const char* graphicsFilename);
-        
-        ////////////////////////////////////////////////////////////////////////
-        /// Creates a tilemap with the given size.
-        /// 
-        /// @param width, height
-        ///     The width and height of the tilemap, measured in tiles.
-        ////////////////////////////////////////////////////////////////////////
-        Tilemap(uint16_t width, uint16_t height);
         
         ////////////////////////////////////////////////////////////////////////
         /// Creates a tilemap with the given size with a texture loaded from the
