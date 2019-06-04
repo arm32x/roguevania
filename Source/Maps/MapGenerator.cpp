@@ -254,7 +254,7 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
                 }
                 stream.ignore((8 - (length + 4) % 8) % 8);
                 break;
-            case 0xFF:
+            case '\xFF':
                 stream.ignore(7);
                 break;
         }
