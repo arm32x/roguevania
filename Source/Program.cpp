@@ -41,9 +41,6 @@ View Program::gameView(FloatRect(0, 0, 640, 360));
 Log Program::log("Roguevania", Log::Debug);
 
 void Program::main(int argc, char** argv) {
-    std::cout << getpid() << std::endl;
-    system("pause");
-    
     window.setVerticalSyncEnabled(true);
     window.setView(gameView);
     #ifdef _WIN32
