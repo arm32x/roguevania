@@ -17,7 +17,7 @@ using namespace Roguevania::Maps;
 using namespace sf;
 
 Tilemap::Tilemap(uint16_t width, uint16_t height, uint32_t tileSize, const char* graphicsFilename)
-    : width(width), height(height), tileSize(/* !graphics.loadFromFile(graphicsFilename) ? throw Exceptions::FileIOException("Could not load texture for tilemap.") : */ tileSize) {
+    : width(width), height(height), tileSize(!graphics.loadFromFile(graphicsFilename) ? throw Exceptions::FileIOException("Could not load texture for tilemap.") : tileSize) {
     for (uint16_t y = 0; y < height; y++) {
         for (uint16_t x = 0; x < width; x++) {
             setTileType(x, y, 0x00);
@@ -26,7 +26,7 @@ Tilemap::Tilemap(uint16_t width, uint16_t height, uint32_t tileSize, const char*
 }
 
 Tilemap::Tilemap(uint16_t width, uint16_t height, const char* graphicsFilename)
-    : width(width), height(height), tileSize(/* !graphics.loadFromFile(graphicsFilename) ? throw Exceptions::FileIOException("Could not load texture for tilemap.") : (graphics.getSize().x / 16) */ 16) {
+    : width(width), height(height), tileSize(!graphics.loadFromFile(graphicsFilename) ? throw Exceptions::FileIOException("Could not load texture for tilemap.") : (graphics.getSize().x / 16)) {
     for (uint16_t y = 0; y < height; y++) {
         for (uint16_t x = 0; x < width; x++) {
             setTileType(x, y, 0x00);
