@@ -18,7 +18,7 @@ using namespace sf;
 
 Tilemap::Tilemap(uint16_t width, uint16_t height, uint32_t tileSize, const char* graphicsFilename)
     : width(width), height(height), tileSize(!graphics.loadFromFile(graphicsFilename) ? throw Exceptions::FileIOException("Could not load texture for tilemap.") : tileSize) {
-    std::cout << graphicsFilename << std::endl;
+    std::cout << graphics.getNativeHandle() << std::endl;
     for (uint16_t y = 0; y < height; y++) {
         for (uint16_t x = 0; x < width; x++) {
             setTileType(x, y, 0x00);
