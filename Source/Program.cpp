@@ -75,17 +75,12 @@ void Program::main(int argc, char** argv) {
     Tilemap testTilemap(40, 23, 16, "Resources/Tilemaps/Default.png");
     testTilemap.setPosition(0.0f, -8.0f);
     testTilemap.loadFromFile("Resources/Tilemaps/Testing.tlmp");
-    Color color;
-    for (Room& room : rooms) {
-        if (room.section != nullptr) {
-            color = room.section->color;
-            minimap.setPosition(room.x * -8 + 24, room.y * -8 + 24);
-            break;
-        }
-    }
+    
+    Room& startingRoom = *std::find_if(rooms.begin(), rooms.end(), [](Room& room) { return room.section != nullptr; });
+    minimap.setPosition(startingRoom.x * -8 + 24, startingRoom.y * -8 + 24);
     for (uint16_t y = 0; y < 23; y++) {
         for (uint16_t x = 0; x < 40; x++) {
-            testTilemap.setTileColor(x, y, color);
+            testTilemap.setTileColor(x, y, startingRoom.section->color);
         }
     }
     

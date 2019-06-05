@@ -88,6 +88,7 @@ class MapGenerator {
         ///     pointer is also assigned to the `tilemap` member variable on the
         ///     room passed.
         ////////////////////////////////////////////////////////////////////////
+        // TODO:  Implement this.
         Tilemap* generateRoomLayout(Room& room);
         
         ////////////////////////////////////////////////////////////////////////

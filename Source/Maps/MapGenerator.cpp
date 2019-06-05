@@ -239,8 +239,29 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
                         
                         stream.ignore(14);
                         
-                        // TODO
+                        for (uint16_t y = 0; y < tilemap->height; y++) {
+                            for (uint16_t x = 0; x < tilemap->width; x++) {
+                                uint16_t poolID, instanceNo;
+                                stream.read(reinterpret_cast<char*>(&poolID),     2);
+                                stream.read(reinterpret_cast<char*>(&instanceNo), 2);
+                                if (instanceNo != 0xFFFF) {
+                                    auto it = instances.find(instanceNo);
+                                    if (it != instances.end()) {
+                                        tilemap->setTileType(x, y, it->second);
+                                    } else {
+                                        uint8_t tile = random.pick(pools[poolID]);
+                                        instances.emplace(instanceNo, tile);
+                                        tilemap->setTileType(x, y, tile);
+                                    }
+                                } else {
+                                    uint8_t tile = random.pick(pools[poolID]);
+                                    tilemap->setTileType(x, y, tile);
+                                }
+                            }
+                        }
                         
+                        room.tilemap = tilemap;
+                        return tilemap;
                         break;
                 }
                 break;
@@ -249,16 +270,25 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
                 stream.read(reinterpret_cast<char*>(&poolID), 2);
                 uint8_t length;
                 stream.read(reinterpret_cast<char*>(&length), 1);
+                
+                pools[poolID].reserve(length);
                 for (int index = 0; index < length; index++) {
                     pools[poolID].push_back(stream.get());
                 }
+                
                 stream.ignore((8 - (length + 4) % 8) % 8);
                 break;
             case '\xFF':
                 stream.ignore(7);
                 break;
+            default:
+                Program::log(Log::Error, "MapGenerator") << "Room layout file is malformed, invalid section header (found '" << c << "')." << std::endl;
+                throw Exceptions::ParseException("Room layout file is malformed, invalid section header.");
+                break;
         }
     }
-    room.tilemap = tilemap;
-    return tilemap;
+    // The 'RMD' section handler returns the generated room layout.  If this is reached, there are no 'RMD' sections.
+    Program::log(Log::Error, "MapGenerator") << "Room layout file must have exactly one 'RMD' section at the end of the file." << std::endl;
+    throw Exceptions::ParseException("Room layout file must have exactly one 'RMD' section at the end of the file.");
+    return nullptr; // To shut up compiler warnings, will never be reached due to exception.
 }
