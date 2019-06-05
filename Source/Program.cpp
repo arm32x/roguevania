@@ -71,23 +71,20 @@ void Program::main(int argc, char** argv) {
         }
     }
     
-    
-    Tilemap testTilemap(40, 23, 16, "Resources/Tilemaps/Default.png");
-    testTilemap.setPosition(0.0f, -8.0f);
-    testTilemap.loadFromFile("Resources/Tilemaps/Testing.tlmp");
-    
     Room& startingRoom = *std::find_if(rooms.begin(), rooms.end(), [](Room& room) { return room.section != nullptr; });
+    gen.generateRoomLayoutFromFile(startingRoom, "Resources/Tilemaps/Testing.rrm");
+    startingRoom.tilemap->setPosition(0, -8);
     minimap.setPosition(startingRoom.x * -8 + 24, startingRoom.y * -8 + 24);
     for (uint16_t y = 0; y < 23; y++) {
         for (uint16_t x = 0; x < 40; x++) {
-            testTilemap.setTileColor(x, y, startingRoom.section->color);
+            startingRoom.tilemap->setTileColor(x, y, startingRoom.section->color);
         }
     }
     
     CollisionMap testCollisionMap;
     testCollisionMap.loadFromFile("Resources/Tilemaps/Default.clmp");
     
-    TilemapCollider testCollider(testTilemap, testCollisionMap);
+    TilemapCollider testCollider(*startingRoom.tilemap, testCollisionMap);
     
     Texture entitiesTexture;
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
@@ -154,7 +151,7 @@ void Program::main(int argc, char** argv) {
         
         window.setView(gameView);
         window.clear();
-        window.draw(testTilemap);
+        window.draw(*startingRoom.tilemap);
         {
             Vector2f playerOldPosition = player.alignPosition();
             window.draw(player);
