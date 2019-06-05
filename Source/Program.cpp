@@ -72,7 +72,7 @@ void Program::main(int argc, char** argv) {
     }
     
     
-    Tilemap testTilemap(40, 23, /*16,*/ "Resources/Tilemaps/Default.png");
+    Tilemap testTilemap(40, 23, 16, "Resources/Tilemaps/Default.png");
     testTilemap.setPosition(0.0f, -8.0f);
     testTilemap.loadFromFile("Resources/Tilemaps/Testing.tlmp");
     Color color;

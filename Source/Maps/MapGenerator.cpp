@@ -224,7 +224,7 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
                         stream.read(reinterpret_cast<char*>(&width),  2);
                         stream.read(reinterpret_cast<char*>(&height), 2);
                         
-                        tilemap = new Tilemap(width, height, "Resources/Tilemaps/Default.png");
+                        tilemap = new Tilemap(width, height, 16, "Resources/Tilemaps/Default.png");
                         
                         break;
                     case 'M':
