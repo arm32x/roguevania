@@ -68,6 +68,7 @@
 		<Unit filename="Source/Exceptions/Exception.hpp" />
 		<Unit filename="Source/Exceptions/FileIOException.hpp" />
 		<Unit filename="Source/Exceptions/FileNotFoundException.hpp" />
+		<Unit filename="Source/Exceptions/ParseException.hpp" />
 		<Unit filename="Source/Maps/MapGenerator.cpp" />
 		<Unit filename="Source/Maps/MapGenerator.hpp" />
 		<Unit filename="Source/Maps/Minimap.cpp" />

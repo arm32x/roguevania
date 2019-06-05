@@ -16,8 +16,8 @@ using namespace Roguevania;
 using namespace Roguevania::Maps;
 using namespace sf;
 
-Tilemap::Tilemap(uint16_t width, uint16_t height, uint32_t tileSize, const char* graphicsFilename)
-    : width(width), height(height), tileSize(!graphics.loadFromFile(graphicsFilename) ? throw Exceptions::FileIOException("Could not load texture for tilemap.") : tileSize) {
+Tilemap::Tilemap(uint16_t width, uint16_t height, uint32_t tileSize)
+    : width(width), height(height), tileSize(tileSize), vertices(PrimitiveType::Quads, width * height * 4), graphics() {
     for (uint16_t y = 0; y < height; y++) {
         for (uint16_t x = 0; x < width; x++) {
             setTileType(x, y, 0x00);
@@ -25,13 +25,19 @@ Tilemap::Tilemap(uint16_t width, uint16_t height, uint32_t tileSize, const char*
     }
 }
 
+Tilemap::Tilemap(uint16_t width, uint16_t height, uint32_t tileSize, const char* graphicsFilename)
+    : Tilemap(width, height, tileSize) {
+    if (!graphics.loadFromFile(graphicsFilename)) throw Exceptions::FileIOException("Could not load texture for tilemap.");
+}
+
+Tilemap::Tilemap(uint16_t width, uint16_t height)
+    : Tilemap(width, height, 16) {
+    
+}
+
 Tilemap::Tilemap(uint16_t width, uint16_t height, const char* graphicsFilename)
-    : width(width), height(height), tileSize(!graphics.loadFromFile(graphicsFilename) ? throw Exceptions::FileIOException("Could not load texture for tilemap.") : (graphics.getSize().x / 16)) {
-    for (uint16_t y = 0; y < height; y++) {
-        for (uint16_t x = 0; x < width; x++) {
-            setTileType(x, y, 0x00);
-        }
-    }
+    : Tilemap(width, height) {
+    if (!graphics.loadFromFile(graphicsFilename)) throw Exceptions::FileIOException("Could not load texture for tilemap.");
 }
 
 uint8_t Tilemap::getTileType(uint16_t x, uint16_t y) const {
