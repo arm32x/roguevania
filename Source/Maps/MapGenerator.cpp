@@ -247,11 +247,11 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
                                 if (instanceNo != 0xFFFF) {
                                     auto it = instances.find(instanceNo);
                                     if (it != instances.end()) {
-                                        tilemap->setTileType(x, y, it->second);
+                                        tilemap->setTileType(x, y, pools[poolID].at(it->second));
                                     } else {
-                                        uint8_t tile = random.pick(pools[poolID]);
-                                        instances.emplace(instanceNo, tile);
-                                        tilemap->setTileType(x, y, tile);
+                                        uint8_t index = random.uniform(0u, pools[poolID].size() - 1);
+                                        instances.emplace(instanceNo, index);
+                                        tilemap->setTileType(x, y, pools[poolID].at(index));
                                     }
                                 } else {
                                     uint8_t tile = random.pick(pools[poolID]);
