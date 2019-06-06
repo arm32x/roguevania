@@ -55,6 +55,7 @@ void Program::main(int argc, char** argv) {
     //gen.setSeed(0);
     
     Program::log(Log::Trace, "MapGenerator") << "Generating map..." << std::endl;
+    Program::log(Log::Info, "MapGenerator") << "Using seed " << gen.getSeed() << "." << std::endl;
     
     std::deque<Room> rooms = gen.generateRooms(width, height);
     std::deque<Section> sections = gen.generateSections(rooms, width, height, 32);

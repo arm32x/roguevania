@@ -15,16 +15,17 @@ using namespace Roguevania;
 using namespace Roguevania::Maps;
 
 MapGenerator::MapGenerator(uint64_t seed)
-    : random(seed) {
+    : random(seed), seed(seed) {
     
 }
 
 MapGenerator::MapGenerator()
     : random() {
-    
+    setSeed(random.engine()());
 }
 
 void MapGenerator::setSeed(uint64_t seed) {
+    this->seed = seed;
     random.seed(seed);
 }
 
@@ -183,7 +184,7 @@ void MapGenerator::connectRooms(std::deque<Room>& rooms, uint16_t width, uint16_
     }
 }
 
-randutils::mt19937_rng& MapGenerator::getRandom() {
+MapGenerator::Random& MapGenerator::getRandom() {
     return random;
 }
 
@@ -291,4 +292,8 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
     Program::log(Log::Error, "MapGenerator") << "Room layout file must have exactly one 'RMD' section at the end of the file." << std::endl;
     throw Exceptions::ParseException("Room layout file must have exactly one 'RMD' section at the end of the file.");
     return nullptr; // To shut up compiler warnings, will never be reached due to exception.
+}
+
+uint64_t MapGenerator::getSeed() const {
+    return seed;
 }
