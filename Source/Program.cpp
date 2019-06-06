@@ -35,7 +35,7 @@ using namespace sf;
 #if WINDOWED_SCALE == 0
 RenderWindow Program::window(VideoMode(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().width * (9.0 / 16.0)), "Roguevania (working title)", Style::Fullscreen);
 #else
-RenderWindow Program::window(VideoMode(640 * WINDOWED_SCALE, 360 * WINDOWED_SCALE), "Roguelike Metroidvania (working title)", Style::Titlebar | Style::Close);
+RenderWindow Program::window(VideoMode(640 * WINDOWED_SCALE, 360 * WINDOWED_SCALE), "Roguevania (working title)", Style::Titlebar | Style::Close);
 #endif
 View Program::gameView(FloatRect(0, 0, 640, 360));
 Log Program::log("Roguevania", Log::Debug);
