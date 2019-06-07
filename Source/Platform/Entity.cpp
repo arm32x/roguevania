@@ -44,7 +44,6 @@ void Entity::update(float delta) {
     accelerate(0.0f, 0.25f * delta);
     Utilities::clamp(&velocity.x, -TerminalVelocity, TerminalVelocity);
     Utilities::clamp(&velocity.y, -TerminalVelocity, TerminalVelocity);
-    std::cout << getVelocity().y << std::endl;
     move(getVelocity() * delta);
     onGround = false;
     
