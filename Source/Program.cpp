@@ -149,7 +149,11 @@ void Program::main(int argc, char** argv) {
             camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2));
         }
         
-        window.setView(camera.view);
+        {
+            Vector2f cameraOldCenter = camera.alignCenter();
+            window.setView(camera.view);
+            camera.view.setCenter(cameraOldCenter);
+        }
         window.clear();
         window.draw(*startingRoom.tilemap);
         {
