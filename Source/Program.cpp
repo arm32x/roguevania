@@ -90,7 +90,6 @@ void Program::main(int argc, char** argv) {
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
     Player player(entitiesTexture, IntRect(16, 2, 16, 30));
     player.setPosition(32.0f, 64.0f);
-    player.setVelocity(0.0f, -4.0f);
     
     Clock frameClock;
     const Time optimalTime = seconds(1.0f) / 60.0f;
