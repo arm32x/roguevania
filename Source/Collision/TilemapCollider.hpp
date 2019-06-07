@@ -21,6 +21,7 @@ using namespace sf;
 /// Provides collision-detection logic for tilemaps by linking them with a
 /// collision map.
 ////////////////////////////////////////////////////////////////////////////////
+// TODO:  Integrate this into Tilemap somehow.
 class TilemapCollider {
         
     public:

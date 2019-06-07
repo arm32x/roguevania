@@ -64,6 +64,8 @@
 		<Unit filename="Source/Collision/CollisionMode.hpp" />
 		<Unit filename="Source/Collision/TilemapCollider.cpp" />
 		<Unit filename="Source/Collision/TilemapCollider.hpp" />
+		<Unit filename="Source/Environment/Camera.cpp" />
+		<Unit filename="Source/Environment/Camera.hpp" />
 		<Unit filename="Source/Exceptions/Exception.cpp" />
 		<Unit filename="Source/Exceptions/Exception.hpp" />
 		<Unit filename="Source/Exceptions/FileIOException.hpp" />

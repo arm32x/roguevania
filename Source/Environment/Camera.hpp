@@ -33,6 +33,8 @@ class Camera {
         /// @{ /////////////////////////////////////////////////////////////////
         /// These variables determine when the camera will move towards the
         /// focal point.  They are relative to the viewport, not the world.
+        /// 
+        /// See http://3.ly/Camera_Logic_in_a_2D_Platformer for more details.
         
         int32_t focusZoneXLeft    = 320 - 32;
         int32_t focusZoneXRight   = 320 + 32;
@@ -48,8 +50,6 @@ class Camera {
         ////////////////////////////////////////////////////////////////////////
         /// Updates the camera and moves it towards the focal point if it is
         /// outside of the focus zone / panic zone.
-        /// 
-        /// See http://3.ly/Camera_Logic_in_a_2D_Platformer for more details.
         ////////////////////////////////////////////////////////////////////////
         void update(float delta, Vector2f focalPoint);
         
