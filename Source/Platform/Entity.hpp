@@ -75,7 +75,7 @@ class Entity : public Sprite {
         ////////////////////////////////////////////////////////////////////////
         bool onGround = false;
         
-        static constexpr float TerminalVelocity = 24.0f;
+        static constexpr float TerminalVelocity = 20.0f;
         
 };
 
