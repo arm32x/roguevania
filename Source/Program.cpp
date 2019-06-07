@@ -37,12 +37,12 @@ RenderWindow Program::window(VideoMode(VideoMode::getDesktopMode().width, VideoM
 #else
 RenderWindow Program::window(VideoMode(640 * WINDOWED_SCALE, 360 * WINDOWED_SCALE), "Roguevania (working title)", Style::Titlebar | Style::Close);
 #endif
-View Program::gameView(FloatRect(0, 0, 640, 360));
+Camera Program::camera(320, 180);
 Log Program::log("Roguevania", Log::Debug);
 
 void Program::main(int argc, char** argv) {
     window.setVerticalSyncEnabled(true);
-    window.setView(gameView);
+    window.setView(camera.view);
     #ifdef _WIN32
     // Enable ANSI escape codes.
     SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), 0x0005);
@@ -147,9 +147,10 @@ void Program::main(int argc, char** argv) {
         if (substeps > 1) Program::log(Log::Warning, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << ".  Is the game overloaded?" << std::endl;
         for (; substeps > 0; substeps--) {
             player.update(delta);
+            camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2));
         }
         
-        window.setView(gameView);
+        window.setView(camera.view);
         window.clear();
         window.draw(*startingRoom.tilemap);
         {

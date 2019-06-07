@@ -5,9 +5,11 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "Environment/Camera.hpp"
 #include "Utilities/Log.hpp"
 
 namespace Roguevania {
+using namespace Roguevania::Environment;
 using namespace Roguevania::Utilities;
 using namespace sf;
 
@@ -23,9 +25,9 @@ class Program {
         static RenderWindow window;
         
         ////////////////////////////////////////////////////////////////////////
-        /// The view used to render the main game area.
+        /// The camera that controls the game view.
         ////////////////////////////////////////////////////////////////////////
-        static View gameView;
+        static Camera camera;
         
         ////////////////////////////////////////////////////////////////////////
         /// The log used for debug output.
