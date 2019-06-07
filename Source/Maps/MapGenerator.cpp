@@ -171,6 +171,9 @@ void MapGenerator::connectRooms(std::deque<Room>& rooms, uint16_t width, uint16_
             {
                 // Replace “ring” room formations with large square rooms.
                 if ((rooms[(x    ) + width * (y    )].openings) != 0b0000) continue;
+                if ((rooms[(x + 1) + width * (y    )].openings) != 0b0000) continue;
+                if ((rooms[(x    ) + width * (y + 1)].openings) != 0b0000) continue;
+                if ((rooms[(x + 1) + width * (y + 1)].openings) != 0b0000) continue;
                 if ((rooms[(x    ) + width * (y    )].doors & 0b0110) != 0b0110) continue;
                 if ((rooms[(x + 1) + width * (y    )].doors & 0b0011) != 0b0011) continue;
                 if ((rooms[(x    ) + width * (y + 1)].doors & 0b1100) != 0b1100) continue;
