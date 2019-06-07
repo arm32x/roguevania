@@ -17,14 +17,14 @@ class Camera {
     public:
         Camera();
         
-        int32_t focusZoneXLeft;
-        int32_t focusZoneXRight;
+        int32_t focusZoneXLeft    = 320 - 32;
+        int32_t focusZoneXRight   = 320 + 32;
         
-        int32_t focusZoneYTop;
-        int32_t focusZoneYBottom;
+        int32_t focusZoneYTop     = 180 - 8;
+        int32_t focusZoneYBottom  = 180 + 8;
         
-        int32_t panicZoneYTop;
-        int32_t panicZoneYBottom;
+        int32_t panicZoneYTop     = 180 - 64;
+        int32_t panicZoneYBottom  = 180 + 64;
         
         void update(float delta, Vector2f focalPoint);
         
