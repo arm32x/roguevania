@@ -4,6 +4,8 @@
 #include <iostream>
 #include <unordered_map>
 
+#include <filesystem.hpp>
+
 #include "../Exceptions/FileNotFoundException.hpp"
 #include "../Exceptions/ParseException.hpp"
 #include "../Maps/Room.hpp"
@@ -189,6 +191,10 @@ void MapGenerator::connectRooms(std::deque<Room>& rooms, uint16_t width, uint16_
 
 MapGenerator::Random& MapGenerator::getRandom() {
     return random;
+}
+
+Tilemap* MapGenerator::generateRoomLayout(Room& room) {
+    
 }
 
 Tilemap* MapGenerator::generateRoomLayoutFromFile(Room& room, const char* filename) {
