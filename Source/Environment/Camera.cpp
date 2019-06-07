@@ -20,7 +20,7 @@ Camera::Camera()
 }
 
 void Camera::update(float delta, Vector2f focalPoint) {
-    view.setCenter(view.getCenter() + Vector2f((focalPoint.x - view.getCenter().x) * 1.0f / 32.0f, 0.0f));
+    view.setCenter(view.getCenter() + Vector2f((focalPoint.x - view.getCenter().x) * 1.0f / 24.0f, 0.0f));
     view.setCenter(view.getCenter() + Vector2f(0.0f, (focalPoint.y - view.getCenter().y) * 1.0f / 16.0f));
     
     previousFocalPoint = focalPoint;
