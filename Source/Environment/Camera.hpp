@@ -51,7 +51,15 @@ class Camera {
         /// Updates the camera and moves it towards the focal point if it is
         /// outside of the focus zone / panic zone.
         ////////////////////////////////////////////////////////////////////////
-        void update(float delta, Vector2f focalPoint);
+        void update(float delta, const Vector2f& focalPoint);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Align the camera’s center to the nearest pixel.
+        /// 
+        /// @return
+        ///     The center before alignment.
+        ////////////////////////////////////////////////////////////////////////
+        Vector2f alignCenter();
         
         ////////////////////////////////////////////////////////////////////////
         /// The view that this camera controls.
