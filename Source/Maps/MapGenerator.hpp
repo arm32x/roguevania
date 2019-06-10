@@ -91,7 +91,7 @@ class MapGenerator {
         ///     room passed.
         ////////////////////////////////////////////////////////////////////////
         // TODO:  Implement this.
-        Tilemap* generateRoomLayout(Room& room);
+        void generateRoomLayout(Room& room);
         
         ////////////////////////////////////////////////////////////////////////
         /// Generates the internal layout of a room from a specified file.
@@ -105,7 +105,7 @@ class MapGenerator {
         ///     pointer is also assigned to the `tilemap` member variable on the
         ///     room passed.
         ////////////////////////////////////////////////////////////////////////
-        Tilemap* generateRoomLayoutFromFile(Room& room, const char* filename);
+        void generateRoomLayoutFromFile(Room& room, const char* filename);
         
         ////////////////////////////////////////////////////////////////////////
         /// Generates the internal layout of a room from data obtained from an
@@ -120,7 +120,7 @@ class MapGenerator {
         ///     pointer is also assigned to the `tilemap` member variable on the
         ///     room passed.
         ////////////////////////////////////////////////////////////////////////
-        Tilemap* generateRoomLayoutFromStream(Room& room, std::istream& stream);
+        void generateRoomLayoutFromStream(Room& room, std::istream& stream);
         
         ////////////////////////////////////////////////////////////////////////
         /// Get the seed that was used for this map generator.

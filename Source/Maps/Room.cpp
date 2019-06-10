@@ -39,7 +39,3 @@ Room::Room()
 }
 
 #pragma GCC diagnostic pop
-
-Room::~Room() {
-    delete tilemap;
-}

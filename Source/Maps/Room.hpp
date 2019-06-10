@@ -3,11 +3,16 @@
 #include <cstdint>
 #include <deque>
 
+#include <stx/optional.hpp>
+
 #include <SFML/Graphics/Color.hpp>
+
+#include "../Maps/Tilemap.hpp"
 
 namespace Roguevania {
 namespace Maps {
 using namespace sf;
+using stx::nullopt;
 
 // Forward declarations.
 class Section;
@@ -81,13 +86,8 @@ class Room final {
         Section* section;           ///< A pointer to the section that this room is in.
         uint16_t x;                 ///< The X position of the room within the map.
         uint16_t y;                 ///< The Y position of the room within the map.
-        Tilemap* tilemap = nullptr; ///< A pointer to a tilemap representing the layout of this room.
         
-        ////////////////////////////////////////////////////////////////////////
-        /// Destructs a room and deletes the tilemap pointed to by the tilemap
-        /// pointer, unless it is nullptr.
-        ////////////////////////////////////////////////////////////////////////
-        ~Room();
+        stx::optional<Tilemap> tilemap = nullopt; ///< A tilemap representing the layout of this room.
         
 };
 

@@ -4,7 +4,8 @@
 #include <iostream>
 #include <unordered_map>
 
-#include <filesystem.hpp>
+#include <ghc/filesystem.hpp>
+#include <stx/optional.hpp>
 
 #include "../Exceptions/FileNotFoundException.hpp"
 #include "../Exceptions/ParseException.hpp"
@@ -15,6 +16,8 @@
 
 using namespace Roguevania;
 using namespace Roguevania::Maps;
+namespace ghcfs = ghc::filesystem;
+using stx::nullopt;
 
 MapGenerator::MapGenerator(uint64_t seed)
     : random(seed), seed(seed) {
@@ -193,24 +196,27 @@ MapGenerator::Random& MapGenerator::getRandom() {
     return random;
 }
 
-Tilemap* MapGenerator::generateRoomLayout(Room& room) {
-    
+void MapGenerator::generateRoomLayout(Room& room) {
+    std::vector<ghcfs::path> candidates;
+    for (const ghcfs::directory_entry& dir : ghcfs::directory_iterator("Resources/Rooms/")) {
+        std::string filename = dir.path().stem();
+        // TODO
+    }
 }
 
-Tilemap* MapGenerator::generateRoomLayoutFromFile(Room& room, const char* filename) {
+void MapGenerator::generateRoomLayoutFromFile(Room& room, const char* filename) {
     std::ifstream stream;
     stream.open(filename, std::ios::in);
     if (stream.fail()) {
         Program::log(Log::Error, "MapGenerator") << "Could not open room template file '" << filename << "'." << std::endl;
         throw Exceptions::FileNotFoundException("Could not open room template file.");
     }
-    return generateRoomLayoutFromStream(room, stream);
+    generateRoomLayoutFromStream(room, stream);
 }
 
-Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream) {
+void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream) {
     std::unordered_map<uint16_t, std::vector<uint8_t>> pools;
     std::unordered_map<uint16_t, uint8_t> instances;
-    Tilemap* tilemap = nullptr;
     char c;
     while (stream.get(c)) {
         switch (c) {
@@ -222,7 +228,7 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
                             Program::log(Log::Error, "MapGenerator") << "Room layout file is malformed, invalid section header (expected 'RRM', found 'RR" << stream.peek() << "')." << std::endl;
                             throw Exceptions::ParseException("Room layout file is malformed, invalid section header.");
                         }
-                        if (tilemap != nullptr) {
+                        if (room.tilemap != nullopt) {
                             Program::log(Log::Error, "MapGenerator") << "Room layout file should not have more than one 'RRM' section.  Skipping additional section." << std::endl;
                             stream.ignore(14);
                             continue;
@@ -234,7 +240,7 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
                         stream.read(reinterpret_cast<char*>(&width),  2);
                         stream.read(reinterpret_cast<char*>(&height), 2);
                         
-                        tilemap = new Tilemap(width, height, 16, "Resources/Tilemaps/Default.png");
+                        room.tilemap.emplace(width, height, 16, "Resources/Tilemaps/Default.png");
                         
                         break;
                     case 'M':
@@ -242,36 +248,33 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
                             Program::log(Log::Error, "MapGenerator") << "Room layout file is malformed, invalid section header (expected 'RMD', found 'RM" << stream.peek() << "')." << std::endl;
                             throw Exceptions::ParseException("Room layout file is malformed, invalid section header.");
                         }
-                        if (tilemap == nullptr) {
+                        if (room.tilemap == nullopt) {
                             Program::log(Log::Error, "MapGenerator") << "Room layout file should have exactly one 'RRM' section before an 'RMD' section." << std::endl;
                             throw Exceptions::ParseException("Room layout file should have exactly one 'RRM' section before an 'RMD' section.");
                         }
                         
                         stream.ignore(14);
                         
-                        for (uint16_t y = 0; y < tilemap->height; y++) {
-                            for (uint16_t x = 0; x < tilemap->width; x++) {
+                        for (uint16_t y = 0; y < room.tilemap->height; y++) {
+                            for (uint16_t x = 0; x < room.tilemap->width; x++) {
                                 uint16_t poolID, instanceNo;
                                 stream.read(reinterpret_cast<char*>(&poolID),     2);
                                 stream.read(reinterpret_cast<char*>(&instanceNo), 2);
                                 if (instanceNo != 0xFFFF) {
                                     auto it = instances.find(instanceNo);
                                     if (it != instances.end()) {
-                                        tilemap->setTileType(x, y, pools[poolID].at(it->second));
+                                        room.tilemap->setTileType(x, y, pools[poolID].at(it->second));
                                     } else {
                                         uint8_t index = random.uniform(0u, pools[poolID].size() - 1);
                                         instances.emplace(instanceNo, index);
-                                        tilemap->setTileType(x, y, pools[poolID].at(index));
+                                        room.tilemap->setTileType(x, y, pools[poolID].at(index));
                                     }
                                 } else {
                                     uint8_t tile = random.pick(pools[poolID]);
-                                    tilemap->setTileType(x, y, tile);
+                                    room.tilemap->setTileType(x, y, tile);
                                 }
                             }
                         }
-                        
-                        room.tilemap = tilemap;
-                        return tilemap;
                         break;
                 }
                 break;
@@ -300,7 +303,6 @@ Tilemap* MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& st
     // The 'RMD' section handler returns the generated room layout.  If this is reached, there are no 'RMD' sections.
     Program::log(Log::Error, "MapGenerator") << "Room layout file must have exactly one 'RMD' section at the end of the file." << std::endl;
     throw Exceptions::ParseException("Room layout file must have exactly one 'RMD' section at the end of the file.");
-    return nullptr; // To shut up compiler warnings, will never be reached due to exception.
 }
 
 uint64_t MapGenerator::getSeed() const {
