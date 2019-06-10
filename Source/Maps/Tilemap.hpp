@@ -3,15 +3,21 @@
 #include <cstdint>
 #include <istream>
 
+#include <stx/optional.hpp>
+
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 
+#include "../Collision/TilemapCollider.hpp"
+
 namespace Roguevania {
 namespace Maps {
+using namespace Roguevania::Collision;
 using namespace sf;
+using stx::nullopt;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// A tilemap is a grid filled with tiles from a given texture.  Implemented as
@@ -147,6 +153,12 @@ class Tilemap : public Drawable, public Transformable {
         ///     have enough tile types to fill the entire tilemap.
         ////////////////////////////////////////////////////////////////////////
         void loadFromMemory(const uint8_t* data);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// A collider for this tilemap.  Not used within this class, and is
+        /// provided for external use.
+        ////////////////////////////////////////////////////////////////////////
+        stx::optional<TilemapCollider> collider = nullopt;
         
     protected:
         ////////////////////////////////////////////////////////////////////////

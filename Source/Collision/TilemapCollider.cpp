@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
+#include "../Maps/Tilemap.hpp"
 #include "../Platform/Entity.hpp"
 #include "../Utilities/clamp.hpp"
 

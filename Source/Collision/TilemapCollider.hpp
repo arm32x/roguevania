@@ -8,10 +8,15 @@
 
 #include "../Collision/CollisionMap.hpp"
 #include "../Collision/CollisionMode.hpp"
-#include "../Maps/Tilemap.hpp"
 #include "../Platform/Entity.hpp"
 
 namespace Roguevania {
+
+// Forward declarations.
+namespace Maps {
+    class Tilemap;
+};
+
 namespace Collision {
 using namespace Roguevania::Maps;
 using namespace Roguevania::Platform;
