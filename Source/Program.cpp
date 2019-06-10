@@ -52,10 +52,10 @@ void Program::main(int argc, char** argv) {
     constexpr uint16_t width = 32, height = 16;
     
     MapGenerator gen;
-    gen.setSeed(17478168700742995125);
+    gen.setSeed(17478168700742995125u);
     
     Program::log(Log::Trace, "MapGenerator") << "Generating map..." << std::endl;
-    Program::log(Log::Info, "MapGenerator") << "Using seed " << gen.getSeed() << "." << std::endl;
+    Program::log(Log::Info, "MapGenerator") << "Using seed " << gen.getSeed() << "u." << std::endl;
     
     std::deque<Room> rooms = gen.generateRooms(width, height);
     std::deque<Section> sections = gen.generateSections(rooms, width, height, 32);
