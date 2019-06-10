@@ -75,14 +75,15 @@ void Program::main(int argc, char** argv) {
     CollisionMap clmp;
     clmp.loadFromFile("Resources/Tilemaps/Default.clmp");
     
-    Room& startingRoom = *std::find_if(rooms.begin(), rooms.end(), [](Room& room) { return room.section != nullptr; });
-    gen.generateRoomLayoutFromFile(startingRoom, "Resources/Tilemaps/Testing.rrm");
-    startingRoom.tilemap->collider.emplace(*startingRoom.tilemap, clmp);
-    startingRoom.tilemap->setPosition(0, -8);
-    minimap.setPosition(startingRoom.x * -8 + 24, startingRoom.y * -8 + 24);
-    for (uint16_t y = 0; y < 23; y++) {
-        for (uint16_t x = 0; x < 40; x++) {
-            startingRoom.tilemap->setTileColor(x, y, startingRoom.section->color);
+    for (Room& room : rooms) {
+        if (room.section == nullptr) continue;
+        gen.generateRoomLayoutFromFile(room, "Resources/Tilemaps/Default.rrm");
+        room.tilemap->collider.emplace(*room.tilemap, clmp);
+        room.tilemap->setPosition(room.x * 640, room.y * 360);
+        for (uint16_t y = 0; y < 23; y++) {
+            for (uint16_t x = 0; x < 40; x++) {
+                room.tilemap->setTileColor(x, y, room.section->color);
+            }
         }
     }
     
@@ -155,7 +156,9 @@ void Program::main(int argc, char** argv) {
             camera.view.setCenter(cameraOldCenter);
         }
         window.clear();
-        window.draw(*startingRoom.tilemap);
+        for (Room& room : rooms) {
+            if (room.tilemap) window.draw(*room.tilemap);
+        }
         {
             Vector2f playerOldPosition = player.alignPosition();
             window.draw(player);
