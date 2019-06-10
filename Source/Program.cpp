@@ -72,8 +72,12 @@ void Program::main(int argc, char** argv) {
         }
     }
     
+    CollisionMap clmp;
+    clmp.loadFromFile("Resources/Tilemaps/Default.clmp");
+    
     Room& startingRoom = *std::find_if(rooms.begin(), rooms.end(), [](Room& room) { return room.section != nullptr; });
     gen.generateRoomLayoutFromFile(startingRoom, "Resources/Tilemaps/Testing.rrm");
+    startingRoom.tilemap->collider.emplace(*startingRoom.tilemap, clmp);
     startingRoom.tilemap->setPosition(0, -8);
     minimap.setPosition(startingRoom.x * -8 + 24, startingRoom.y * -8 + 24);
     for (uint16_t y = 0; y < 23; y++) {
@@ -81,11 +85,6 @@ void Program::main(int argc, char** argv) {
             startingRoom.tilemap->setTileColor(x, y, startingRoom.section->color);
         }
     }
-    
-    CollisionMap testCollisionMap;
-    testCollisionMap.loadFromFile("Resources/Tilemaps/Default.clmp");
-    
-    TilemapCollider testCollider(*startingRoom.tilemap, testCollisionMap);
     
     Texture entitiesTexture;
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
