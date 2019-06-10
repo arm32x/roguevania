@@ -275,6 +275,7 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                                 }
                             }
                         }
+                        return;
                         break;
                 }
                 break;
