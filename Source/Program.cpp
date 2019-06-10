@@ -77,7 +77,7 @@ void Program::main(int argc, char** argv) {
     
     for (Room& room : rooms) {
         if (room.section == nullptr) continue;
-        gen.generateRoomLayoutFromFile(room, "Resources/Rooms/Default.rrm");
+        gen.generateRoomLayoutFromFile(room, "Resources/Rooms/Testing.rrm");
         room.tilemap->collider.emplace(*room.tilemap, clmp);
         room.tilemap->setPosition(room.x * 640, room.y * 360);
         for (uint16_t y = 0; y < 23; y++) {
