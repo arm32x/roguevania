@@ -199,9 +199,19 @@ MapGenerator::Random& MapGenerator::getRandom() {
 void MapGenerator::generateRoomLayout(Room& room) {
     std::vector<ghcfs::path> candidates;
     for (const ghcfs::directory_entry& dir : ghcfs::directory_iterator("Resources/Rooms/")) {
+        if (dir.is_directory()) continue;
         std::string filename = dir.path().stem();
-        // TODO
+        if (filename[0] - '0' != (room.openings & 0b1000)) continue;
+        if (filename[1] - '0' != (room.openings & 0b0100)) continue;
+        if (filename[2] - '0' != (room.openings & 0b0010)) continue;
+        if (filename[3] - '0' != (room.openings & 0b0001)) continue;
+        if (filename[4] - '0' != (room.doors    & 0b1000)) continue;
+        if (filename[5] - '0' != (room.doors    & 0b0100)) continue;
+        if (filename[6] - '0' != (room.doors    & 0b0010)) continue;
+        if (filename[7] - '0' != (room.doors    & 0b0001)) continue;
+        candidates.push_back(dir.path());
     }
+    generateRoomLayoutFromFile(room, random.pick(candidates).c_str());
 }
 
 void MapGenerator::generateRoomLayoutFromFile(Room& room, const char* filename) {
