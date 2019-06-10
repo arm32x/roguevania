@@ -146,7 +146,7 @@ void Program::main(int argc, char** argv) {
         if (substeps > 1) Program::log(Log::Warning, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << ".  Is the game overloaded?" << std::endl;
         for (; substeps > 0; substeps--) {
             player.update(delta);
-            camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2));
+            camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2 + (Keyboard::isKeyPressed(Keyboard::D) ? -160 : Keyboard::isKeyPressed(Keyboard::A) ? 160 : 0), player.getTextureRect().height / 2));
         }
         
         {
