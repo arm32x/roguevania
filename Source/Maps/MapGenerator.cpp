@@ -175,14 +175,14 @@ void MapGenerator::connectRooms(std::deque<Room>& rooms, uint16_t width, uint16_
         for (uint16_t x = 0; x < width; x++) {
             {
                 // Replace “ring” room formations with large square rooms.
-                if ((rooms[(x    ) + width * (y    )].openings) != 0b0000) continue;
-                if ((rooms[(x + 1) + width * (y    )].openings) != 0b0000) continue;
-                if ((rooms[(x    ) + width * (y + 1)].openings) != 0b0000) continue;
-                if ((rooms[(x + 1) + width * (y + 1)].openings) != 0b0000) continue;
-                if ((rooms[(x    ) + width * (y    )].doors & 0b0110) != 0b0110) continue;
-                if ((rooms[(x + 1) + width * (y    )].doors & 0b0011) != 0b0011) continue;
-                if ((rooms[(x    ) + width * (y + 1)].doors & 0b1100) != 0b1100) continue;
-                if ((rooms[(x + 1) + width * (y + 1)].doors & 0b1001) != 0b1001) continue;
+                if (                                      (rooms[(x    ) + width * (y    )].openings) != 0b0000) continue;
+                if (x >= width - 1  ||                    (rooms[(x + 1) + width * (y    )].openings) != 0b0000) continue;
+                if (                   y >= height - 1 || (rooms[(x    ) + width * (y + 1)].openings) != 0b0000) continue;
+                if (x >= width - 1  || y >= height - 1 || (rooms[(x + 1) + width * (y + 1)].openings) != 0b0000) continue;
+                if (                                      (rooms[(x    ) + width * (y    )].doors & 0b0110) != 0b0110) continue;
+                if (x >= width - 1  ||                    (rooms[(x + 1) + width * (y    )].doors & 0b0011) != 0b0011) continue;
+                if (                   y >= height - 1 || (rooms[(x    ) + width * (y + 1)].doors & 0b1100) != 0b1100) continue;
+                if (x >= width - 1  || y >= height - 1 || (rooms[(x + 1) + width * (y + 1)].doors & 0b1001) != 0b1001) continue;
                 rooms[(x    ) + width * (y    )].openings |= 0b0110;
                 rooms[(x + 1) + width * (y    )].openings |= 0b0011;
                 rooms[(x    ) + width * (y + 1)].openings |= 0b1100;
