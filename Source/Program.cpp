@@ -41,6 +41,7 @@ Camera Program::camera(40, 31);
 Log Program::log("Roguevania", Log::Debug);
 
 void Program::main(int argc, char** argv) {
+    system("pause");
     window.setVerticalSyncEnabled(true);
     window.setView(camera.view);
     #ifdef _WIN32
