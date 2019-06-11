@@ -41,7 +41,6 @@ std::vector<Vector2<uint16_t>> TilemapCollider::getTilesTouching(const Entity& e
     std::vector<Vector2<uint16_t>> result;
     for (uint16_t y = top; y < bottom; y++) {
         for (uint16_t x = left; x < right; x++) {
-            Program::log(Log::Debug, "TilemapCollider") << "Tile at (" << x << ", " << y <<") is touching entity.\n";
             result.emplace_back(x, y);
         }
     }
