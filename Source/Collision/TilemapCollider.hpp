@@ -77,7 +77,7 @@ class TilemapCollider {
         ///     A vector of positions of the tiles in the tilemap that are
         ///     touching the given entity.
         ////////////////////////////////////////////////////////////////////////
-        std::vector<Vector2<uint16_t>> getTilesTouching(Entity& entity) const;
+        std::vector<Vector2<uint16_t>> getTilesTouching(const Entity& entity) const;
         
         ////////////////////////////////////////////////////////////////////////
         /// Gets the highest-priority collision mode of the given tiles.

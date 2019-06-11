@@ -28,7 +28,7 @@ CollisionMode TilemapCollider::getTileCollisionMode(uint16_t x, uint16_t y) cons
     return collisionMap[tilemap.getTileType(x, y)];
 }
 
-std::vector<Vector2<uint16_t>> TilemapCollider::getTilesTouching(Entity& entity) const {
+std::vector<Vector2<uint16_t>> TilemapCollider::getTilesTouching(const Entity& entity) const {
     uint16_t left   = std::floor((std::round(entity.getPosition().x) - tilemap.getPosition().x) / 16.0f);
     uint16_t top    = std::floor((std::round(entity.getPosition().y) - tilemap.getPosition().y) / 16.0f);
     uint16_t right  = std::ceil(((std::round(entity.getPosition().x) - tilemap.getPosition().x) + entity.getTextureRect().width)  / 16.0f);

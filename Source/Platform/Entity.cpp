@@ -53,6 +53,7 @@ void Entity::update(float delta) {
         std::vector<CollisionMode> modes;
         for (TilemapCollider* collider : TilemapCollider::all) {
             std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
+            if (tiles.size() <= 0) continue;
             CollisionMode mode = collider->prioritizeTileModes(tiles);
             if (mode != CollisionMode::NotTouching) modes.push_back(mode);
         }
