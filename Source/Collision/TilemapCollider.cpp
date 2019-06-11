@@ -6,6 +6,7 @@
 #include "../Maps/Tilemap.hpp"
 #include "../Platform/Entity.hpp"
 #include "../Utilities/clamp.hpp"
+#include "../Program.hpp"
 
 using namespace Roguevania;
 using namespace Roguevania::Collision;
@@ -25,6 +26,7 @@ TilemapCollider::~TilemapCollider() {
 }
 
 CollisionMode TilemapCollider::getTileCollisionMode(uint16_t x, uint16_t y) const {
+    Program::log(Log::Debug, "TilemapCollider") << "Tile at (" << x << ", " << y <<") requested.\n";
     return collisionMap[tilemap.getTileType(x, y)];
 }
 
