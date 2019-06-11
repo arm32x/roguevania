@@ -61,7 +61,13 @@ void Entity::update(float delta) {
             CollisionMode mode = collider->prioritizeTileModes(tiles);
             modes.push_back(mode);
         }
-        if (modes.size() > 1) Program::log(Log::Debug, "EntityCollision") << "Intersection of " << modes.size() << " tilemaps detected." << std::endl;
+        if (modes.size() > 1) {
+            auto& dbg = Program::log(Log::Debug, "EntityCollision") << "Intersection of " << modes.size() << " tilemaps detected, with modes { ";
+            for (CollisionMode mode : modes) {
+                dbg << mode << ", ";
+            }
+            dbg << " }." << std::endl;
+        }
         return CollisionMode::prioritize(modes);
     };
     CollisionMode mode = getCollisionMode();
@@ -99,11 +105,11 @@ void Entity::update(float delta) {
             }
             break;
         }
-        /*case CollisionMode::NotTouching: {
+        case CollisionMode::NotTouching: {
             break;
-        }*/
+        }
         default: {
-            Program::log(Log::Error, "EntityCollision") << "Undefined collision mode " << std::uppercase << std::hex << +mode << std::dec << std::nouppercase << "." << std::endl;
+            Program::log(Log::Error, "EntityCollision") << "Undefined collision mode " << mode << "." << std::endl;
             throw Exceptions::Exception("Undefined collision mode.");
             break;
         }
