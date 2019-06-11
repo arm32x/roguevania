@@ -5,7 +5,6 @@
 #include "../Collision/CollisionMode.hpp"
 #include "../Collision/TilemapCollider.hpp"
 #include "../Exceptions/Exception.hpp"
-#include "../Maps/Tilemap.hpp"
 #include "../Utilities/clamp.hpp"
 #include "../Program.hpp"
 
@@ -49,71 +48,51 @@ void Entity::update(float delta) {
     onGround = false;
     
     // Detect and handle collisions.
-    // TODO:  Fix this.
-    auto getCollisionMode = [this]() {
-        std::vector<CollisionMode> modes;
-        for (TilemapCollider* collider : TilemapCollider::all) {
-            if (getPosition().x > collider->tilemap.getPosition().x + collider->tilemap.width  * collider->tilemap.tileSize) continue;
-            if (getPosition().y > collider->tilemap.getPosition().y + collider->tilemap.height * collider->tilemap.tileSize) continue;
-            if (getPosition().x + getTextureRect().width  < collider->tilemap.getPosition().x) continue;
-            if (getPosition().y + getTextureRect().height < collider->tilemap.getPosition().y) continue;
-            std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
-            CollisionMode mode = collider->prioritizeTileModes(tiles);
-            if (mode != CollisionMode::NotTouching) modes.push_back(mode);
-        }
-        if (modes.size() > 1) {
-            auto& dbg = Program::log(Log::Debug, "EntityCollision") << "Intersection of " << modes.size() << " tilemaps detected, with modes { ";
-            for (CollisionMode mode : modes) {
-                dbg << mode << ", ";
+    for (TilemapCollider* collider : TilemapCollider::all) {
+        std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
+        CollisionMode mode = collider->prioritizeTileModes(tiles);
+        switch (mode) {
+            case CollisionMode::None: {
+                break;
             }
-            dbg << " }." << std::endl;
-        }
-        CollisionMode result = CollisionMode::prioritize(modes);
-        if (modes.size() > 1) Program::log(Log::Debug, "EntityCollision") << "Result was " << result << "." << std::endl;
-        return result;
-    };
-    CollisionMode mode = getCollisionMode();
-    switch (mode) {
-        case CollisionMode::None: {
-            break;
-        }
-        case CollisionMode::Solid: {
-            constexpr float increment = 0.0625f;
-            Vector2f velocity = getVelocity() * delta;
-            onGround = true;
-            for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.y); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
-                move(0.0f, velocity.y >= 0.0f ? -increment : increment);
-                setVelocity(velocity.x, 0.0f);
-                mode = getCollisionMode();
-            }
-            if (mode == CollisionMode::Solid) {
-                onGround = false;
-                mode = getCollisionMode();
-                for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.x); amountMoved += velocity.x >= 0.0f ? -increment : increment) {
-                    move(velocity.x >= 0.0f ? -increment : increment, 0.0f);
-                    setVelocity(0.0f, velocity.y);
-                    mode = getCollisionMode();
+            case CollisionMode::Solid: {
+                constexpr float increment = 0.0625f;
+                Vector2f velocity = getVelocity() * delta;
+                onGround = true;
+                for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.y); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
+                    move(0.0f, velocity.y >= 0.0f ? -increment : increment);
+                    setVelocity(velocity.x, 0.0f);
+                    mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                 }
-                move(0.0f, velocity.y);
-                mode = getCollisionMode();
                 if (mode == CollisionMode::Solid) {
-                    onGround = true;
-                    for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.y); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
-                        move(0.0f, velocity.y >= 0.0f ? -increment : increment);
-                        setVelocity(velocity.x, 0.0f);
-                        mode = getCollisionMode();
+                    onGround = false;
+                    mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                    for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.x); amountMoved += velocity.x >= 0.0f ? -increment : increment) {
+                        move(velocity.x >= 0.0f ? -increment : increment, 0.0f);
+                        setVelocity(0.0f, velocity.y);
+                        mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                    }
+                    move(0.0f, velocity.y);
+                    mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                    if (mode == CollisionMode::Solid) {
+                        onGround = true;
+                        for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.y); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
+                            move(0.0f, velocity.y >= 0.0f ? -increment : increment);
+                            setVelocity(velocity.x, 0.0f);
+                            mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                        }
                     }
                 }
+                break;
             }
-            break;
-        }
-        case CollisionMode::NotTouching: {
-            break;
-        }
-        default: {
-            Program::log(Log::Error, "EntityCollision") << "Undefined collision mode " << mode << "." << std::endl;
-            throw Exceptions::Exception("Undefined collision mode.");
-            break;
+            case CollisionMode::NotTouching: {
+                break;
+            }
+            default: {
+                Program::log(Log::Error, "EntityCollision") << "Undefined collision mode " << std::uppercase << std::hex << +mode << std::dec << std::nouppercase << "." << std::endl;
+                throw Exceptions::Exception("Undefined collision mode.");
+                break;
+            }
         }
     }
 }
