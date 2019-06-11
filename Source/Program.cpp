@@ -37,7 +37,7 @@ RenderWindow Program::window(VideoMode(VideoMode::getDesktopMode().width, VideoM
 #else
 RenderWindow Program::window(VideoMode(640 * WINDOWED_SCALE, 360 * WINDOWED_SCALE), "Roguevania (working title)", Style::Titlebar | Style::Close);
 #endif
-Camera Program::camera(40, 31);
+Camera Program::camera(168, 175);
 Log Program::log("Roguevania", Log::Debug);
 
 void Program::main(int argc, char** argv) {
