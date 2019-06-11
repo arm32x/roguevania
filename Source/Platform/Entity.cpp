@@ -60,6 +60,7 @@ void Entity::update(float delta) {
             modes.push_back(mode);
         }
         CollisionMode result = CollisionMode::prioritize(modes);
+        Program::log(Log::Debug, "EntityCollision") << "Final collision mode is " << result << "." << std::endl;
         return result;
     };
     CollisionMode mode = getCollisionMode();
