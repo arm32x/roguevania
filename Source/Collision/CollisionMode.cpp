@@ -28,6 +28,7 @@ CollisionMode CollisionMode::prioritize(const std::vector<CollisionMode>& modes)
         } else if (result.value < mode.value) {
             result.value = mode.value;
         } else {
+            
         }
     }
     return result;
