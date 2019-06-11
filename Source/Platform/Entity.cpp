@@ -48,6 +48,7 @@ void Entity::update(float delta) {
     onGround = false;
     
     // Detect and handle collisions.
+    // TODO:  Fix this.
     auto getCollisionMode = [this]() {
         std::vector<CollisionMode> modes;
         for (TilemapCollider* collider : TilemapCollider::all) {
