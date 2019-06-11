@@ -23,6 +23,7 @@ bool CollisionMode::operator!=(const CollisionMode::Value& other) const { return
 bool CollisionMode::operator!=(const CollisionMode&        other) const { return value != other.value; }
 
 CollisionMode CollisionMode::prioritize(const std::vector<CollisionMode>& modes) {
+    if (modes.size() <= 0) return CollisionMode::NotTouching;
     CollisionMode result = CollisionMode::NotTouching;
     Program::log(Log::Debug, "CollisionMode") << "Prioritizing " << modes.size() << " collision modes..." << std::endl;
     for (CollisionMode mode : modes) {
