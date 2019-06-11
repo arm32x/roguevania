@@ -54,13 +54,9 @@ void Entity::update(float delta) {
         for (TilemapCollider* collider : TilemapCollider::all) {
             std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
             CollisionMode mode = collider->prioritizeTileModes(tiles);
-            if (mode != CollisionMode::NotTouching) {
-                Program::log(Log::Debug, "EntityCollision") << "Collision mode for collider " << collider << " is " << mode << "." << std::endl;
-            }
             modes.push_back(mode);
         }
         CollisionMode result = CollisionMode::prioritize(modes);
-        Program::log(Log::Debug, "EntityCollision") << "Final collision mode is " << result << "." << std::endl;
         return result;
     };
     CollisionMode mode = getCollisionMode();
