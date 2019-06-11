@@ -26,7 +26,9 @@ CollisionMode CollisionMode::prioritize(const std::vector<CollisionMode>& modes)
     if (modes.size() <= 0) return CollisionMode::NotTouching;
     CollisionMode result = CollisionMode::NotTouching;
     for (CollisionMode mode : modes) {
-        if (result.value + 0x10 < mode.value + 0x10) {
+        if (result.value >= 0xF0 && mode.value < 0xF0) {
+            result.value = mode.value;
+        } else if (result.value < mode.value) {
             result.value = mode.value;
         }
     }
