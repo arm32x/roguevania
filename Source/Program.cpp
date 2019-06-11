@@ -105,22 +105,6 @@ void Program::main(int argc, char** argv) {
                         window.close();
                         exit(EXIT_SUCCESS);
                         break;
-                    case Event::KeyPressed:
-                        switch (e.key.code) {
-                            case Keyboard::Left:
-                                minimap.move( 8,  0);
-                                break;
-                            case Keyboard::Down:
-                                minimap.move( 0, -8);
-                                break;
-                            case Keyboard::Right:
-                                minimap.move(-8,  0);
-                                break;
-                            case Keyboard::Up:
-                                minimap.move( 0,  8);
-                                break;
-                        }
-                        break;
                     case Event::MouseButtonPressed:
                         switch (e.mouseButton.button) {
                             case Mouse::Left:
@@ -147,6 +131,7 @@ void Program::main(int argc, char** argv) {
         for (; substeps > 0; substeps--) {
             player.update(delta);
             camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
+            minimap.setPosition(std::floor(player.getPosition().x / 640.0f) * -8, std::floor(player.getPosition().y / 368.0f) * -8);
         }
         
         {
