@@ -44,5 +44,5 @@ void CollisionMap::loadFromMemory(const uint8_t* data) {
 }
 
 CollisionMode CollisionMap::operator[](uint8_t index) const {
-    return buffer[index];
+    return buffer.at(index);
 }
