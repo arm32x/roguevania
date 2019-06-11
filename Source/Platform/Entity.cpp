@@ -59,7 +59,14 @@ void Entity::update(float delta) {
             if (getPosition().y + getTextureRect().height < collider->tilemap.getPosition().y) continue;
             std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
             CollisionMode mode = collider->prioritizeTileModes(tiles);
-            modes.push_back(mode);
+            if (mode != CollisionMode::NotTouching) modes.push_back(mode);
+        }
+        if (modes.size() > 1) {
+            auto& dbg = Program::log(Log::Debug, "EntityCollision") << "Intersection of " << modes.size() << " tilemaps detected, with modes { ";
+            for (CollisionMode mode : modes) {
+                dbg << mode << ", ";
+            }
+            dbg << " }." << std::endl;
         }
         return CollisionMode::prioritize(modes);
     };
