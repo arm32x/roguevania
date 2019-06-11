@@ -1,5 +1,7 @@
 #include "CollisionMode.hpp"
 
+#include <iomanip>
+
 using namespace Roguevania;
 using namespace Roguevania::Collision;
 
@@ -33,4 +35,12 @@ CollisionMode CollisionMode::prioritize(const std::vector<CollisionMode>& modes)
 
 CollisionMode::operator uint8_t() const {
     return static_cast<uint8_t>(value);
+}
+
+std::ostream& operator<<(std::ostream& stream, const CollisionMode& mode) {
+    return stream << std::hex << std::uppercase << +mode << std::dec << std::nouppercase;
+}
+
+std::ostream& operator<<(std::ostream& stream, const CollisionMode::Value& mode) {
+    return stream << std::hex << std::uppercase << +mode << std::dec << std::nouppercase;
 }

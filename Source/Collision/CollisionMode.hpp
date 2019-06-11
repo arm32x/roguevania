@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <ostream>
 #include <vector>
 
 namespace Roguevania {
@@ -43,3 +44,11 @@ class CollisionMode {
 
 };
 };
+
+// This is equivalent to a ‘using’ declaration, except I can undefine it later.
+#define CollisionMode Roguevania::Collision::CollisionMode 
+
+std::ostream& operator<<(std::ostream& stream, const CollisionMode&        mode);
+std::ostream& operator<<(std::ostream& stream, const CollisionMode::Value& mode);
+
+#undef CollisionMode

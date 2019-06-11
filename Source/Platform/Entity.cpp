@@ -50,16 +50,16 @@ void Entity::update(float delta) {
     // Detect and handle collisions.
     // TODO:  Fix this.
     auto getCollisionMode = [this]() {
-        auto& dbg = Program::log(Log::Debug, "Entity") << "CollisionMode " << std::hex << std::uppercase;
         std::vector<CollisionMode> modes;
         for (TilemapCollider* collider : TilemapCollider::all) {
             std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
             CollisionMode mode = collider->prioritizeTileModes(tiles);
-            dbg << +mode;
+            if (mode != CollisionMode::NotTouching) {
+                Program::log(Log::Debug, "EntityCollision") << "Collision mode for collider " << collider << " is " << mode << "." << std::endl;
+            }
             modes.push_back(mode);
         }
         CollisionMode result = CollisionMode::prioritize(modes);
-        dbg << " -> " << +result << std::dec << std::nouppercase << std::endl;
         return result;
     };
     CollisionMode mode = getCollisionMode();
