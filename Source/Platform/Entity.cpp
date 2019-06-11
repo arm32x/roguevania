@@ -5,6 +5,7 @@
 #include "../Collision/CollisionMode.hpp"
 #include "../Collision/TilemapCollider.hpp"
 #include "../Exceptions/Exception.hpp"
+#include "../Maps/Tilemap.hpp"
 #include "../Utilities/clamp.hpp"
 #include "../Program.hpp"
 
@@ -52,8 +53,11 @@ void Entity::update(float delta) {
     auto getCollisionMode = [this]() {
         std::vector<CollisionMode> modes;
         for (TilemapCollider* collider : TilemapCollider::all) {
+            if (getPosition().x > collider->tilemap.getPosition().x + collider->tilemap.width  * collider->tilemap.tileSize) continue;
+            if (getPosition().y > collider->tilemap.getPosition().y + collider->tilemap.height * collider->tilemap.tileSize) continue;
+            if (getPosition().x + getTextureRect().width  < collider->tilemap.getPosition().x) continue;
+            if (getPosition().y + getTextureRect().height < collider->tilemap.getPosition().y) continue;
             std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
-            if (tiles.size() <= 0) continue;
             CollisionMode mode = collider->prioritizeTileModes(tiles);
             if (mode != CollisionMode::NotTouching) modes.push_back(mode);
         }
