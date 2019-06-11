@@ -48,6 +48,7 @@ void Entity::update(float delta) {
     onGround = false;
     
     // Detect and handle collisions.
+    // TODO:  Fix shit that happens when at the edge of tilemaps.
     for (TilemapCollider* collider : TilemapCollider::all) {
         std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
         CollisionMode mode = collider->prioritizeTileModes(tiles);
