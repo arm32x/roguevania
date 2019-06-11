@@ -78,7 +78,7 @@ void Program::main(int argc, char** argv) {
         if (room.section == nullptr) continue;
         gen.generateRoomLayoutFromFile(room, "Resources/Rooms/Testing.rrm");
         room.tilemap->collider.emplace(*room.tilemap, clmp);
-        room.tilemap->setPosition(room.x * 640, room.y * 360);
+        room.tilemap->setPosition(room.x * 640, room.y * 368);
         for (uint16_t y = 0; y < 23; y++) {
             for (uint16_t x = 0; x < 40; x++) {
                 room.tilemap->setTileColor(x, y, room.section->color);
