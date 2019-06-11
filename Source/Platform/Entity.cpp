@@ -61,6 +61,7 @@ void Entity::update(float delta) {
             CollisionMode mode = collider->prioritizeTileModes(tiles);
             if (mode != CollisionMode::NotTouching) modes.push_back(mode);
         }
+        if (modes.size() > 1) Program::log(Log::Debug, "EntityCollision") << "Intersection of multiple tilemaps detected." << std::endl;
         return CollisionMode::prioritize(modes);
     };
     CollisionMode mode = getCollisionMode();
