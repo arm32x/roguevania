@@ -61,8 +61,7 @@ void Entity::update(float delta) {
             CollisionMode mode = collider->prioritizeTileModes(tiles);
             if (mode != CollisionMode::NotTouching) modes.push_back(mode);
         }
-        CollisionMode result = CollisionMode::prioritize(modes);
-        return result;
+        return CollisionMode::prioritize(modes);
     };
     CollisionMode mode = getCollisionMode();
     switch (mode) {
