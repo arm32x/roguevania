@@ -26,6 +26,7 @@ TilemapCollider::~TilemapCollider() {
 }
 
 CollisionMode TilemapCollider::getTileCollisionMode(uint16_t x, uint16_t y) const {
+    if (x < 0 || y < 0 || x >= tilemap.width || y >= tilemap.height) return CollisionMode::NotTouching;
     return collisionMap[tilemap.getTileType(x, y)];
 }
 
@@ -34,10 +35,10 @@ std::vector<Vector2<uint16_t>> TilemapCollider::getTilesTouching(const Entity& e
     uint16_t top    = std::floor((std::round(entity.getPosition().y) - tilemap.getPosition().y) / tilemap.tileSize);
     uint16_t right  = std::ceil(((std::round(entity.getPosition().x) - tilemap.getPosition().x) + entity.getTextureRect().width)  / tilemap.tileSize);
     uint16_t bottom = std::ceil(((std::round(entity.getPosition().y) - tilemap.getPosition().y) + entity.getTextureRect().height) / tilemap.tileSize);
-    Utilities::clamp(&left,   (uint16_t)(0), (uint16_t)(tilemap.width));
+    /*Utilities::clamp(&left,   (uint16_t)(0), (uint16_t)(tilemap.width));
     Utilities::clamp(&top,    (uint16_t)(0), (uint16_t)(tilemap.height));
     Utilities::clamp(&right,  (uint16_t)(0), (uint16_t)(tilemap.width));
-    Utilities::clamp(&bottom, (uint16_t)(0), (uint16_t)(tilemap.height));
+    Utilities::clamp(&bottom, (uint16_t)(0), (uint16_t)(tilemap.height));*/
     std::vector<Vector2<uint16_t>> result;
     for (uint16_t y = top; y < bottom; y++) {
         for (uint16_t x = left; x < right; x++) {
