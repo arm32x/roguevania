@@ -31,6 +31,7 @@ using namespace Roguevania::Utilities;
 using namespace sf;
 
 #define WINDOWED_SCALE 0
+#define CAMERA_MODE 0
 
 #if WINDOWED_SCALE == 0
 RenderWindow Program::window(VideoMode(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().width * (9.0 / 16.0)), "Roguevania (working title)", Style::Fullscreen);
@@ -131,8 +132,11 @@ void Program::main(int argc, char** argv) {
         if (substeps > 1) Program::log(Log::Warning, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << ".  Is the game overloaded?" << std::endl;
         for (; substeps > 0; substeps--) {
             player.update(delta);
-            //camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
+            #if CAMERA_MODE == 0
+            camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
+            #elif CAMERA_MODE == 1
             camera.update(delta, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
+            #endif
             minimap.setPosition(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * -8 + 24, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * -8 + 24);
         }
         
