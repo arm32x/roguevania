@@ -26,19 +26,23 @@ TilemapCollider::~TilemapCollider() {
 }
 
 CollisionMode TilemapCollider::getTileCollisionMode(uint16_t x, uint16_t y) const {
-    if (x < 0 || y < 0 || x >= tilemap.width || y >= tilemap.height) return CollisionMode::NotTouching;
+    if (x >= tilemap.width || y >= tilemap.height) return CollisionMode::NotTouching;
     return collisionMap[tilemap.getTileType(x, y)];
 }
 
 std::vector<Vector2<uint16_t>> TilemapCollider::getTilesTouching(const Entity& entity) const {
-    uint16_t left   = std::floor((std::round(entity.getPosition().x) - tilemap.getPosition().x) / tilemap.tileSize);
-    uint16_t top    = std::floor((std::round(entity.getPosition().y) - tilemap.getPosition().y) / tilemap.tileSize);
-    uint16_t right  = std::ceil(((std::round(entity.getPosition().x) - tilemap.getPosition().x) + entity.getTextureRect().width)  / tilemap.tileSize);
-    uint16_t bottom = std::ceil(((std::round(entity.getPosition().y) - tilemap.getPosition().y) + entity.getTextureRect().height) / tilemap.tileSize);
+    int32_t left   = std::floor((std::round(entity.getPosition().x) - tilemap.getPosition().x) / tilemap.tileSize);
+    int32_t top    = std::floor((std::round(entity.getPosition().y) - tilemap.getPosition().y) / tilemap.tileSize);
+    int32_t right  = std::ceil(((std::round(entity.getPosition().x) - tilemap.getPosition().x) + entity.getTextureRect().width)  / tilemap.tileSize);
+    int32_t bottom = std::ceil(((std::round(entity.getPosition().y) - tilemap.getPosition().y) + entity.getTextureRect().height) / tilemap.tileSize);
+    Utilities::clamp(&left,   0, +tilemap.width);
+    Utilities::clamp(&top,    0, +tilemap.height);
+    Utilities::clamp(&right,  0, +tilemap.width);
+    Utilities::clamp(&bottom, 0, +tilemap.height);
     if (Keyboard::isKeyPressed(Keyboard::Tilde)) Program::log(Log::Debug, "TilemapCollider") << "(" << left << ", " << top << ") / (" << right << ", " << bottom << ")" << std::endl;
     std::vector<Vector2<uint16_t>> result;
-    for (uint16_t y = top; y < bottom; y++) {
-        for (uint16_t x = left; x < right; x++) {
+    for (int32_t y = top; y < bottom; y++) {
+        for (int32_t x = left; x < right; x++) {
             result.emplace_back(x, y);
         }
     }
