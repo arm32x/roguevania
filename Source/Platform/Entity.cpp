@@ -5,6 +5,7 @@
 #include "../Collision/CollisionMode.hpp"
 #include "../Collision/TilemapCollider.hpp"
 #include "../Exceptions/Exception.hpp"
+#include "../Maps/Tilemap.hpp"
 #include "../Utilities/clamp.hpp"
 #include "../Program.hpp"
 
@@ -51,6 +52,9 @@ void Entity::update(float delta) {
     // TODO:  Fix shit that happens when at the edge of tilemaps.
     for (TilemapCollider* collider : TilemapCollider::all) {
         std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
+        for (Vector2<uint16_t> tile : tiles) {
+            const_cast<Tilemap&>(collider->tilemap).setTileColor(tile.x, tile.y, Color::White);
+        }
         CollisionMode mode = collider->prioritizeTileModes(tiles);
         switch (mode) {
             case CollisionMode::None: {
