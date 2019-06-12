@@ -21,6 +21,7 @@ Minimap::Minimap(uint16_t width, uint16_t height)
 void Minimap::draw(RenderTarget& target, RenderStates states) const {
     View oldView = target.getView();
     target.setView(view);
+    target.clear();
     Tilemap::draw(target, states);
     target.setView(oldView);
 }
