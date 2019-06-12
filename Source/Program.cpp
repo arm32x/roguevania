@@ -133,7 +133,7 @@ void Program::main(int argc, char** argv) {
             player.update(delta);
             //camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
             camera.update(delta, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
-            minimap.setPosition(std::floor(camera.view.getCenter().x / 640.0f) * -8 + 24, std::floor(camera.view.getCenter().y / 368.0f) * -8 + 24);
+            minimap.setPosition(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * -8 + 24, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * -8 + 24);
         }
         
         {
