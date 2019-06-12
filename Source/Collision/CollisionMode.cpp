@@ -34,7 +34,7 @@ CollisionMode CollisionMode::prioritize(const std::vector<CollisionMode>& modes)
         if (result.value >= 0xF0 && mode.value < 0xF0) {
             DBG Program::log(Log::Debug, "CollisionMode") << "Challenger succeeded because champion was >= F0." << std::endl;
             result.value = mode.value;
-        } else if (result.value < mode.value) {
+        } else if (mode.value < 0xF0 && result.value < mode.value) {
             DBG Program::log(Log::Debug, "CollisionMode") << "Challenger succeeded because champion < challenger." << std::endl;
             result.value = mode.value;
         }
