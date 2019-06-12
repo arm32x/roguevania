@@ -58,6 +58,7 @@ void Entity::update(float delta) {
                 const_cast<Tilemap&>(collider->tilemap).setTileColor(tile.x, tile.y, Color::White);
             }
             CollisionMode mode = collider->prioritizeTileModes(tiles);
+            if (Keyboard::isKeyPressed(Keyboard::Tilde)) Program::log(Log::Debug, "EntityCollision") << "Collision mode is " << mode << "." << std::endl;
             return mode;
         };
         CollisionMode mode = getMode();
