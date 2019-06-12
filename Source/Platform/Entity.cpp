@@ -50,61 +50,54 @@ void Entity::update(float delta) {
     
     // Detect and handle collisions.
     // TODO:  Fix shit that happens when at the edge of tilemaps.
-    auto getMode = [this]() -> CollisionMode {
-        std::vector<CollisionMode> modes;
-        for (TilemapCollider* collider : TilemapCollider::all) {
-            std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
-            for (Vector2<uint16_t> tile : tiles) {
-                const_cast<Tilemap&>(collider->tilemap).setTileColor(tile.x, tile.y, Color::White);
-            }
-            CollisionMode mode = collider->prioritizeTileModes(tiles);
-            modes.push_back(mode);
+    for (TilemapCollider* collider : TilemapCollider::all) {
+        std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
+        for (Vector2<uint16_t> tile : tiles) {
+            const_cast<Tilemap&>(collider->tilemap).setTileColor(tile.x, tile.y, Color::White);
         }
-        CollisionMode mode = CollisionMode::prioritize(modes);
-        return mode;
-    };
-    CollisionMode mode = getMode();
-    switch (mode) {
-        case CollisionMode::None: {
-            break;
-        }
-        case CollisionMode::Solid: {
-            constexpr float increment = 0.0625f;
-            Vector2f velocity = getVelocity() * delta;
-            onGround = true;
-            for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.y); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
-                move(0.0f, velocity.y >= 0.0f ? -increment : increment);
-                setVelocity(velocity.x, 0.0f);
-                mode = getMode();
+        CollisionMode mode = collider->prioritizeTileModes(tiles);
+        switch (mode) {
+            case CollisionMode::None: {
+                break;
             }
-            if (mode == CollisionMode::Solid) {
-                onGround = false;
-                mode = getMode();
-                for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.x); amountMoved += velocity.x >= 0.0f ? -increment : increment) {
-                    move(velocity.x >= 0.0f ? -increment : increment, 0.0f);
-                    setVelocity(0.0f, velocity.y);
-                    mode = getMode();
+            case CollisionMode::Solid: {
+                constexpr float increment = 0.0625f;
+                Vector2f velocity = getVelocity() * delta;
+                onGround = true;
+                for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.y); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
+                    move(0.0f, velocity.y >= 0.0f ? -increment : increment);
+                    setVelocity(velocity.x, 0.0f);
+                    mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                 }
-                move(0.0f, velocity.y);
-                mode = getMode();
                 if (mode == CollisionMode::Solid) {
-                    onGround = true;
-                    for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.y); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
-                        move(0.0f, velocity.y >= 0.0f ? -increment : increment);
-                        setVelocity(velocity.x, 0.0f);
-                        mode = getMode();
+                    onGround = false;
+                    mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                    for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.x); amountMoved += velocity.x >= 0.0f ? -increment : increment) {
+                        move(velocity.x >= 0.0f ? -increment : increment, 0.0f);
+                        setVelocity(0.0f, velocity.y);
+                        mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                    }
+                    move(0.0f, velocity.y);
+                    mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                    if (mode == CollisionMode::Solid) {
+                        onGround = true;
+                        for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.y); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
+                            move(0.0f, velocity.y >= 0.0f ? -increment : increment);
+                            setVelocity(velocity.x, 0.0f);
+                            mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                        }
                     }
                 }
+                break;
             }
-            break;
-        }
-        case CollisionMode::NotTouching: {
-            break;
-        }
-        default: {
-            Program::log(Log::Error, "EntityCollision") << "Undefined collision mode " << std::uppercase << std::hex << +mode << std::dec << std::nouppercase << "." << std::endl;
-            throw Exceptions::Exception("Undefined collision mode.");
-            break;
+            case CollisionMode::NotTouching: {
+                break;
+            }
+            default: {
+                Program::log(Log::Error, "EntityCollision") << "Undefined collision mode " << std::uppercase << std::hex << +mode << std::dec << std::nouppercase << "." << std::endl;
+                throw Exceptions::Exception("Undefined collision mode.");
+                break;
+            }
         }
     }
 }
