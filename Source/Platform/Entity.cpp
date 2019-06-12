@@ -61,7 +61,6 @@ void Entity::update(float delta) {
             modes.push_back(mode);
         }
         CollisionMode mode = CollisionMode::prioritize(modes);
-        if (Keyboard::isKeyPressed(Keyboard::Tilde)) Program::log(Log::Debug, "EntityCollision") << "Collision mode is " << mode << "." << std::endl;
         return mode;
     };
     CollisionMode mode = getMode();
