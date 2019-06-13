@@ -305,7 +305,7 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                 uint8_t length;
                 stream.read(reinterpret_cast<char*>(&length), 1);
                 
-                pools.at(poolID).reserve(length);
+                pools[poolID].reserve(length);
                 for (int index = 0; index < length; index++) {
                     pools.at(poolID).push_back(stream.get());
                 }
