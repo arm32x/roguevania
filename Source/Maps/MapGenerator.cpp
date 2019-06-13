@@ -273,14 +273,14 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                                 if (instanceNo != 0xFFFF) {
                                     auto it = instances.find(instanceNo);
                                     if (it != instances.end()) {
-                                        room.tilemap->setTileType(x, y, pools[poolID].at(it->second));
+                                        room.tilemap->setTileType(x, y, pools.at(poolID).at(it->second));
                                     } else {
-                                        uint8_t index = random.uniform(0u, pools[poolID].size() - 1);
+                                        uint8_t index = random.uniform(0u, pools.at(poolID).size() - 1);
                                         instances.emplace(instanceNo, index);
-                                        room.tilemap->setTileType(x, y, pools[poolID].at(index));
+                                        room.tilemap->setTileType(x, y, pools.at(poolID).at(index));
                                     }
                                 } else {
-                                    uint8_t tile = random.pick(pools[poolID]);
+                                    uint8_t tile = random.pick(pools.at(poolID));
                                     room.tilemap->setTileType(x, y, tile);
                                 }
                             }
@@ -295,9 +295,9 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                 uint8_t length;
                 stream.read(reinterpret_cast<char*>(&length), 1);
                 
-                pools[poolID].reserve(length);
+                pools.at(poolID).reserve(length);
                 for (int index = 0; index < length; index++) {
-                    pools[poolID].push_back(stream.get());
+                    pools.at(poolID).push_back(stream.get());
                 }
                 
                 stream.ignore((8 - (length + 4) % 8) % 8);
