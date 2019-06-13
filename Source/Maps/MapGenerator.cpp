@@ -270,18 +270,28 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                                 uint16_t poolID, instanceNo;
                                 stream.read(reinterpret_cast<char*>(&poolID),     2);
                                 stream.read(reinterpret_cast<char*>(&instanceNo), 2);
-                                if (instanceNo != 0xFFFF) {
-                                    auto it = instances.find(instanceNo);
-                                    if (it != instances.end()) {
-                                        room.tilemap->setTileType(x, y, pools.at(poolID).at(it->second));
+                                try {
+                                    if (instanceNo != 0xFFFF) {
+                                        auto it = instances.find(instanceNo);
+                                        if (it != instances.end()) {
+                                            (void)pools.at(poolID); // Trigger exception if pool ID does not exist.
+                                            try {
+                                                room.tilemap->setTileType(x, y, pools[poolID].at(it->second));
+                                            } catch (const std::out_of_range& ex) {
+                                                Program::log(Log::Error, "MapGenerator") << "Instance ID " << std::hex << std::uppercase << +reinterpret_cast<char*>(&it->second)[0] << +reinterpret_cast<char*>(&it->second)[0] << std::dec << std::nouppercase << " used for a large pool is subsequently used for a smaller pool.  Instances should be used with pools of the same size for intended results." << std::endl;
+                                                throw Exceptions::ParseException("Instance ID used for a large pool is subsequently used for a smaller pool.");
+                                            }
+                                        } else {
+                                            uint8_t index = random.uniform(0u, pools.at(poolID).size() - 1);
+                                            instances.emplace(instanceNo, index);
+                                            room.tilemap->setTileType(x, y, pools.at(poolID)[index]);
+                                        }
                                     } else {
-                                        uint8_t index = random.uniform(0u, pools.at(poolID).size() - 1);
-                                        instances.emplace(instanceNo, index);
-                                        room.tilemap->setTileType(x, y, pools.at(poolID).at(index));
+                                        uint8_t tile = random.pick(pools.at(poolID));
+                                        room.tilemap->setTileType(x, y, tile);
                                     }
-                                } else {
-                                    uint8_t tile = random.pick(pools.at(poolID));
-                                    room.tilemap->setTileType(x, y, tile);
+                                } catch (const std::out_of_range& ex) {
+                                    Program::log(Log::Error, "MapGenerator") << "Pool " << std::hex << std::uppercase << +reinterpret_cast<char*>(&poolID)[0] << +reinterpret_cast<char*>(&poolID)[0] << std::dec << std::nouppercase << " does not exist." << std::endl;
                                 }
                             }
                         }
