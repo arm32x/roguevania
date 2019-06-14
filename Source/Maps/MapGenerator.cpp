@@ -211,6 +211,7 @@ void MapGenerator::generateRoomLayout(Room& room) {
         if (filename[5] != (room.doors    & 0b0100) + '0') continue;
         if (filename[6] != (room.doors    & 0b0010) + '0') continue;
         if (filename[7] != (room.doors    & 0b0001) + '0') continue;
+        Program::log(Log::Debug, "MapGenerator") << "Matched!" << std::endl;
         candidates.push_back(dir.path());
     }
     if (candidates.size() == 0) candidates.push_back("Resources/Rooms/00001111_0.rrm");
