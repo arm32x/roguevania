@@ -211,6 +211,7 @@ void MapGenerator::generateRoomLayout(Room& room) {
         if (filename[7] - '0' != (room.doors    & 0b0001)) continue;
         candidates.push_back(dir.path());
     }
+    if (candidates.size() == 0) candidates.push_back("Resources/Rooms/00001111_0.rrm");
     generateRoomLayoutFromFile(room, random.pick(candidates).c_str());
 }
 
