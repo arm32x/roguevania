@@ -1,5 +1,6 @@
 #include "MapGenerator.hpp"
 
+#include <bitset>
 #include <fstream>
 #include <iostream>
 #include <unordered_map>
@@ -201,14 +202,15 @@ void MapGenerator::generateRoomLayout(Room& room) {
     for (const ghcfs::directory_entry& dir : ghcfs::directory_iterator("Resources/Rooms/")) {
         if (dir.is_directory()) continue;
         std::string filename = dir.path().stem();
-        if (filename[0] - '0' != (room.openings & 0b1000)) continue;
-        if (filename[1] - '0' != (room.openings & 0b0100)) continue;
-        if (filename[2] - '0' != (room.openings & 0b0010)) continue;
-        if (filename[3] - '0' != (room.openings & 0b0001)) continue;
-        if (filename[4] - '0' != (room.doors    & 0b1000)) continue;
-        if (filename[5] - '0' != (room.doors    & 0b0100)) continue;
-        if (filename[6] - '0' != (room.doors    & 0b0010)) continue;
-        if (filename[7] - '0' != (room.doors    & 0b0001)) continue;
+        Program::log(Log::Debug, "MapGenerator") << "Testing room template '" << filename << "' to match room " << std::bitset<4>(room.openings) << std::bitset<4>(room.doors) << "." << std::endl;
+        if (filename[0] != (room.openings & 0b1000) + '0') continue;
+        if (filename[1] != (room.openings & 0b0100) + '0') continue;
+        if (filename[2] != (room.openings & 0b0010) + '0') continue;
+        if (filename[3] != (room.openings & 0b0001) + '0') continue;
+        if (filename[4] != (room.doors    & 0b1000) + '0') continue;
+        if (filename[5] != (room.doors    & 0b0100) + '0') continue;
+        if (filename[6] != (room.doors    & 0b0010) + '0') continue;
+        if (filename[7] != (room.doors    & 0b0001) + '0') continue;
         candidates.push_back(dir.path());
     }
     if (candidates.size() == 0) candidates.push_back("Resources/Rooms/00001111_0.rrm");
