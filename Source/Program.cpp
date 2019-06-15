@@ -32,6 +32,7 @@ using namespace sf;
 
 #define WINDOWED_SCALE 2
 #define CAMERA_MODE 1
+#define USE_DELTA_TIME TRUE
 
 #if WINDOWED_SCALE == 0
 RenderWindow Program::window(VideoMode(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().width * (9.0 / 16.0)), "Roguevania (working title)", Style::Fullscreen);
@@ -48,7 +49,7 @@ void Program::main(int argc, char** argv) {
     // Enable ANSI escape codes.
     SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), 0x0005);
     SetConsoleMode(GetStdHandle(STD_ERROR_HANDLE),  0x0005);
-    #endif
+    #endif // _WIN32
     
     constexpr uint16_t width = 32, height = 16;
     
@@ -123,21 +124,21 @@ void Program::main(int argc, char** argv) {
         
         Time frameTime = frameClock.restart();
         float delta = frameTime / optimalTime;
-        for (; delta >= 1.0f; delta -= 1.0f) {
-            player.update(1.0f);
-            #if CAMERA_MODE == 0
-            camera.update(1.0f, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
-            #elif CAMERA_MODE == 1
-            camera.update(1.0f, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
-            #endif
+        int substeps = 1;
+        while (delta >= 2.0f) {
+            delta    /= 2;
+            substeps *= 2;
         }
-        player.update(delta);
-        #if CAMERA_MODE == 0
-        camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
-        #elif CAMERA_MODE == 1
-        camera.update(delta, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
-        #endif
-        minimap.setPosition(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * -8 + 24, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * -8 + 24);
+        if (substeps > 1) Program::log(Log::Warning, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << ".  Is the game overloaded?" << std::endl;
+        for (; substeps > 0; substeps--) {
+            player.update(delta);
+            #if CAMERA_MODE == 0
+            camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
+            #elif CAMERA_MODE == 1
+            camera.update(delta, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
+            #endif
+            minimap.setPosition(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * -8 + 24, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * -8 + 24);
+        }
         
         {
             Vector2f cameraOldCenter = camera.alignCenter();

@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+#include <stx/optional.hpp>
+
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
@@ -9,6 +11,7 @@
 namespace Roguevania {
 namespace Platform {
 using namespace sf;
+using stx::nullopt;
 
 class Entity : public Sprite {
         
@@ -75,6 +78,9 @@ class Entity : public Sprite {
         ////////////////////////////////////////////////////////////////////////
         bool onGround = false;
         
+        ////////////////////////////////////////////////////////////////////////
+        /// The maximum velocity that an entity can go in any direction.
+        ////////////////////////////////////////////////////////////////////////
         static constexpr float TerminalVelocity = 20.0f;
         
 };
