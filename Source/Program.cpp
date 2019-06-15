@@ -131,11 +131,11 @@ void Program::main(int argc, char** argv) {
             camera.update(1.0f, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
             #endif
         }
-        player.update(1.0f);
+        player.update(delta);
         #if CAMERA_MODE == 0
-        camera.update(1.0f, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
+        camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
         #elif CAMERA_MODE == 1
-        camera.update(1.0f, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
+        camera.update(delta, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
         #endif
         minimap.setPosition(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * -8 + 24, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * -8 + 24);
         
