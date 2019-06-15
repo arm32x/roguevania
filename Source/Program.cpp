@@ -107,7 +107,6 @@ void Program::main(int argc, char** argv) {
                     case Event::Closed:
                         Program::log(Log::Info) << "Window closed, shutting down." << std::endl;
                         window.close();
-                        exit(EXIT_SUCCESS);
                         break;
                     case Event::KeyPressed:
                         switch (e.key.code) {
