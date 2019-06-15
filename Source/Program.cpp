@@ -165,6 +165,11 @@ void Program::main(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
-    Program::main(argc, argv);
+    try {
+        Program::main(argc, argv);
+    } catch (...) {
+        system("pause");
+        throw;
+    }
     return 0;
 }
