@@ -93,8 +93,9 @@ void Program::main(int argc, char** argv) {
     Player player(entitiesTexture, IntRect(16, 2, 16, 30));
     player.setPosition(160.0f, 160.0f);
     
-    Clock frameClock;
-    const Time optimalTime = seconds(1.0f) / 60.0f;
+    Clock clock;
+    Time accumulator;
+    const Time optimalTime = seconds(1.0f / 60.0f);
     while (window.isOpen()) {
         {
             Event e;
@@ -122,22 +123,15 @@ void Program::main(int argc, char** argv) {
             }
         }
         
-        Time frameTime = frameClock.restart();
-        float delta = frameTime / optimalTime;
-        int substeps = 1;
-        while (delta >= 2.0f) {
-            delta    /= 2;
-            substeps *= 2;
-        }
-        if (substeps > 1) Program::log(Log::Warning, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << ".  Is the game overloaded?" << std::endl;
-        for (; substeps > 0; substeps--) {
-            player.update(delta);
+        while (accumulator >= optimalTime) {
+            player.update(1.0f);
             #if CAMERA_MODE == 0
-            camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
+            camera.update(1.0f, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
             #elif CAMERA_MODE == 1
-            camera.update(delta, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
+            camera.update(1.0f, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
             #endif
             minimap.setPosition(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * -8 + 24, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * -8 + 24);
+            accumulator -= optimalTime;
         }
         
         {
@@ -156,6 +150,8 @@ void Program::main(int argc, char** argv) {
         }
         window.draw(minimap);
         window.display();
+        
+        accumulator += clock.restart();
     }
 }
 
