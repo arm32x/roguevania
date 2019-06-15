@@ -23,6 +23,10 @@ class CollisionMode {
             NotTouching = 0xF0,
             None        = 0x00,
             Solid       = 0xB0,
+            SlopeTL     = 0xC0,
+            SlopeTR     = 0xC1,
+            SlopeBL     = 0xC2,
+            SlopeBR     = 0xC3,
         };
         
         CollisionMode();
