@@ -202,7 +202,6 @@ void MapGenerator::generateRoomLayout(Room& room) {
     for (const ghcfs::directory_entry& dir : ghcfs::directory_iterator("Resources/Rooms/")) {
         if (dir.is_directory()) continue;
         std::string filename = dir.path().stem();
-        Program::log(Log::Debug, "MapGenerator") << "Testing room template '" << filename << "' to match room " << std::bitset<4>(room.openings) << std::bitset<4>(room.doors) << "." << std::endl;
         if (filename[0] != ((room.openings & 0b1000) != 0) + '0') continue;
         if (filename[1] != ((room.openings & 0b0100) != 0) + '0') continue;
         if (filename[2] != ((room.openings & 0b0010) != 0) + '0') continue;
@@ -211,7 +210,6 @@ void MapGenerator::generateRoomLayout(Room& room) {
         if (filename[5] != ((room.doors    & 0b0100) != 0) + '0') continue;
         if (filename[6] != ((room.doors    & 0b0010) != 0) + '0') continue;
         if (filename[7] != ((room.doors    & 0b0001) != 0) + '0') continue;
-        Program::log(Log::Debug, "MapGenerator") << "Matched!" << std::endl;
         candidates.push_back(dir.path());
     }
     if (candidates.size() == 0) candidates.push_back("Resources/Rooms/00001111_0.rrm");
