@@ -93,7 +93,7 @@ void Entity::update(float delta) {
                 
                 Vector2f relative = entityBR - tileTL;
                 
-                setPosition(getPosition().x, (tileTL.y + relative.x) - getTextureRect().height);
+                setPosition(getPosition().x, (tileTL.y + collider->tilemap.tileSize - relative.x) - getTextureRect().height);
                 break;
             }
             case CollisionMode::NotTouching: {
