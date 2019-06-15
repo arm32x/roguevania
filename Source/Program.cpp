@@ -50,6 +50,8 @@ void Program::main(int argc, char** argv) {
     SetConsoleMode(GetStdHandle(STD_ERROR_HANDLE),  0x0005);
     #endif // _WIN32
     
+    bool pause = false;
+    
     constexpr uint16_t width = 32, height = 16;
     
     MapGenerator gen;
