@@ -21,7 +21,7 @@ void Player::event(const Event& e) {
                 case Keyboard::Space:
                     if (onGround) {
                         jumping = true;
-                        setVelocity(getVelocity().x, -3.75f);
+                        setVelocity(getVelocity().x, -4.0f);
                     }
                     break;
                 default:
