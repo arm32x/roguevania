@@ -42,7 +42,7 @@ Camera Program::camera;
 Log Program::log("Roguevania", Log::Debug);
 
 void Program::main(int argc, char** argv) {
-    window.setVerticalSyncEnabled(true);
+    window.setFramerateLimit(60);
     window.setView(camera.view);
     #ifdef _WIN32
     // Enable ANSI escape codes.
@@ -121,24 +121,13 @@ void Program::main(int argc, char** argv) {
             }
         }
         
-        Time frameTime = frameClock.restart();
-        if (Keyboard::isKeyPressed(Keyboard::Tilde)) Program::log(Log::Debug) << "Frame marker." << std::endl;
-        float delta = frameTime / optimalTime;
-        int substeps = 1;
-        while (delta >= 1.0f) {
-            delta    /= 2;
-            substeps *= 2;
-        }
-        if (substeps > 1) Program::log(Log::Warning, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << ".  Is the game overloaded?" << std::endl;
-        for (; substeps > 0; substeps--) {
-            player.update(delta);
-            #if CAMERA_MODE == 0
-            camera.update(delta, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
-            #elif CAMERA_MODE == 1
-            camera.update(delta, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
-            #endif
-            minimap.setPosition(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * -8 + 24, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * -8 + 24);
-        }
+        player.update(1.0f);
+        #if CAMERA_MODE == 0
+        camera.update(1.0f, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
+        #elif CAMERA_MODE == 1
+        camera.update(1.0f, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
+        #endif
+        minimap.setPosition(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * -8 + 24, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * -8 + 24);
         
         {
             Vector2f cameraOldCenter = camera.alignCenter();
