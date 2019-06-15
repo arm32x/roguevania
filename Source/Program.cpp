@@ -46,7 +46,7 @@ void Program::main(int argc, char** argv) {
     #if USE_DELTA_TIME
     window.setVerticalSyncEnabled(true);
     #else
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(120);
     #endif
     window.setView(camera.view);
     #ifdef _WIN32
@@ -137,7 +137,7 @@ void Program::main(int argc, char** argv) {
         if (substeps > 1) Program::log(Log::Warning, "GameLoop") << "Split " << (delta * substeps) << " delta into " << substeps << " substeps of " << delta << ".  Is the game overloaded?" << std::endl;
         for (; substeps > 0; substeps--) {
         #else
-        float delta = 1.0f;
+        float delta = 0.5f;
         #endif
             player.update(delta);
             #if CAMERA_MODE == 0
