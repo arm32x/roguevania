@@ -33,3 +33,7 @@ Vector2f Camera::alignCenter() {
     view.setCenter(std::round(view.getCenter().x), std::round(view.getCenter().y));
     return oldCenter;
 }
+
+const Vector2f& Camera::getFocalPoint() const {
+    return previousFocalPoint;
+}
