@@ -42,7 +42,7 @@ Camera Program::camera;
 Log Program::log("Roguevania", Log::Debug);
 
 void Program::main(int argc, char** argv) {
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(120);
     window.setView(camera.view);
     #ifdef _WIN32
     // Enable ANSI escape codes.
