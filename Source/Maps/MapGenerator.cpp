@@ -218,7 +218,7 @@ void MapGenerator::generateRoomLayout(Room& room) {
 
 void MapGenerator::generateRoomLayoutFromFile(Room& room, const char* filename) {
     std::ifstream stream;
-    stream.open(filename, std::ios::in);
+    stream.open(filename, std::ios::in | std::ios::binary);
     if (stream.fail()) {
         Program::log(Log::Error, "MapGenerator") << "Could not open room template file '" << filename << "'." << std::endl;
         throw Exceptions::FileNotFoundException("Could not open room template file.");
