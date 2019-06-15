@@ -39,7 +39,6 @@ std::vector<Vector2<uint16_t>> TilemapCollider::getTilesTouching(const Entity& e
     Utilities::clamp(&top,    0, +tilemap.height);
     Utilities::clamp(&right,  0, +tilemap.width);
     Utilities::clamp(&bottom, 0, +tilemap.height);
-    if (Keyboard::isKeyPressed(Keyboard::Tilde)) Program::log(Log::Debug, "TilemapCollider") << "(" << left << ", " << top << ") / (" << right << ", " << bottom << ")" << std::endl;
     std::vector<Vector2<uint16_t>> result;
     for (int32_t y = top; y < bottom; y++) {
         for (int32_t x = left; x < right; x++) {
