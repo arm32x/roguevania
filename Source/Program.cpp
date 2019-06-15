@@ -43,13 +43,17 @@ Camera Program::camera;
 Log Program::log("Roguevania", Log::Debug);
 
 void Program::main(int argc, char** argv) {
+    #if USE_DELTA_TIME
     window.setVerticalSyncEnabled(true);
+    #else
+    window.setFramerateLimit(60);
+    #endif
     window.setView(camera.view);
     #ifdef _WIN32
     // Enable ANSI escape codes.
     SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), 0x0005);
     SetConsoleMode(GetStdHandle(STD_ERROR_HANDLE),  0x0005);
-    #endif // _WIN32
+    #endif
     
     constexpr uint16_t width = 32, height = 16;
     
