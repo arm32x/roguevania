@@ -31,7 +31,7 @@ using namespace Roguevania::Utilities;
 using namespace sf;
 
 #define WINDOWED_SCALE 2
-#define CAMERA_MODE 1
+#define CAMERA_MODE 0
 #define USE_DELTA_TIME TRUE
 
 #if WINDOWED_SCALE == 0
