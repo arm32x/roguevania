@@ -124,7 +124,7 @@ void Program::main(int argc, char** argv) {
         Time frameTime = frameClock.restart();
         if (Keyboard::isKeyPressed(Keyboard::Tilde)) Program::log(Log::Debug) << "Frame marker." << std::endl;
         float delta = frameTime / optimalTime;
-        for (; delta >= 1.0f; delta -= 1.0f) {
+        //for (; delta >= 1.0f; delta -= 1.0f) {
             player.update(1.0f);
             #if CAMERA_MODE == 0
             camera.update(1.0f, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
@@ -132,7 +132,7 @@ void Program::main(int argc, char** argv) {
             camera.update(1.0f, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * 368.0f + 188.0f));
             #endif
             minimap.setPosition(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * -8 + 24, std::floor((player.getPosition().y + player.getTextureRect().height / 2) / 368.0f) * -8 + 24);
-        }
+        //}
         
         {
             Vector2f cameraOldCenter = camera.alignCenter();
