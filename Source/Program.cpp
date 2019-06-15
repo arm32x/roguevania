@@ -109,6 +109,14 @@ void Program::main(int argc, char** argv) {
                         window.close();
                         exit(EXIT_SUCCESS);
                         break;
+                    case Event::KeyPressed:
+                        switch (e.key.code) {
+                            case Keyboard::Tilde:
+                                Program::log(Log::Info) << "Program will now pause on exit." << std::endl;
+                                pause = true;
+                                break;
+                        }
+                        break;
                     case Event::MouseButtonPressed:
                         switch (e.mouseButton.button) {
                             case Mouse::Left:
@@ -154,6 +162,7 @@ void Program::main(int argc, char** argv) {
         
         accumulator += clock.restart();
     }
+    if (pause) system("pause");
 }
 
 int main(int argc, char** argv) {
