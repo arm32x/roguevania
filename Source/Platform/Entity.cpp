@@ -87,6 +87,15 @@ void Entity::update(float delta) {
                 }
                 break;
             }
+            case CollisionMode::SlopeTL: {
+                Vector2f entityBR(getPosition().x + getTextureRect().width, getPosition().y + getTextureRect().height);
+                Vector2f   tileTL(std::floor(getPosition().x / collider->tilemap.tileSize) * collider->tilemap.tileSize, std::floor(getPosition().y / collider->tilemap.tileSize) * collider->tilemap.tileSize);
+                
+                Vector2f relative = entityBR - tileTL;
+                
+                setPosition(getPosition().x, (tileTL.y + relative.x) - getTextureRect().height);
+                break;
+            }
             case CollisionMode::NotTouching: {
                 break;
             }
