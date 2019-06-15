@@ -125,7 +125,7 @@ void Program::main(int argc, char** argv) {
         if (Keyboard::isKeyPressed(Keyboard::Tilde)) Program::log(Log::Debug) << "Frame marker." << std::endl;
         float delta = frameTime / optimalTime;
         int substeps = 1;
-        while (delta >= 2.0f) {
+        while (delta >= 4.0f) {
             delta    /= 2;
             substeps *= 2;
         }
