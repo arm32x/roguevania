@@ -5,6 +5,8 @@
 #include <deque>
 #include <functional>
 
+#include <stx/optional.hpp>
+
 #ifdef _WIN32
 #include <windows.h>
 #endif // _WIN32
@@ -29,6 +31,7 @@ using namespace Roguevania::Maps;
 using namespace Roguevania::Platform;
 using namespace Roguevania::Utilities;
 using namespace sf;
+using stx::nullopt;
 
 #define WINDOWED_SCALE 2
 #define CAMERA_MODE 1
@@ -98,6 +101,8 @@ void Program::main(int argc, char** argv) {
         startingRoomCandidates.push_front(&room);
     }
     Room& startingRoom = *gen.getRandom().pick(startingRoomCandidates);
+    startingRoom.tilemap = nullopt;
+    gen.generateRoomLayoutFromFile(startingRoom, "Resources/Rooms/special_00000101_spawnpoint.rrm");
     
     Texture entitiesTexture;
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
