@@ -5,7 +5,6 @@
 #include <deque>
 #include <functional>
 
-#define STX_NO_STD_OPTIONAL
 #include <stx/optional.hpp>
 
 #ifdef _WIN32

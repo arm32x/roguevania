@@ -2,7 +2,6 @@
 
 #include <cstdint>
 
-#define STX_NO_STD_OPTIONAL
 #include <stx/optional.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
