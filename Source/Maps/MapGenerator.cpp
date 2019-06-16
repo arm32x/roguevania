@@ -172,6 +172,8 @@ void MapGenerator::connectRooms(std::deque<Room>& rooms, uint16_t width, uint16_
             rooms[x + width * y].doors = doors;
         }
     }
+    // TODO:  Implement smarter camera code to allow for this.
+    #if FALSE
     for (uint16_t y = 0; y < height; y++) {
         for (uint16_t x = 0; x < width; x++) {
             {
@@ -191,6 +193,7 @@ void MapGenerator::connectRooms(std::deque<Room>& rooms, uint16_t width, uint16_
             }
         }
     }
+    #endif
 }
 
 MapGenerator::Random& MapGenerator::getRandom() {
