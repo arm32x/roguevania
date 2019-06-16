@@ -101,7 +101,7 @@ void Program::main(int argc, char** argv) {
         startingRoomCandidates.push_front(&room);
     }
     Room& startingRoom = *gen.getRandom().pick(startingRoomCandidates);
-    startingRoom.tilemap = nullopt;
+    //startingRoom.tilemap = nullopt;
     gen.generateRoomLayoutFromFile(startingRoom, "Resources/Rooms/special_00000101_spawnpoint.rrm");
     
     Texture entitiesTexture;
