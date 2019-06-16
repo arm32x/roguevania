@@ -244,9 +244,7 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                             throw Exceptions::ParseException("Room layout file is malformed, invalid section header.");
                         }
                         if (room.tilemap != nullopt) {
-                            Program::log(Log::Error, "MapGenerator") << "Room layout file should not have more than one 'RRM' section.  Skipping additional section." << std::endl;
-                            stream.ignore(14);
-                            continue;
+                            Program::log(Log::Error, "MapGenerator") << "Room already contains a tilemap.  The old tilemap will be overwritten." << std::endl;
                         }
                         
                         stream.ignore(10);
