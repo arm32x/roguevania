@@ -6,6 +6,7 @@
 #include <unordered_map>
 
 #include <ghc/filesystem.hpp>
+#define STX_NO_STD_OPTIONAL
 #include <stx/optional.hpp>
 
 #include "../Exceptions/FileNotFoundException.hpp"
@@ -244,7 +245,7 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                             throw Exceptions::ParseException("Room layout file is malformed, invalid section header.");
                         }
                         if (room.tilemap != nullopt) {
-                            Program::log(Log::Error, "MapGenerator") << "Room already contains a tilemap.  The old tilemap will be overwritten." << std::endl;
+                            Program::log(Log::Warning, "MapGenerator") << "Room already contains a tilemap.  The old tilemap will be overwritten." << std::endl;
                         }
                         
                         stream.ignore(10);

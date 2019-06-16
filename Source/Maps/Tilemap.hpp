@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <istream>
 
+#define STX_NO_STD_OPTIONAL
 #include <stx/optional.hpp>
 
 #include <SFML/Graphics/Color.hpp>
