@@ -93,8 +93,8 @@ void Program::main(int argc, char** argv) {
     for (Room& room : rooms) {
         if (room.section == nullptr) continue;
         if (room.section->id != 'A') continue;
-        if ((room.doors & ~0b0101) != 0) continue;
-        if (room.openings != 0) continue;
+        if (room.doors    != 0b0101) continue;
+        if (room.openings != 0b0000) continue;
         startingRoomCandidates.push_front(&room);
     }
     Room& startingRoom = *gen.getRandom().pick(startingRoomCandidates);
