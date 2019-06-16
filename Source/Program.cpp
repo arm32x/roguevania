@@ -89,10 +89,20 @@ void Program::main(int argc, char** argv) {
         }
     }
     
+    std::deque<Room*> startingRoomCandidates;
+    for (Room& room : rooms) {
+        if (room.section == nullptr) continue;
+        if (room.section->id != 'A') continue;
+        if ((room.doors & ~0b0101) != 0) continue;
+        if (room.openings != 0) continue;
+        startingRoomCandidates.push_front(&room);
+    }
+    Room& startingRoom = *gen.getRandom().pick(startingRoomCandidates);
+    
     Texture entitiesTexture;
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
     Player player(entitiesTexture, IntRect(16, 2, 16, 30));
-    player.setPosition(160.0f, 160.0f);
+    player.setPosition(startingRoom.x * 640.0f + (360.0f - 8.0f), startingRoom.y * 368.0f + (188.0f - 8.0f));
     
     Clock clock;
     Time accumulator;

@@ -49,7 +49,7 @@ void Entity::update(float delta) {
     onGround = false;
     
     // Detect and handle collisions.
-    // TODO:  Fix shit that happens when at the edge of tilemaps.
+    // TODO:  Implement slopes.
     for (TilemapCollider* collider : TilemapCollider::all) {
         std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
         CollisionMode mode = collider->prioritizeTileModes(tiles);
@@ -85,13 +85,6 @@ void Entity::update(float delta) {
                         }
                     }
                 }
-                break;
-            }
-            case CollisionMode::SlopeTL: {
-                Vector2f entityBR(getPosition().x + getTextureRect().width, getPosition().y + getTextureRect().height);
-                Vector2f   tileTL(std::floor(getPosition().x / collider->tilemap.tileSize) * collider->tilemap.tileSize, std::floor(getPosition().y / collider->tilemap.tileSize) * collider->tilemap.tileSize);
-                
-                setPosition(getPosition().x, (entityBR.x - tileTL.x) + tileTL.y - getTextureRect().height);
                 break;
             }
             case CollisionMode::NotTouching: {
