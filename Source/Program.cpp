@@ -159,10 +159,14 @@ void Program::main(int argc, char** argv) {
         
         while (accumulator >= optimalTime) {
             player.update(1.0f);
+            #if ROOM_TEST_MODE
+            camera.update(1.0f, Vector2f(startingRoom.x * 640.0f + (320.0f - 8.0f), startingRoom.y * 368.0f + (188.0f - 15.0f)));
+            #else
             #if CAMERA_MODE == 0
             camera.update(1.0f, player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
             #elif CAMERA_MODE == 1
             camera.update(1.0f, Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height - 8) / 368.0f) * 368.0f + 188.0f));
+            #endif
             #endif
             minimap.setPosition(std::floor((camera.getFocalPoint().x) / 640.0f) * -8 + 24, std::floor((camera.getFocalPoint().y) / 368.0f) * -8 + 24);
             accumulator -= optimalTime;
