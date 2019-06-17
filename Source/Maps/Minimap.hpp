@@ -32,6 +32,39 @@ class Minimap : public Tilemap {
         ////////////////////////////////////////////////////////////////////////
         Minimap(uint16_t width, uint16_t height);
         
+        ////////////////////////////////////////////////////////////////////////
+        /// Sets the position of an overlay indicator on the minimap.  Will
+        /// create a new overlay if the requested overlay does not exist.
+        /// 
+        /// @param id
+        ///     The identifier of the overlay to create or modify.
+        /// @param x, y
+        ///     The new position of the overlay on the minimap.
+        ////////////////////////////////////////////////////////////////////////
+        void setOverlayPosition(uint32_t id, uint16_t x, uint16_t y);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Sets the type of an overlay indicator on the minimap.  Will create a
+        /// new overlay if the requested overlay does not exist.
+        /// 
+        /// @param id
+        ///     The identifier of the overlay to create or modify.
+        /// @param type
+        ///     The new type of the overlay.
+        ////////////////////////////////////////////////////////////////////////
+        void setOverlayType(uint32_t id, uint8_t type);
+        
+        ////////////////////////////////////////////////////////////////////////
+        /// Sets the color of an overlay indicator on the minimap.  Will create
+        /// a new overlay if the requested overlay does not exist.
+        /// 
+        /// @param id
+        ///     The identifier of the overlay to create or modify.
+        /// @param color
+        ///     The new color of the overlay.
+        ////////////////////////////////////////////////////////////////////////
+        void setOverlayColor(uint32_t id, const Color& color);
+        
     protected:
         ////////////////////////////////////////////////////////////////////////
         /// Draws the minimap to the given render target.
