@@ -53,12 +53,12 @@ void Entity::update(float delta) {
     for (TilemapCollider* collider : TilemapCollider::all) {
         std::vector<Vector2<uint16_t>> tiles = collider->getTilesTouching(*this);
         CollisionMode mode = collider->prioritizeTileModes(tiles);
+        constexpr float increment = 0.0625f;
         switch (mode) {
             case CollisionMode::None: {
                 break;
             }
             case CollisionMode::Solid: {
-                constexpr float increment = 0.0625f;
                 Vector2f velocity = getVelocity();
                 onGround = true;
                 for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.y * delta); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
@@ -88,6 +88,15 @@ void Entity::update(float delta) {
                 break;
             }
             case CollisionMode::SemiSolid: {
+                Vector2f velocity = getVelocity();
+                if (velocity.y > 0.0f && !Keyboard::isKeyPressed(Keyboard::S)) {
+                    onGround = true;
+                    for (float amountMoved = 0.0f; (mode == CollisionMode::SemiSolid) && std::abs(amountMoved) <= std::abs(velocity.y * delta); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
+                        move(0.0f, velocity.y >= 0.0f ? -increment : increment);
+                        setVelocity(velocity.x, 0.0f);
+                        mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                    }
+                }
                 break;
             }
             case CollisionMode::NotTouching: {
