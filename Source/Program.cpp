@@ -34,7 +34,7 @@ using namespace sf;
 using stx::nullopt;
 
 #define WINDOWED_SCALE 0
-#define CAMERA_MODE 1
+#define CAMERA_MODE 0
 #define ROOM_TEST_MODE 0
 #define GAME_LOOP_MODE 0
 
