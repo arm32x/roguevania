@@ -91,11 +91,15 @@ void Entity::update(float delta) {
                 Vector2f velocity = getVelocity();
                 if (velocity.y > 0.0f && !Keyboard::isKeyPressed(Keyboard::S)) {
                     onGround = true;
-                    for (float amountMoved = 0.0f; (mode == CollisionMode::SemiSolid) && std::abs(amountMoved) <= std::abs(velocity.y * delta); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
+                    for (float amountMoved = 0.0f; (mode == CollisionMode::SemiSolid) && std::abs(amountMoved) <= 1; amountMoved += velocity.y >= 0.0f ? -increment : increment) {
                         move(0.0f, velocity.y >= 0.0f ? -increment : increment);
                         setVelocity(velocity.x, 0.0f);
                         mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                     }
+                    if (mode == CollisionMode::SemiSolid) {
+                        move(0.0f, velocity.y >= 0.0f ? 1.0f : -1.0f);
+                        setVelocity(velocity.x, velocity.y);
+                    }   
                 }
                 break;
             }
