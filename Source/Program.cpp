@@ -105,7 +105,8 @@ void Program::main(int argc, char** argv) {
     #if ROOM_TEST_MODE
     std::string roomFile;
     std::string roomPath = "Resources/Rooms/";
-    std::cout << "Please enter room filename to test:" << std::endl << roomPath;
+    Program::log(Log::Trace, "RoomTestMode") << "Please enter room filename to test:" << std::endl;
+    Program::log(Log::Trace, "RoomTestMode") << roomPath;
     std::cin >> roomFile;
     roomPath.append(roomFile);
     gen.generateRoomLayoutFromFile(startingRoom, roomPath.c_str());
