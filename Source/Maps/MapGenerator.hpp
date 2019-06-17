@@ -142,7 +142,16 @@ class MapGenerator {
         /// @param width, height
         ///     The size of the map, measured in rooms.
         ////////////////////////////////////////////////////////////////////////
-       void connectRooms(std::deque<Room>& rooms, uint16_t width, uint16_t height);
+        void connectRooms(std::deque<Room>& rooms, uint16_t width, uint16_t height);
+        
+        /////////////////////////////////////////////////////////////////////////
+        /// Connects rooms randomly between sections.
+        /// 
+        /// @param rooms
+        ///     A deque of rooms, given in the format returned by
+        ///     ‘generateRooms’
+        /////////////////////////////////////////////////////////////////////////
+        void connectSections(std::deque<Room>& rooms, uint16_t width, uint16_t height);
         
         ////////////////////////////////////////////////////////////////////////
         /// The random number generator to use for generating this map.

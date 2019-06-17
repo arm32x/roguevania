@@ -141,6 +141,7 @@ std::deque<Section> MapGenerator::generateSections(std::deque<Room>& rooms, uint
         hue += golden;
         hue = std::fmod(hue, 1.0f);
     }
+    // TODO:  Connect different sections together.
     return sections;
 }
 
@@ -194,6 +195,27 @@ void MapGenerator::connectRooms(std::deque<Room>& rooms, uint16_t width, uint16_
         }
     }
     #endif
+}
+
+void MapGenerator::connectSections(std::deque<Room>& rooms, uint16_t width, uint16_t height) {
+    for (uint16_t y = 0; y < height; y++) {
+        for (uint16_t x = 0; x < width; x++) {
+            // TODO:  Finish this.
+            if (rooms[(x    ) + width * (y    )].section == nullptr) continue;
+            if (rooms[(x - 1) + width * (y    )].section != nullptr && rooms[(x - 1) + width * (y    )].section != rooms[(x    ) + width * (y    )].section && random.uniform(0, 1) == 0) {
+                
+            }
+            if (rooms[(x    ) + width * (y + 1)].section != nullptr && rooms[(x    ) + width * (y + 1)].section != rooms[(x    ) + width * (y    )].section && random.uniform(0, 1) == 0) {
+                
+            }
+            if (rooms[(x + 1) + width * (y    )].section != nullptr && rooms[(x + 1) + width * (y    )].section != rooms[(x    ) + width * (y    )].section && random.uniform(0, 1) == 0) {
+                
+            }
+            if (rooms[(x    ) + width * (y - 1)].section != nullptr && rooms[(x    ) + width * (y - 1)].section != rooms[(x    ) + width * (y    )].section && random.uniform(0, 1) == 0) {
+                
+            }
+        }
+    }
 }
 
 MapGenerator::Random& MapGenerator::getRandom() {
