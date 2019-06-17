@@ -35,6 +35,7 @@ using stx::nullopt;
 
 #define WINDOWED_SCALE 2
 #define CAMERA_MODE 1
+#define ROOM_TEST_MODE 1
 
 #if WINDOWED_SCALE == 0
 RenderWindow Program::window(VideoMode(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().width * (9.0 / 16.0)), "Roguevania (working title)", Style::Fullscreen);
@@ -80,6 +81,7 @@ void Program::main(int argc, char** argv) {
     CollisionMap clmp;
     clmp.loadFromFile("Resources/Tilemaps/Default.clmp");
     
+    #if !ROOM_TEST_MODE
     for (Room& room : rooms) {
         if (room.section == nullptr) continue;
         gen.generateRoomLayout(room);
@@ -91,6 +93,7 @@ void Program::main(int argc, char** argv) {
             }
         }
     }
+    #endif
     
     std::deque<Room*> startingRoomCandidates;
     for (Room& room : rooms) {
@@ -101,8 +104,14 @@ void Program::main(int argc, char** argv) {
         startingRoomCandidates.push_front(&room);
     }
     Room& startingRoom = *gen.getRandom().pick(startingRoomCandidates);
-    //startingRoom.tilemap = nullopt;
+    #if ROOM_TEST_MODE
+    std::string roomName;
+    std::cout << "Please enter room filename to test:" << std::endl << "Resources/Rooms/";
+    std::cin >> roomName;
+    gen.generateRoomLayoutFromFile(startingRoom, roomName.c_str());
+    #else
     gen.generateRoomLayoutFromFile(startingRoom, "Resources/Rooms/special_00000101_spawnpoint.rrm");
+    #endif
     
     Texture entitiesTexture;
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
