@@ -59,7 +59,7 @@ void Entity::update(float delta) {
             }
             case CollisionMode::Solid: {
                 constexpr float increment = 0.0625f;
-                Vector2f velocity = getVelocity() * delta;
+                Vector2f velocity = getVelocity();
                 onGround = true;
                 for (float amountMoved = 0.0f; (mode == CollisionMode::Solid) && std::abs(amountMoved) <= std::abs(velocity.y); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
                     move(0.0f, velocity.y >= 0.0f ? -increment : increment);
@@ -85,6 +85,9 @@ void Entity::update(float delta) {
                         }
                     }
                 }
+                break;
+            }
+            case CollisionMode::SemiSolid: {
                 break;
             }
             case CollisionMode::NotTouching: {
