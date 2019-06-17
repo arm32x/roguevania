@@ -81,10 +81,11 @@ void Program::main(int argc, char** argv) {
     CollisionMap clmp;
     clmp.loadFromFile("Resources/Tilemaps/Default.clmp");
     
-    #if !ROOM_TEST_MODE
     for (Room& room : rooms) {
         if (room.section == nullptr) continue;
+        #if !ROOM_TEST_MODE
         gen.generateRoomLayout(room);
+        #endif
         room.tilemap->collider.emplace(*room.tilemap, clmp);
         room.tilemap->setPosition(room.x * 640, room.y * 368);
         for (uint16_t y = 0; y < 23; y++) {
@@ -93,7 +94,6 @@ void Program::main(int argc, char** argv) {
             }
         }
     }
-    #endif
     
     std::deque<Room*> startingRoomCandidates;
     for (Room& room : rooms) {
