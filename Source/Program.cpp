@@ -105,10 +105,12 @@ void Program::main(int argc, char** argv) {
     }
     Room& startingRoom = *gen.getRandom().pick(startingRoomCandidates);
     #if ROOM_TEST_MODE
-    std::string roomName;
-    std::cout << "Please enter room filename to test:" << std::endl << "Resources/Rooms/";
-    std::cin >> roomName;
-    gen.generateRoomLayoutFromFile(startingRoom, roomName.c_str());
+    std::string roomFile;
+    std::string roomPath = "Resources/Rooms/";
+    std::cout << "Please enter room filename to test:" << std::endl << roomPath;
+    std::cin >> roomFile;
+    roomPath.append(roomFile);
+    gen.generateRoomLayoutFromFile(startingRoom, roomPath.c_str());
     #else
     gen.generateRoomLayoutFromFile(startingRoom, "Resources/Rooms/special_00000101_spawnpoint.rrm");
     #endif
