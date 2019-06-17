@@ -114,6 +114,8 @@ void Program::main(int argc, char** argv) {
 #else
     gen.generateRoomLayoutFromFile(startingRoom, "Resources/Rooms/special_00000101_spawnpoint.rrm");
 #endif
+    minimap.setOverlayType(1, 0x0E);
+    minimap.setOverlayPosition(1, startingRoom.x, startingRoom.y);
     
     Texture entitiesTexture;
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
