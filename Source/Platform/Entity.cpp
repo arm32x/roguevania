@@ -98,6 +98,7 @@ void Entity::update(float delta) {
                         mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                     }
                     if (mode == CollisionMode::SemiSolid) {
+                        onGround = false;
                         move(0.0f, -amountMoved);
                         setVelocity(velocity.x, velocity.y);
                     }   
