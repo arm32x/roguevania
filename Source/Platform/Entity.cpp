@@ -107,7 +107,7 @@ void Entity::update(float delta) {
             }
             case CollisionMode::SlopeTL: {
                 auto getRelativePosition = [this]() -> Vector2f {
-                    return Vector2f(std::fmod(getPosition().x + 16, 16), std::fmod(getPosition().y + 30, 16));
+                    return Vector2f(std::fmod(getPosition().x + 16, 16), 16 - std::fmod(getPosition().y + 30, 16));
                 };
                 Vector2f relativePosition = getRelativePosition();
                 if (relativePosition.x < relativePosition.y) {
