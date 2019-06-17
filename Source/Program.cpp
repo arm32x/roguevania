@@ -197,6 +197,7 @@ int main(int argc, char** argv) {
     try {
         Program::main(argc, argv);
     } catch (...) {
+        Program::window.close();
         system("pause");
         throw;
     }
