@@ -110,9 +110,9 @@ void Entity::update(float delta) {
                     return Vector2f(std::fmod(getPosition().x, 16), std::fmod(getPosition().y, 16));
                 };
                 Vector2f relativePosition = getRelativePosition();
-                if (relativePosition.x < 16 - relativePosition.y) {
+                if (relativePosition.x < relativePosition.y) {
                     onGround = true;
-                    for (float amountMoved = 0.0f; (mode == CollisionMode::SlopeTL && relativePosition.x < 16 - relativePosition.y) && std::abs(amountMoved) <= std::abs(velocity.y * delta) + 16; amountMoved += velocity.y >= 0.0f ? -increment : increment) {
+                    for (float amountMoved = 0.0f; (mode == CollisionMode::SlopeTL && relativePosition.x < relativePosition.y) && std::abs(amountMoved) <= std::abs(velocity.y * delta) + 16; amountMoved += velocity.y >= 0.0f ? -increment : increment) {
                         move(0.0f, velocity.y >= 0.0f ? -increment : increment);
                         setVelocity(velocity.x, 0.0f);
                         mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
