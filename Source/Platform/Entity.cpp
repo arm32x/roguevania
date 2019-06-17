@@ -105,6 +105,22 @@ void Entity::update(float delta) {
                 }
                 break;
             }
+            case CollisionMode::SlopeTL: {
+                auto getRelativePosition = [this]() -> Vector2f {
+                    return Vector2f(std::fmod(getPosition().x, 16), std::fmod(getPosition().y, 16));
+                };
+                Vector2f relativePosition = getRelativePosition();
+                if (relativePosition.x < relativePosition.y) {
+                    onGround = true;
+                    for (float amountMoved = 0.0f; (mode == CollisionMode::SlopeTL && relativePosition.x < relativePosition.y) && std::abs(amountMoved) <= std::abs(velocity.y * delta); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
+                        move(0.0f, velocity.y >= 0.0f ? -increment : increment);
+                        setVelocity(velocity.x, 0.0f);
+                        mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                        relativePosition = getRelativePosition();
+                    }
+                }
+                break;
+            }
             case CollisionMode::NotTouching: {
                 break;
             }
