@@ -34,7 +34,7 @@ using namespace sf;
 using stx::nullopt;
 
 #define WINDOWED_SCALE 2
-#define CAMERA_MODE 0
+#define CAMERA_MODE 1
 
 #if WINDOWED_SCALE == 0
 RenderWindow Program::window(VideoMode(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().width * (9.0 / 16.0)), "Roguevania (working title)", Style::Fullscreen);
