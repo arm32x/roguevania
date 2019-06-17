@@ -119,6 +119,7 @@ void Program::main(int argc, char** argv) {
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
     Player player(entitiesTexture, IntRect(16, 2, 16, 30));
     player.setPosition(startingRoom.x * 640.0f + (320.0f - 8.0f), startingRoom.y * 368.0f + (188.0f - 15.0f));
+    minimap.setOverlayType(0, 0x0E);
     
     Clock clock;
 #if GAME_LOOP_MODE == 0
@@ -184,6 +185,7 @@ void Program::main(int argc, char** argv) {
 #endif
 #endif
             minimap.setPosition(std::floor((camera.getFocalPoint().x) / 640.0f) * -8 + 24, std::floor((camera.getFocalPoint().y) / 368.0f) * -8 + 24);
+            minimap.setOverlayPosition(0, std::floor((camera.getFocalPoint().x) / 640.0f), std::floor((camera.getFocalPoint().y) / 368.0f));
 #if GAME_LOOP_MODE == 0
             accumulator -= optimalTime;
 #endif
