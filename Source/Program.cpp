@@ -119,7 +119,7 @@ void Program::main(int argc, char** argv) {
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
     Player player(entitiesTexture, IntRect(16, 2, 16, 30));
     player.setPosition(startingRoom.x * 640.0f + (320.0f - 8.0f), startingRoom.y * 368.0f + (188.0f - 15.0f));
-    minimap.setOverlayType(0, 0x0E);
+    minimap.setOverlayType(0, 0x0F);
     
     Clock clock;
 #if GAME_LOOP_MODE == 0
