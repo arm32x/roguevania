@@ -1,0 +1,19 @@
+#pragma once
+
+#include "../Platform/Entity.hpp"
+
+namespace Roguevania {
+namespace Platform {
+
+////////////////////////////////////////////////////////////////////////////////
+/// Represent an enemy in the game.
+////////////////////////////////////////////////////////////////////////////////
+class Enemy : public Entity {
+        
+    public:
+        using Entity::Entity;
+        
+};
+
+};
+};
