@@ -5,7 +5,11 @@ using namespace Roguevania::Platform;
 using namespace sf;
 
 void Player::update(float delta) {
-    if (jumping && getVelocity().y < 0.0f) accelerate(0.0f, -0.15f * delta);
+    if (jumping && getVelocity().y < 0.0f) {
+        gravityScale = 0.6f;
+    } else {
+        gravityScale = 1.0f;
+    }
     Entity::update(delta);
     
     // Handle movement controls.
