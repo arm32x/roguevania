@@ -120,7 +120,7 @@ void Program::main(int argc, char** argv) {
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
     Player player(entitiesTexture, IntRect(16, 2, 16, 30));
     player.setPosition(startingRoom.x * 640.0f + (320.0f - 8.0f), startingRoom.y * 368.0f + (188.0f - 15.0f));
-    HorizontalFlyingEnemy(entitiesTexture, IntRect(48, 17, 16, 15), startingRoom.x * 640.0f + (320.0f - 8.0f), startingRoom.y * 368.0f + (188.0f - 7.0f));
+    HorizontalFlyingEnemy horiz(entitiesTexture, IntRect(48, 17, 16, 15), startingRoom.x * 640.0f + (320.0f - 8.0f), startingRoom.y * 368.0f + (188.0f - 7.0f));
     minimap.setOverlayType(0, 0x0F);
     
 #if CAMERA_MODE == 0
@@ -218,6 +218,11 @@ void Program::main(int argc, char** argv) {
             Vector2f playerOldPosition = player.alignPosition();
             window.draw(player);
             player.setPosition(playerOldPosition);
+        }
+        {
+            Vector2f horizOldPosition = horiz.alignPosition();
+            window.draw(horiz);
+            horiz.setPosition(horizOldPosition);
         }
         window.draw(minimap);
         window.display();
