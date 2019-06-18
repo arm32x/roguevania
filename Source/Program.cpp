@@ -43,12 +43,10 @@ RenderWindow Program::window(VideoMode(VideoMode::getDesktopMode().width, VideoM
 #else
 RenderWindow Program::window(VideoMode(640 * WINDOWED_SCALE, 360 * WINDOWED_SCALE), "Roguevania (working title)", Style::Titlebar | Style::Close);
 #endif
-Camera Program::camera;
 Log Program::log("Roguevania", Log::Debug);
 
 void Program::main(int argc, char** argv) {
     window.setVerticalSyncEnabled(true);
-    window.setView(camera.view);
 #ifdef _WIN32
     // Enable ANSI escape codes.
     SetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), 0x0005);
@@ -123,6 +121,13 @@ void Program::main(int argc, char** argv) {
     Player player(entitiesTexture, IntRect(16, 2, 16, 30));
     player.setPosition(startingRoom.x * 640.0f + (320.0f - 8.0f), startingRoom.y * 368.0f + (188.0f - 15.0f));
     minimap.setOverlayType(0, 0x0F);
+    
+#if CAMERA_MODE == 0
+    Camera camera (player.getPosition() + Vector2f(player.getTextureRect().width / 2, player.getTextureRect().height / 2) /* + Vector2f(Mouse::getPosition(window) / WINDOWED_SCALE - Vector2i(320, 180)) / 4.0f */);
+#elif CAMERA_MODE == 1
+    Camera camera (Vector2f(std::floor((player.getPosition().x + player.getTextureRect().width / 2) / 640.0f) * 640.0f + 320.0f, std::floor((player.getPosition().y + player.getTextureRect().height - 8) / 368.0f) * 368.0f + 188.0f));
+#endif
+    window.setView(camera.view);
     
     Clock clock;
 #if GAME_LOOP_MODE == 0
