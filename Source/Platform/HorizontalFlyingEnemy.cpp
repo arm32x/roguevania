@@ -31,5 +31,6 @@ void HorizontalFlyingEnemy::update(float delta) {
     
     cycle += delta;
     
+    gravityScale = 0.0f;
     Enemy::update(delta);
 }
