@@ -178,6 +178,7 @@ void Program::main(int argc, char** argv) {
             delta /= 2;
             substeps *= 2;
         }
+        if (substeps > 1) Program::log(Log::Warning, "GameLoop") << "Split " << (delta * substeps) << " into " << substeps << " of " << delta << ".  Is the game overloaded?" << std::endl;
         for (; substeps > 0; substeps--) {
 #endif
 #if GAME_LOOP_MODE == 0
