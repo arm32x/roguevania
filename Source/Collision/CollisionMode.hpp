@@ -22,12 +22,13 @@ class CollisionMode {
             Undefined   = 0xFF,
             NotTouching = 0xF0,
             None        = 0x00,
+            SlopeTL     = 0x90,
+            SlopeTR     = 0x91,
+            SlopeBL     = 0x92,
+            SlopeBR     = 0x93,
             SemiSolid   = 0xA0,
             Solid       = 0xB0,
-            SlopeTL     = 0xC0,
-            SlopeTR     = 0xC1,
-            SlopeBL     = 0xC2,
-            SlopeBR     = 0xC3,
+            Damaging    = 0xD0,
         };
         
         CollisionMode();
