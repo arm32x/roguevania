@@ -19,7 +19,9 @@ using stx::nullopt;
 class Entity : public Sprite {
         
     public:
-        using Sprite::Sprite;
+        Entity(const Texture& texture);
+        Entity(const Texture& texture, const IntRect& rectangle);
+        ~Entity();
         
         ////////////////////////////////////////////////////////////////////////
         /// Get the velocity of this entity.
@@ -85,8 +87,9 @@ class Entity : public Sprite {
         virtual void event(const Event& e);
         
         ////////////////////////////////////////////////////////////////////////
-        /// Contains all of the 
+        /// Contains all of the entities that currently exist.
         ////////////////////////////////////////////////////////////////////////
+        static std::vector<Entity*> all;
         
     protected:
         ////////////////////////////////////////////////////////////////////////

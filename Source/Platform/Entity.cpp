@@ -13,6 +13,20 @@ using namespace Roguevania::Collision;
 using namespace Roguevania::Platform;
 using namespace sf;
 
+Entity::Entity(const Texture& texture)
+    : Sprite(texture) {
+    all.push_back(this);
+}
+
+Entity::Entity(const Texture& texture, const IntRect& rectangle)
+    : Sprite(texture, rectangle) {
+    all.push_back(this);
+}
+
+Entity::~Entity() {
+    all.erase(std::remove(all.begin(), all.end(), this), all.end());
+}
+
 const Vector2f& Entity::getVelocity() const {
     return velocity;
 }
@@ -146,3 +160,5 @@ void Entity::update(float delta) {
 void Entity::event(const Event& e) {
     
 }
+
+std::vector<Entity*> Entity::all;
