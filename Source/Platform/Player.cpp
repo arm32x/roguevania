@@ -6,7 +6,7 @@ using namespace sf;
 
 void Player::update(float delta) {
     if (jumping && getVelocity().y < 0.0f) {
-        gravityScale = 0.25f;
+        gravityScale = 0.1f;
     } else {
         gravityScale = 1.0f;
     }
@@ -25,7 +25,7 @@ void Player::event(const Event& e) {
                 case Keyboard::Space:
                     if (onGround) {
                         jumping = true;
-                        setVelocity(getVelocity().x, -3.75f);
+                        setVelocity(getVelocity().x, -3.0f);
                     }
                     break;
                 default:
