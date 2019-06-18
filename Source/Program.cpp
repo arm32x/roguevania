@@ -187,6 +187,7 @@ void Program::main(int argc, char** argv) {
             float delta = 1.0f;
 #endif
             player.update(delta);
+            horiz.update(delta);
 #if ROOM_TEST_MODE
             camera.update(delta, Vector2f(startingRoom.x * 640.0f + 320.0f, startingRoom.y * 368.0f + 188.0f));
 #else
