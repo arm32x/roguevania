@@ -27,7 +27,7 @@ HorizontalFlyingEnemy::HorizontalFlyingEnemy(const Texture& texture, const Vecto
 }
 
 void HorizontalFlyingEnemy::update(float delta) {
-    setPosition(base.x + std::sin(cycle / 32.0f) * 64.0f, base.y + std::sin(cycle / 8.0f) * 8.0f);
+    setPosition(base.x + std::sin(cycle / 32.0f) * 64.0f, base.y + std::sin(cycle / 8.0f) * 4.0f);
     
     cycle += delta;
     
