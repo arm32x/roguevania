@@ -6,7 +6,7 @@ using namespace sf;
 
 void Player::update(float delta) {
     if (jumping && getVelocity().y < 0.0f) {
-        gravityScale = 0.4f;
+        gravityScale = 0.25f;
     } else {
         gravityScale = 1.0f;
     }
