@@ -8,6 +8,8 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
 
+#include "../Collision/CollisionMode.hpp"
+
 namespace Roguevania {
 namespace Platform {
 using namespace sf;
@@ -72,7 +74,6 @@ class Entity : public Sprite {
         float gravityScale = 1.0f;
         
     protected:
-        
         ////////////////////////////////////////////////////////////////////////
         /// The velocity of this entity, measured in pixels per frame.
         ////////////////////////////////////////////////////////////////////////

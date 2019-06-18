@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-#include "../Collision/CollisionMode.hpp"
 #include "../Collision/TilemapCollider.hpp"
 #include "../Exceptions/Exception.hpp"
 #include "../Maps/Tilemap.hpp"
