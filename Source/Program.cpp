@@ -33,7 +33,7 @@ using namespace Roguevania::Utilities;
 using namespace sf;
 using stx::nullopt;
 
-#define WINDOWED_SCALE 0
+#define WINDOWED_SCALE 2
 #define CAMERA_MODE 1
 #define ROOM_TEST_MODE 1
 #define GAME_LOOP_MODE 1
