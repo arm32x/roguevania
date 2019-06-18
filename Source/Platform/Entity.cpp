@@ -33,6 +33,14 @@ void Entity::accelerate(float x, float y) {
     accelerate(Vector2f(x, y));
 }
 
+CollisionMode Entity::getCollisionMode() const {
+    return collisionMode;
+}
+
+void Entity::setCollisionMode(CollisionMode mode) {
+    collisionMode = mode;
+}
+
 Vector2f Entity::alignPosition() {
     Vector2f old = getPosition();
     setPosition(std::round(old.x), std::round(old.y));
