@@ -105,6 +105,7 @@ void Entity::update(float delta) {
                 }
                 break;
             }
+#if FALSE
             case CollisionMode::SlopeTL: {
                 auto getRelativePosition = [this]() -> Vector2f {
                     return Vector2f(std::fmod(getPosition().x + 16, 16), 16 - std::fmod(getPosition().y + 30, 16));
@@ -122,6 +123,7 @@ void Entity::update(float delta) {
                 }
                 break;
             }
+#endif
             case CollisionMode::NotTouching: {
                 break;
             }
