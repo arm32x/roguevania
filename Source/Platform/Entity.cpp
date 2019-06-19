@@ -137,6 +137,8 @@ void Entity::update(float delta) {
                         move(0.0f, -amountMoved);
                         setVelocity(velocity.x, velocity.y);
                     }   
+                } else if (velocity.y > 0.0f && Keyboard::isKeyPressed(Keyboard::S)) {
+                    setVelocity(velocity.x, 0.0f);
                 }
                 break;
             }
