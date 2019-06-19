@@ -36,7 +36,7 @@ using stx::nullopt;
 
 #define WINDOWED_SCALE 2
 #define CAMERA_MODE 1
-#define ROOM_TEST_MODE 1
+#define ROOM_TEST_MODE 0    
 #define GAME_LOOP_MODE 1
 
 #if WINDOWED_SCALE == 0
@@ -105,8 +105,8 @@ void Program::main(int argc, char** argv) {
 #if ROOM_TEST_MODE
     std::string roomFile;
     std::string roomPath = "Resources/Rooms/";
-    Program::log(Log::Trace, "RoomTestMode") << "Please enter room filename to test:" << std::endl;
-    Program::log(Log::Trace, "RoomTestMode") << roomPath;
+    Program::log(Log::Info, "RoomTestMode") << "Please enter room filename to test:" << std::endl;
+    Program::log(Log::Info, "RoomTestMode") << roomPath;
     std::cin >> roomFile;
     roomPath.append(roomFile);
     gen.generateRoomLayoutFromFile(startingRoom, roomPath.c_str());
