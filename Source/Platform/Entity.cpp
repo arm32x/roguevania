@@ -108,6 +108,7 @@ void Entity::update(float delta) {
                 }
                 break;
             }
+            // TODO:  Fix falling through semisolid platforms when rubbing against solid walls.
             case CollisionMode::SemiSolid: {
                 Vector2f velocity = getVelocity();
                 if (velocity.y > 0.0f && !Keyboard::isKeyPressed(Keyboard::S)) {
