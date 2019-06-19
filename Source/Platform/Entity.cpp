@@ -97,13 +97,26 @@ void Entity::update(float delta) {
                     }
                     move(0.0f, velocity.y);
                     mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
-                    if (mode == CollisionMode::Solid || (mode == CollisionMode::SemiSolid && (velocity.y > 0.0f && !Keyboard::isKeyPressed(Keyboard::S)))) {
+                    if (mode == CollisionMode::Solid) {
                         onGround = true;
-                        for (float amountMoved = 0.0f; (mode == CollisionMode::Solid || (mode == CollisionMode::SemiSolid && (velocity.y > 0.0f && !Keyboard::isKeyPressed(Keyboard::S)))) && std::abs(amountMoved) <= std::abs(velocity.y * delta); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
+                        for (float amountMoved = 0.0f; (mode == CollisionMode::Solid && std::abs(amountMoved) <= std::abs(velocity.y * delta)); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
                             move(0.0f, velocity.y >= 0.0f ? -increment : increment);
                             setVelocity(velocity.x, 0.0f);
                             mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                         }
+                    } else if (mode == CollisionMode::SemiSolid && (velocity.y > 0.0f && !Keyboard::isKeyPressed(Keyboard::S))) {
+                        onGround = true;
+                        float amountMoved;
+                        for (amountMoved = 0.0f; (mode == CollisionMode::SemiSolid) && std::abs(amountMoved) <= std::abs(velocity.y * delta); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
+                            move(0.0f, velocity.y >= 0.0f ? -increment : increment);
+                            setVelocity(velocity.x, 0.0f);
+                            mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
+                        }
+                        if (mode == CollisionMode::SemiSolid) {
+                            onGround = false;
+                            move(0.0f, -amountMoved);
+                            setVelocity(velocity.x, velocity.y);
+                        }   
                     }
                 }
                 break;
