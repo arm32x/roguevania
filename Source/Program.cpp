@@ -213,12 +213,10 @@ void Program::main(int argc, char** argv) {
         window.clear();
         for (Room& room : rooms) {
             if (room.tilemap) {
-                Vector2f cameraOldCenter = camera.alignCenter();
                 if (room.tilemap->getPosition().x >= camera.view.getCenter().x + 320.0f) continue;
                 if (room.tilemap->getPosition().x + room.tilemap->width  * room.tilemap->tileSize <= camera.view.getCenter().x - 320.0f) continue;
                 if (room.tilemap->getPosition().y >= camera.view.getCenter().y + 180.0f) continue;
                 if (room.tilemap->getPosition().y + room.tilemap->height * room.tilemap->tileSize <= camera.view.getCenter().y - 180.0f) continue;
-                camera.view.setCenter(cameraOldCenter);
                 window.draw(*room.tilemap);
             }
         }
