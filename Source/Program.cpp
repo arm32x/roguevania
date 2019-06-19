@@ -204,6 +204,7 @@ void Program::main(int argc, char** argv) {
 #endif
         }
         
+        // TODO:  Optimize rendering.
         {
             Vector2f cameraOldCenter = camera.alignCenter();
             window.setView(camera.view);
