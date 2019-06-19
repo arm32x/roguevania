@@ -124,10 +124,10 @@ void Entity::update(float delta) {
             // TODO:  Fix falling through semisolid platforms when rubbing against solid walls.
             case CollisionMode::SemiSolid: {
                 Vector2f velocity = getVelocity();
-                if (velocity.y > 0.0f && !Keyboard::isKeyPressed(Keyboard::S)) {
+                if (velocity.y > 0.0f) {
                     onGround = true;
                     float amountMoved;
-                    for (amountMoved = 0.0f; (mode == CollisionMode::SemiSolid) && std::abs(amountMoved) <= std::abs(velocity.y * delta); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
+                    if (!Keyboard::isKeyPressed(Keyboard::S)) for (amountMoved = 0.0f; (mode == CollisionMode::SemiSolid) && std::abs(amountMoved) <= std::abs(velocity.y * delta); amountMoved += velocity.y >= 0.0f ? -increment : increment) {
                         move(0.0f, velocity.y >= 0.0f ? -increment : increment);
                         setVelocity(velocity.x, 0.0f);
                         mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
@@ -136,9 +136,7 @@ void Entity::update(float delta) {
                         onGround = false;
                         move(0.0f, -amountMoved);
                         setVelocity(velocity.x, velocity.y);
-                    }   
-                } else if (velocity.y > 0.0f && Keyboard::isKeyPressed(Keyboard::S)) {
-                    setVelocity(velocity.x, 0.0f);
+                    }
                 }
                 break;
             }
