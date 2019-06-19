@@ -136,7 +136,7 @@ void Entity::update(float delta) {
                         onGround = false;
                         move(0.0f, -amountMoved);
                     }
-                    if (!Keyboard::isKeyPressed(Keyboard::S)) {
+                    if (mode == CollisionMode::SemiSolid || !Keyboard::isKeyPressed(Keyboard::S)) {
                         setVelocity(velocity.x, velocity.y);
                     }
                 }
