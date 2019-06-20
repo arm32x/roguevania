@@ -8,7 +8,6 @@ using namespace sf;
 Color Utilities::HSVtoRGB(float h, float s, float v) {
     float r, g, b;
     
-    h = std::fmod(h, 1.0f);
     long  i = std::floor(h * 6.0f);
     float f = h * 6.0f - i;
     float p = v * (1 - s);
