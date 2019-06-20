@@ -233,6 +233,9 @@ void Program::main(int argc, char** argv) {
                 if (room.tilemap->getPosition().y >= camera.view.getCenter().y + 180.0f) continue;
                 if (room.tilemap->getPosition().y + room.tilemap->height * room.tilemap->tileSize <= camera.view.getCenter().y - 180.0f) continue;
                 window.draw(*room.tilemap);
+                for (Entity* entity : room.entities) {
+                    window.draw(*entity);
+                }
             }
         }
         {
