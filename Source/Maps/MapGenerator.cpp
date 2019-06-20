@@ -352,6 +352,10 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                 stream.ignore((8 - (length + 4) % 8) % 8);
                 break;
             case 'E':
+                if (room.tilemap == nullopt) {
+                    Program::log(Log::Error, "MapGenerator") << "Room layout file should have exactly one 'RRM' section before an 'E' section." << std::endl;
+                    throw Exceptions::ParseException("Room layout file should have exactly one 'RRM' section before an 'E' section.");
+                }
                 uint8_t enemyType;
                 stream.read(reinterpret_cast<char*>(&enemyType), 1);
                 switch (enemyType) {
@@ -360,7 +364,7 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                         stream.read(reinterpret_cast<char*>(&x), 4);
                         stream.read(reinterpret_cast<char*>(&y), 4);
                         
-                        room.entities.push_back(new HorizontalFlyingEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), x, y));
+                        room.entities.push_back(new HorizontalFlyingEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), (room.x * room.tilemap->width + x) * room.tilemap->tileSize, (room.y * room.tilemap->height + y) * room.tilemap->tileSize));
                         
                         stream.ignore(6);
                         break;
