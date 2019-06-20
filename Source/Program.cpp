@@ -46,6 +46,7 @@ RenderWindow Program::window(VideoMode(VideoMode::getDesktopMode().width, VideoM
 RenderWindow Program::window(VideoMode(640 * WINDOWED_SCALE, 360 * WINDOWED_SCALE), "Roguevania (working title)", Style::Titlebar | Style::Close);
 #endif
 Log Program::log("Roguevania", Log::Debug);
+Texture Entity::spritesheet;
 
 void Program::main(int argc, char** argv) {
     window.setVerticalSyncEnabled(true);
@@ -119,7 +120,7 @@ void Program::main(int argc, char** argv) {
     minimap.setOverlayType(1, 0x0E);
     minimap.setOverlayPosition(1, startingRoom.x, startingRoom.y);
     
-    Texture entitiesTexture;
+    Texture& entitiesTexture = Entity::spritesheet; // Didn’t feel like replacing all uses of this.
     entitiesTexture.loadFromFile("Resources/Spritesheets/Entities.png");
     Player player(entitiesTexture, IntRect(16, 2, 16, 30));
     player.setPosition(startingRoom.x * 640.0f + (320.0f - 8.0f), startingRoom.y * 368.0f + (188.0f - 15.0f));
@@ -189,6 +190,16 @@ void Program::main(int argc, char** argv) {
             float delta = 1.0f;
 #endif
             player.update(delta);
+            for (Room& room : rooms) {
+                if (room.entities.empty() || !room.tilemap) continue;
+                if (room.tilemap->getPosition().x >= camera.view.getCenter().x + 320.0f) continue;
+                if (room.tilemap->getPosition().x + room.tilemap->width  * room.tilemap->tileSize <= camera.view.getCenter().x - 320.0f) continue;
+                if (room.tilemap->getPosition().y >= camera.view.getCenter().y + 180.0f) continue;
+                if (room.tilemap->getPosition().y + room.tilemap->height * room.tilemap->tileSize <= camera.view.getCenter().y - 180.0f) continue;
+                for (Entity* entity : room.entities) {
+                    entity->update(delta);
+                }
+            }
 #if ROOM_TEST_MODE
             camera.update(delta, Vector2f(startingRoom.x * 640.0f + 320.0f, startingRoom.y * 368.0f + 188.0f));
 #else

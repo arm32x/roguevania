@@ -13,11 +13,14 @@
 #include "../Exceptions/ParseException.hpp"
 #include "../Maps/Room.hpp"
 #include "../Maps/Section.hpp"
+#include "../Platform/Entity.hpp"
+#include "../Platform/HorizontalFlyingEnemy.hpp"
 #include "../Utilities/HSVtoRGB.hpp"
 #include "../Program.hpp"
 
 using namespace Roguevania;
 using namespace Roguevania::Maps;
+using namespace Roguevania::Platform;
 namespace ghcfs = ghc::filesystem;
 using stx::nullopt;
 
@@ -347,6 +350,25 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                 }
                 
                 stream.ignore((8 - (length + 4) % 8) % 8);
+                break;
+            case 'E':
+                uint8_t enemyType;
+                stream.read(reinterpret_cast<char*>(&enemyType), 1);
+                switch (enemyType) {
+                    case 0x01: // Horizontal flying enemy.
+                        float x, y;
+                        stream.read(reinterpret_cast<char*>(&x), 4);
+                        stream.read(reinterpret_cast<char*>(&y), 4);
+                        
+                        room.entities.push_back(new HorizontalFlyingEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), x, y));
+                        
+                        stream.ignore(6);
+                        break;
+                    default:
+                        Program::log(Log::Error, "MapGenerator") << "Undefined entity type " << std::hex << std::uppercase << std::setfill('0') << std::setw(2) << +enemyType << std::dec << std::nouppercase << std::setfill(' ') << std::setw(0) << "." << std::endl;
+                        throw Exceptions::ParseException("Undefined entity type.");
+                        break;
+                }
                 break;
             case '\xFF':
                 stream.ignore(7);
