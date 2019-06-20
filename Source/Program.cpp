@@ -4,6 +4,7 @@
 #include <cmath>
 #include <deque>
 #include <functional>
+#include <tuple>
 
 #include <stx/optional.hpp>
 
@@ -25,6 +26,7 @@
 #include "Platform/HorizontalFlyingEnemy.hpp"
 #include "Platform/Player.hpp"
 #include "Utilities/HSVtoRGB.hpp"
+#include "Utilities/RGBtoHSV.hpp"
 
 using namespace Roguevania;
 using namespace Roguevania::Collision;
@@ -86,9 +88,14 @@ void Program::main(int argc, char** argv) {
         gen.generateRoomLayout(room);
         room.tilemap->collider.emplace(*room.tilemap, clmp);
         room.tilemap->setPosition(room.x * 640, room.y * 368);
-        for (uint16_t y = 0; y < 23; y++) {
-            for (uint16_t x = 0; x < 40; x++) {
-                room.tilemap->setTileColor(x, y, room.section->color);
+        for (uint16_t y = 0; y < room.tilemap->height; y++) {
+            for (uint16_t x = 0; x < room.tilemap->width; x++) {
+                float h, s, v;
+                std::tie(h, s, v) = Utilities::RGBtoHSV(room.section->color);
+                h += gen.getRandom().uniform(-0.01f, 0.01f);
+                s += gen.getRandom().uniform(-0.10f, 0.10f);
+                v += gen.getRandom().uniform(-0.05f, 0.05f);
+                room.tilemap->setTileColor(x, y, Utilities::HSVtoRGB(h, s, v));
             }
         }
     }
