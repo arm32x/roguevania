@@ -74,11 +74,7 @@ void Program::main(int argc, char** argv) {
     Minimap minimap(width, height);
     for (Room& room : rooms) {
         minimap.setTileType(room.x, room.y, room.doors | room.openings << 4);
-        if (room.section != nullptr) {
-            minimap.setTileColor(room.x, room.y, room.section->color);
-        } else {
-            minimap.setTileColor(room.x, room.y, Color::Black);
-        }
+        minimap.setTileColor(room.x, room.y, Color::Black);
     }
     
     CollisionMap clmp;
@@ -207,6 +203,7 @@ void Program::main(int argc, char** argv) {
 #endif
             minimap.setPosition(std::floor((camera.getFocalPoint().x) / 640.0f) * -8 + 24, std::floor((camera.getFocalPoint().y) / 368.0f) * -8 + 24);
             minimap.setOverlayPosition(0, std::floor((camera.getFocalPoint().x) / 640.0f), std::floor((camera.getFocalPoint().y) / 368.0f));
+            minimap.setTileColor(std::floor((camera.getFocalPoint().x) / 640.0f), std::floor((camera.getFocalPoint().y) / 368.0f), rooms[std::floor((camera.getFocalPoint().x) / 640.0f) + width * std::floor((camera.getFocalPoint().y) / 368.0f)].section->color);
 #if GAME_LOOP_MODE == 0
             accumulator -= optimalTime;
 #endif
