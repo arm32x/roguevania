@@ -360,11 +360,12 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                 stream.read(reinterpret_cast<char*>(&enemyType), 1);
                 switch (enemyType) {
                     case 0x01: // Horizontal flying enemy.
-                        float x, y;
+                        float x, y, distanceMultiplier;
                         stream.read(reinterpret_cast<char*>(&x), 4);
                         stream.read(reinterpret_cast<char*>(&y), 4);
+                        stream.read(reinterpret_cast<char*>(&distanceMultiplier), 4);
                         
-                        room.entities.push_back(new HorizontalFlyingEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), (room.x * room.tilemap->width + x) * room.tilemap->tileSize, (room.y * room.tilemap->height + y) * room.tilemap->tileSize));
+                        room.entities.push_back(new HorizontalFlyingEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), (room.x * room.tilemap->width + x) * room.tilemap->tileSize, (room.y * room.tilemap->height + y) * room.tilemap->tileSize, distanceMultiplier));
                         
                         stream.ignore(6);
                         break;
