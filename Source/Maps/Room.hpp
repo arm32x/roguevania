@@ -87,7 +87,8 @@ class Room final {
         uint16_t x;                 ///< The X position of the room within the map.
         uint16_t y;                 ///< The Y position of the room within the map.
         
-        stx::optional<Tilemap> tilemap = nullopt; ///< A tilemap representing the layout of this room.
+        stx::optional<Tilemap> tilemap = nullopt;              ///< A tilemap representing the layout of this room.
+        stx::optional<std::vector<Entity>> entities = nullopt; ///< A vector of all entities that are contained in this room.
         
 };
 
