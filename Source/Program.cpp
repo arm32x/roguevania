@@ -36,7 +36,7 @@ using namespace Roguevania::Utilities;
 using namespace sf;
 using stx::nullopt;
 
-#define WINDOWED_SCALE 2
+#define WINDOWED_SCALE 0
 #define CAMERA_MODE 1
 #define ROOM_TEST_MODE 0
 #define GAME_LOOP_MODE 1
@@ -65,6 +65,7 @@ void Program::main(int argc, char** argv) {
     Program::log(Log::Trace, "MapGenerator") << "Generating map..." << std::endl;
     Program::log(Log::Info, "MapGenerator") << "Using seed " << gen.getSeed() << "u." << std::endl;
     
+    // TODO:  Generate the map in a separate thread while displaying a loading bar.
     std::deque<Room> rooms = gen.generateRooms(width, height);
     std::deque<Section> sections = gen.generateSections(rooms, width, height, 32);
     
