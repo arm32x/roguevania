@@ -21,6 +21,7 @@ using namespace sf;
 /// contents.  This is implemented as a subclass of `Tilemap` with additional
 /// view functionality.
 ////////////////////////////////////////////////////////////////////////////////
+// TODO:  Fullscreen minimap.
 class Minimap : public Tilemap {
         
     public:
