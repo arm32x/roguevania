@@ -33,7 +33,6 @@ using namespace Roguevania::Collision;
 using namespace Roguevania::Maps;
 using namespace Roguevania::Platform;
 using namespace Roguevania::Utilities;
-using namespace sf;
 using stx::nullopt;
 
 #define WINDOWED_SCALE 0
