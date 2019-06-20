@@ -95,6 +95,8 @@
 		<Unit filename="Source/Utilities/HSVtoRGB.hpp" />
 		<Unit filename="Source/Utilities/Log.cpp" />
 		<Unit filename="Source/Utilities/Log.hpp" />
+		<Unit filename="Source/Utilities/RGBtoHSV.cpp" />
+		<Unit filename="Source/Utilities/RGBtoHSV.hpp" />
 		<Unit filename="Source/Utilities/clamp.hpp" />
 		<Unit filename="Source/Utilities/clamp.tpp" />
 		<Extensions>
