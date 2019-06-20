@@ -121,6 +121,7 @@ void Entity::update(float delta) {
                 }
                 break;
             }
+            // TODO:  Fix falling through semisolids when touching two semisolids at once.
             case CollisionMode::SemiSolid: {
                 Vector2f velocity = getVelocity();
                 if (velocity.y > 0.0f) {
