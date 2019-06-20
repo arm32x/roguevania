@@ -37,7 +37,7 @@ using stx::nullopt;
 
 #define WINDOWED_SCALE 2
 #define CAMERA_MODE 1
-#define ROOM_TEST_MODE 1
+#define ROOM_TEST_MODE 0
 #define GAME_LOOP_MODE 1
 
 #if WINDOWED_SCALE == 0
