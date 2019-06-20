@@ -367,7 +367,7 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                         
                         room.entities.push_back(new HorizontalFlyingEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), (room.x * room.tilemap->width + x) * room.tilemap->tileSize, (room.y * room.tilemap->height + y) * room.tilemap->tileSize, distanceMultiplier));
                         
-                        stream.ignore(6);
+                        stream.ignore(2);
                         break;
                     default:
                         Program::log(Log::Error, "MapGenerator") << "Undefined entity type " << std::hex << std::uppercase << std::setfill('0') << std::setw(2) << +enemyType << std::dec << std::nouppercase << std::setfill(' ') << std::setw(0) << "." << std::endl;
