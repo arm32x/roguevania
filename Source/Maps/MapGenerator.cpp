@@ -314,7 +314,7 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                                             try {
                                                 room.tilemap->setTileType(x, y, pools[poolID].at(it->second));
                                             } catch (const std::out_of_range& ex) {
-                                                Program::log(Log::Error, "MapGenerator") << "Instance ID " << std::hex << std::uppercase << std::setw(2) << +reinterpret_cast<char*>(&instanceNo)[0] << +reinterpret_cast<char*>(&instanceNo)[1] << std::dec << std::nouppercase << std::setw(0) << " used for a large pool is subsequently used for a smaller pool.  Instances should be used with pools of the same size for intended results." << std::endl;
+                                                Program::log(Log::Error, "MapGenerator") << "Instance ID " << std::hex << std::uppercase << std::setfill('0') << std::setw(2) << +reinterpret_cast<char*>(&instanceNo)[0] << +reinterpret_cast<char*>(&instanceNo)[1] << std::dec << std::nouppercase << std::setfill(' ') << std::setw(0) << " used for a large pool is subsequently used for a smaller pool.  Instances should be used with pools of the same size for intended results." << std::endl;
                                                 throw Exceptions::ParseException("Instance ID used for a large pool is subsequently used for a smaller pool.");
                                             }
                                         } else {
@@ -327,7 +327,7 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                                         room.tilemap->setTileType(x, y, tile);
                                     }
                                 } catch (const std::out_of_range& ex) {
-                                    Program::log(Log::Error, "MapGenerator") << "Pool " << std::hex << std::uppercase << std::setw(2) << +reinterpret_cast<char*>(&poolID)[0] << +reinterpret_cast<char*>(&poolID)[1] << std::dec << std::nouppercase << std::setw(0) << " does not exist." << std::endl;
+                                    Program::log(Log::Error, "MapGenerator") << "Pool " << std::hex << std::uppercase << std::setfill('0') << std::setw(2) << +reinterpret_cast<char*>(&poolID)[0] << +reinterpret_cast<char*>(&poolID)[1] << std::dec << std::nouppercase << std::setfill(' ') << std::setw(0) << " does not exist." << std::endl;
                                 }
                             }
                         }
