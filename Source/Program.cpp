@@ -94,7 +94,7 @@ void Program::main(int argc, char** argv) {
                 float h, s, v;
                 std::tie(h, s, v) = Utilities::RGBtoHSV(room.section->color);
                 h += gen.getRandom().uniform(-0.01f, 0.01f);
-                s += gen.getRandom().uniform(-0.05f, 0.15f);
+                s += gen.getRandom().uniform(-0.02f, 0.10f);
                 v += gen.getRandom().uniform(-0.00f, 0.05f);
                 room.tilemap->setTileColor(x, y, Utilities::HSVtoRGB(h, s, v));
             }

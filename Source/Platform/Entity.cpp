@@ -79,6 +79,7 @@ void Entity::update(float delta) {
             case CollisionMode::None: {
                 break;
             }
+            // TODO:  Fix head-bonking when rubbing against a wall between two tilemaps.
             case CollisionMode::Solid: {
                 Vector2f velocity = getVelocity();
                 onGround = true;
