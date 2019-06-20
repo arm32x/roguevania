@@ -14,7 +14,7 @@ void Player::update(float delta) {
     
     // Handle movement controls.
     /**/ if (Keyboard::isKeyPressed(Keyboard::D) && !Keyboard::isKeyPressed(Keyboard::LShift)) accelerate(( 2.0f - getVelocity().x) / 4.0f * delta, 0.0f);
-    else if (Keyboard::isKeyPressed(Keyboard::A) && !Keyboard::isKeyPressed(Keyboard::LShift)) accelerate((-2.0f - getVelocity().x) / 4.0f * delta, 0.0f);
+    /**/ if (Keyboard::isKeyPressed(Keyboard::A) && !Keyboard::isKeyPressed(Keyboard::LShift)) accelerate((-2.0f - getVelocity().x) / 4.0f * delta, 0.0f);
     else /***********************************************************************************/ accelerate(getVelocity().x / (-4.0f * delta), 0.0f);
 }
 
