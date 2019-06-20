@@ -16,7 +16,7 @@ std::tuple<float, float, float> Utilities::RGBtoHSV(uint8_t R, uint8_t G, uint8_
     float d = r == minRGB ? g - b : b == minRGB ? r - g : b - r;
     float h = r == minRGB ? 3 : b == minRGB ? 1 : 5;
     
-    float H = (h - d / (maxRGB - minRGB)) / 60.0f;
+    float H = (60.0f * (h - d / (maxRGB - minRGB))) / 360.0f;
     float S = (maxRGB - minRGB) / maxRGB;
     float V = maxRGB;
     
