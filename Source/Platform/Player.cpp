@@ -53,7 +53,7 @@ void Player::event(const Event& e) {
                     else break;
                     
                     /// Velocity of bullets.
-                    constexpr float bvel = 10.0f;
+                    constexpr float bvel = 12.0f;
                     /// Diagonal movement constant (sin of 45deg * velocity).
                     constexpr float diag = 0.70710678118f * bvel;
                     switch (direction) {
