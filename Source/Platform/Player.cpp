@@ -35,6 +35,16 @@ void Player::event(const Event& e) {
                         setVelocity(getVelocity().x, -3.75f);
                     }
                     break;
+                default:
+                    Entity::event(e);
+                    break;
+            }
+            break;
+        case Event::KeyReleased:
+            switch(e.key.code) {
+                case Keyboard::Space:
+                    jumping = false;
+                    break;
                 case Keyboard::Enter: {
                     bool up    = Keyboard::isKeyPressed(Keyboard::W);
                     bool right = Keyboard::isKeyPressed(Keyboard::D);
@@ -89,16 +99,6 @@ void Player::event(const Event& e) {
                     break;
             }
             break;
-
-        case Event::KeyReleased:
-            switch (e.key.code) {
-                case Keyboard::Space:
-                    jumping = false;
-                    break;
-                default:
-                    Entity::event(e);
-                    break;
-            }
         default:
             Entity::event(e);
             break;
