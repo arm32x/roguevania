@@ -51,6 +51,7 @@ void Player::event(const Event& e) {
                     bool down  = Keyboard::isKeyPressed(Keyboard::S);
                     bool left  = Keyboard::isKeyPressed(Keyboard::A);
                     
+                    static int8_t lastDirection = 2;
                     int8_t direction;
                     /**/ if ( up && !down && !left == !right) direction = 0;
                     else if ( up && !down && !left &&  right) direction = 1;
@@ -60,7 +61,9 @@ void Player::event(const Event& e) {
                     else if (!up &&  down &&  left && !right) direction = 5;
                     else if (!up == !down &&  left && !right) direction = 6;
                     else if ( up && !down &&  left && !right) direction = 7;
-                    else break;
+                    else direction = lastDirection;
+                    
+                    lastDirection = direction;
                     
                     /// Velocity of bullets.
                     constexpr float bvel = 12.0f;
