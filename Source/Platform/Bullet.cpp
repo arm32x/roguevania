@@ -20,6 +20,7 @@ Bullet::Bullet(const Texture& texture, const IntRect& rectangle, const Vector2f&
 }
 
 void Bullet::update(float delta) {
+    gravityScale = 0.0f;
     Entity::update(delta);
     if (getVelocity().x == 0.0f || getVelocity().y == 0.0f) {
         auto it = std::find(bullets.begin(), bullets.end(), this);
