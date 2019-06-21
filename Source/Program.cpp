@@ -24,7 +24,7 @@
 #include "Maps/Tilemap.hpp"
 #include "Platform/Bullet.hpp"
 #include "Platform/Entity.hpp"
-#include "Platform/HorizontalFlyingEnemy.hpp"
+#include "Platform/SineWaveEnemy.hpp"
 #include "Platform/Player.hpp"
 #include "Utilities/HSVtoRGB.hpp"
 #include "Utilities/RGBtoHSV.hpp"

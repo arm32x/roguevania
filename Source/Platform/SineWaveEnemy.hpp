@@ -15,17 +15,17 @@ using namespace sf;
 /// It flies vertically in a short sine-wave shape.
 ////////////////////////////////////////////////////////////////////////////////
 // TODO:  Add documentation for members.
-class HorizontalFlyingEnemy final : public Enemy {
+class SineWaveEnemy final : public Enemy {
         
     public:
         enum Direction {
             Left, Right
         };
         
-        HorizontalFlyingEnemy(const Texture& texture, const IntRect& rectangle, float x, float y, float distanceMultiplier = 64.0f);
-        HorizontalFlyingEnemy(const Texture& texture, const IntRect& rectangle, const Vector2f& position, float distanceMultiplier = 64.0f);
-        HorizontalFlyingEnemy(const Texture& texture, float x, float y, float distanceMultiplier = 64.0f);
-        HorizontalFlyingEnemy(const Texture& texture, const Vector2f& position, float distanceMultiplier = 64.0f);
+        SineWaveEnemy(const Texture& texture, const IntRect& rectangle, float x, float y, float distanceMultiplier = 64.0f);
+        SineWaveEnemy(const Texture& texture, const IntRect& rectangle, const Vector2f& position, float distanceMultiplier = 64.0f);
+        SineWaveEnemy(const Texture& texture, float x, float y, float distanceMultiplier = 64.0f);
+        SineWaveEnemy(const Texture& texture, const Vector2f& position, float distanceMultiplier = 64.0f);
         
         virtual void update(float delta) override;
         

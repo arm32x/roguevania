@@ -14,7 +14,7 @@
 #include "../Maps/Room.hpp"
 #include "../Maps/Section.hpp"
 #include "../Platform/Entity.hpp"
-#include "../Platform/HorizontalFlyingEnemy.hpp"
+#include "../Platform/SineWaveEnemy.hpp"
 #include "../Utilities/HSVtoRGB.hpp"
 #include "../Program.hpp"
 
@@ -77,7 +77,7 @@ std::deque<Section> MapGenerator::generateSections(std::deque<Room>& rooms, uint
     constexpr float golden = 0.618033988749895;
     float hue = random.uniform(0.0, 1.0);
     for (char sectionID = 'A'; true; sectionID++) {
-        sections.emplace_front(sectionID, Utilities::HSVtoRGB(hue, 0.75, 0.75));
+        sections.emplace_front(sectionID, Utilities::HSVtoRGB(hue, 0.75, 0.5));
         Section& section = sections.front();
         expandSection: while (!fillQueue.empty()) {
             Room& r = *fillQueue.front();
@@ -364,7 +364,7 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                         stream.read(reinterpret_cast<char*>(&y), 4);
                         stream.read(reinterpret_cast<char*>(&distanceMultiplier), 4);
                         
-                        room.entities.push_back(new HorizontalFlyingEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), (room.x * room.tilemap->width + x) * room.tilemap->tileSize, (room.y * room.tilemap->height + y) * room.tilemap->tileSize, distanceMultiplier));
+                        room.entities.push_back(new SineWaveEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), (room.x * room.tilemap->width + x) * room.tilemap->tileSize, (room.y * room.tilemap->height + y) * room.tilemap->tileSize, distanceMultiplier));
                         
                         stream.ignore(2);
                         break;
