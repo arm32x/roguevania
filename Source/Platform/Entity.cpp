@@ -186,6 +186,7 @@ void Entity::update(float delta) {
     {
         std::vector<CollisionMode> modes;
         for (Entity* other : Entity::all) {
+            if (other == this) continue;
             CollisionMode mode = getTouchingMode(*other);
             if (mode != CollisionMode::NotTouching) modes.push_back(mode);
         }
