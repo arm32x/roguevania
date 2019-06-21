@@ -190,7 +190,7 @@ void Entity::update(float delta) {
             if (mode != CollisionMode::NotTouching) modes.push_back(mode);
         }
         CollisionMode mode = CollisionMode::prioritize(modes);
-        collide(mode);
+        if (mode != CollisionMode::NotTouching) collide(mode);
     }
 }
 
