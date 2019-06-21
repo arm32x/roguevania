@@ -262,7 +262,6 @@ void MapGenerator::generateRoomLayoutFromFile(Room& room, const char* filename) 
     generateRoomLayoutFromStream(room, stream);
 }
 
-// TODO:  Implement generating entities (‘E’ section header).
 void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream) {
     std::unordered_map<uint16_t, std::vector<uint8_t>> pools;
     std::unordered_map<uint16_t, uint8_t> instances;
