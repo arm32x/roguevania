@@ -7,10 +7,12 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include "../Collision/CollisionMode.hpp"
 #include "../Platform/Entity.hpp"
 
 namespace Roguevania {
 namespace Platform {
+using namespace Roguevania::Collision;
 using namespace sf;
 
 // TODO:  Add documentation.
@@ -21,6 +23,8 @@ class Bullet : public Entity {
         Bullet(const Texture& texture, const IntRect& rectangle, const Vector2f& position, const Vector2f& velocity);
         
         virtual void update(float delta) override;
+        
+        virtual void collide(CollisionMode mode) override;
         
         static std::vector<Bullet> bullets;
         

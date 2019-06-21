@@ -2,8 +2,6 @@
 
 #include <algorithm>
 
-#include "../Collision/CollisionMode.hpp"
-
 using namespace Roguevania;
 using namespace Roguevania::Collision;
 using namespace Roguevania::Platform;
@@ -30,4 +28,8 @@ void Bullet::update(float delta) {
     if (getVelocity().x != oldVelocity.x || getVelocity().y != oldVelocity.y) {
         setActive(false);
     }
+}
+
+void Bullet::collide(CollisionMode mode) {
+    if (mode != CollisionMode::NotTouching && mode != CollisionMode::None) setActive(false);
 }
