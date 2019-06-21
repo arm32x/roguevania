@@ -19,7 +19,6 @@ Enemy::Enemy(const Texture& texture)
 }
 
 void Enemy::collide(CollisionMode mode) {
-    Program::log(Log::Debug, "Enemy") << "Enemy collide called with mode " << mode << "." << std::endl;
     if (mode == CollisionMode::Bullet) {
         setActive(false);
         for (Entity* entity : Entity::all) {
