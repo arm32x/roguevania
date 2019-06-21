@@ -133,12 +133,12 @@ void Entity::update(float delta) {
                         setVelocity(velocity.x, 0.0f);
                         mode = collider->prioritizeTileModes(collider->getTilesTouching(*this));
                     }
-                    if (mode == CollisionMode::SemiSolid || Keyboard::isKeyPressed(Keyboard::S)) {
+                    if (mode == CollisionMode::SemiSolid || (Keyboard::isKeyPressed(Keyboard::S) && !Keyboard::isKeyPressed(Keyboard::LShift))) {
                         onGround = false;
                         move(0.0f, -amountMoved);
                         setVelocity(velocity.x, velocity.y);
                     }
-                    if (mode != CollisionMode::SemiSolid && Keyboard::isKeyPressed(Keyboard::S)) {
+                    if (mode != CollisionMode::SemiSolid && (Keyboard::isKeyPressed(Keyboard::S) && !Keyboard::isKeyPressed(Keyboard::LShift))) {
                         setVelocity(velocity.x, 0.0f);
                     }
                 }
