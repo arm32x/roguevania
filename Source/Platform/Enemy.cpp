@@ -1,6 +1,7 @@
 #include "Enemy.hpp"
 
 #include "../Platform/Bullet.hpp"
+#include "../Program.hpp"
 
 using namespace Roguevania;
 using namespace Roguevania::Collision;
@@ -18,6 +19,7 @@ Enemy::Enemy(const Texture& texture)
 }
 
 void Enemy::collide(CollisionMode mode) {
+    Program::log(Log::Debug, "Enemy") << "Enemy collide called." << std::endl;
     if (mode == CollisionMode::Bullet) {
         setActive(false);
         for (Entity* entity : Entity::all) {
@@ -28,4 +30,5 @@ void Enemy::collide(CollisionMode mode) {
             }
         }
     }
+    Entity::collide(mode);
 }
