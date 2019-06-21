@@ -41,6 +41,11 @@ using stx::nullopt;
 #define ROOM_TEST_MODE 0
 #define GAME_LOOP_MODE 1
 
+// TODO:  Make at least one room for each room type.
+// TODO:  Add enemies to more rooms in the game.
+// TODO:  Final boss room.
+// TODO:  Upgrade system.
+
 #if WINDOWED_SCALE == 0
 RenderWindow Program::window(VideoMode(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().width * (9.0 / 16.0)), "Roguevania (working title)", Style::Fullscreen);
 #else

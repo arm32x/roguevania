@@ -82,6 +82,9 @@
 		<Unit filename="Source/Maps/Section.hpp" />
 		<Unit filename="Source/Maps/Tilemap.cpp" />
 		<Unit filename="Source/Maps/Tilemap.hpp" />
+		<Unit filename="Source/Platform/Bullet.cpp" />
+		<Unit filename="Source/Platform/Bullet.hpp" />
+		<Unit filename="Source/Platform/Enemy.cpp" />
 		<Unit filename="Source/Platform/Enemy.hpp" />
 		<Unit filename="Source/Platform/Entity.cpp" />
 		<Unit filename="Source/Platform/Entity.hpp" />
