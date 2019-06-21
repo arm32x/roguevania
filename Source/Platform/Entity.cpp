@@ -172,6 +172,7 @@ void Entity::update(float delta) {
                 break;
             }
         }
+        collide(mode);
     }
 }
 
