@@ -29,7 +29,3 @@ void Bullet::update(float delta) {
         setActive(false);
     }
 }
-
-void Bullet::collide(CollisionMode mode) {
-    if (mode != CollisionMode::NotTouching && mode != CollisionMode::None) setActive(false);
-}

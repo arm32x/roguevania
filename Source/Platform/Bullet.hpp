@@ -24,8 +24,6 @@ class Bullet : public Entity {
         
         virtual void update(float delta) override;
         
-        virtual void collide(CollisionMode mode) override;
-        
         static std::vector<Bullet> bullets;
         
 };
