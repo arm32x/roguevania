@@ -1,6 +1,7 @@
 #include "Player.hpp"
 
 #include "../Platform/Bullet.hpp"
+#include "../Program.hpp"
 
 using namespace Roguevania;
 using namespace Roguevania::Platform;
@@ -50,6 +51,7 @@ void Player::event(const Event& e) {
                     else if (!up == !down &&  left && !right) direction = 6;
                     else if ( up && !down &&  left && !right) direction = 7;
                     else break;
+                    Program::log(Log::Debug, "Player") << "Bullet direction is " << direction << "." << std::endl;
                     
                     switch (direction) {
                         case 0: // up
