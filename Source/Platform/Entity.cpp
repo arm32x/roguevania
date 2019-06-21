@@ -183,10 +183,26 @@ void Entity::update(float delta) {
         }
         collide(mode);
     }
+    {
+        std::vector<CollisionMode> modes;
+        for (Entity* other : Entity::all) {
+            CollisionMode mode = getTouchingMode(*other);
+            if (mode != CollisionMode::NotTouching) modes.push_back(mode);
+        }
+        CollisionMode mode = CollisionMode::prioritize(modes);
+        collide(mode);
+    }
 }
 
 void Entity::event(const Event& e) {
     
+}
+
+CollisionMode Entity::getTouchingMode(const Entity& entity) const {
+    bool touching = true;
+    if (getPosition().x + getTextureRect().width  < entity.getPosition().x || getPosition().x > entity.getPosition().x + entity.getTextureRect().width)  touching = false;
+    if (getPosition().y + getTextureRect().height < entity.getPosition().y || getPosition().y > entity.getPosition().y + entity.getTextureRect().height) touching = false;
+    return touching ? entity.getCollisionMode() : CollisionMode::NotTouching;
 }
 
 std::vector<Entity*> Entity::all;

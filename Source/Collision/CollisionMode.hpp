@@ -22,6 +22,7 @@ class CollisionMode {
             Undefined   = 0xFF,
             NotTouching = 0xF0,
             None        = 0x00,
+            Bullet      = 0x10,
             SlopeTL     = 0x90,
             SlopeTR     = 0x91,
             SlopeBL     = 0x92,
