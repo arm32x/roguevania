@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include "../Program.hpp"
+
 using namespace Roguevania;
 using namespace Roguevania::Platform;
 using namespace sf;
@@ -10,6 +12,7 @@ std::vector<Bullet*> Bullet::bullets;
 
 Bullet::Bullet(const Texture& texture, const IntRect& rectangle, float x, float y, float velocityX, float velocityY)
     : Entity(texture, rectangle) {
+    Program::log(Log::Debug, "Bullet") << "Bullet created." << std::endl;
     setPosition(x, y);
     setVelocity(velocityX, velocityY);
 }
