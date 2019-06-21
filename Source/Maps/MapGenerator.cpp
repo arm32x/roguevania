@@ -77,7 +77,7 @@ std::deque<Section> MapGenerator::generateSections(std::deque<Room>& rooms, uint
     constexpr float golden = 0.618033988749895;
     float hue = random.uniform(0.0, 1.0);
     for (char sectionID = 'A'; true; sectionID++) {
-        sections.emplace_front(sectionID, Utilities::HSVtoRGB(hue, 0.75, 0.5));
+        sections.emplace_front(sectionID, Utilities::HSVtoRGB(hue, 0.75, 0.65));
         Section& section = sections.front();
         expandSection: while (!fillQueue.empty()) {
             Room& r = *fillQueue.front();
