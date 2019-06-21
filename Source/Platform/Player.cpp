@@ -68,7 +68,7 @@ void Player::event(const Event& e) {
                             Bullet::bullets.push_back(new Bullet(Entity::spritesheet, IntRect(22, 34,  4, 12), getPosition().x + 6.0f, getPosition().y + 4.0f,  0.0f,  1.0f));
                             break;
                         case 5: // down-left
-                            Bullet::bullets.push_back(new Bullet(Entity::spritesheet, IntRect(35, 35, 10, 10), getPosition().x + 0.0f, getPosition().y + 6.0f, -1.0f,  1.0f));
+                            Bullet::bullets.push_back(new Bullet(Entity::spritesheet, IntRect(51, 35, 10, 10), getPosition().x + 0.0f, getPosition().y + 6.0f, -1.0f,  1.0f));
                             break;
                         case 6: // left
                             Bullet::bullets.push_back(new Bullet(Entity::spritesheet, IntRect( 2, 38, 12,  4), getPosition().x + 0.0f, getPosition().y + 6.0f, -1.0f,  0.0f));
