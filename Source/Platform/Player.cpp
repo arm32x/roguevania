@@ -18,8 +18,10 @@ void Player::update(float delta) {
     // Handle movement controls.
     if (Keyboard::isKeyPressed(Keyboard::D) && !Keyboard::isKeyPressed(Keyboard::A) && !Keyboard::isKeyPressed(Keyboard::LShift)) {
         accelerate(( 2.0f - getVelocity().x) / 4.0f * delta, 0.0f);
+        facingRight = true;
     } else if (Keyboard::isKeyPressed(Keyboard::A) && !Keyboard::isKeyPressed(Keyboard::D) && !Keyboard::isKeyPressed(Keyboard::LShift)) {
         accelerate((-2.0f - getVelocity().x) / 4.0f * delta, 0.0f);
+        facingRight = false;
     } else {
         accelerate(getVelocity().x / (-4.0f * delta), 0.0f);
     }
@@ -51,7 +53,6 @@ void Player::event(const Event& e) {
                     bool down  = Keyboard::isKeyPressed(Keyboard::S);
                     bool left  = Keyboard::isKeyPressed(Keyboard::A);
                     
-                    static int8_t lastDirection = 2;
                     int8_t direction;
                     /**/ if ( up && !down && !left == !right) direction = 0;
                     else if ( up && !down && !left &&  right) direction = 1;
@@ -61,9 +62,7 @@ void Player::event(const Event& e) {
                     else if (!up &&  down &&  left && !right) direction = 5;
                     else if (!up == !down &&  left && !right) direction = 6;
                     else if ( up && !down &&  left && !right) direction = 7;
-                    else direction = lastDirection;
-                    
-                    lastDirection = direction;
+                    else direction = facingRight ? 2 : 6;
                     
                     /// Velocity of bullets.
                     constexpr float bvel = 12.0f;
