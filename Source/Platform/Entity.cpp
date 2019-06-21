@@ -181,7 +181,7 @@ void Entity::update(float delta) {
                 break;
             }
         }
-        collide(mode);
+        if (mode != CollisionMode::NotTouching) collide(mode);
     }
     {
         std::vector<CollisionMode> modes;
