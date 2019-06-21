@@ -23,7 +23,7 @@ void Bullet::update(float delta) {
     Vector2f oldVelocity = getVelocity();
     gravityScale = 0.0f;
     Entity::update(delta);
-    if (getVelocity().x == oldVelocity.x || getVelocity().y == oldVelocity.y) {
+    if (getVelocity().x != oldVelocity.x || getVelocity().y != oldVelocity.y) {
         auto it = std::find(bullets.begin(), bullets.end(), this);
         if (it != bullets.end()) {
             bullets.erase(it, bullets.end());
