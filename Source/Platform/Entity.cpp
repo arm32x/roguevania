@@ -55,6 +55,14 @@ void Entity::setCollisionMode(CollisionMode mode) {
     collisionMode = mode;
 }
 
+bool Entity::getActive() const {
+    return active;
+}
+
+void Entity::setActive(bool value) {
+    active = value;
+}
+
 Vector2f Entity::alignPosition() {
     Vector2f old = getPosition();
     setPosition(std::round(old.x), std::round(old.y));

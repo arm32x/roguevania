@@ -6,7 +6,7 @@ using namespace Roguevania;
 using namespace Roguevania::Platform;
 using namespace sf;
 
-std::vector<Bullet*> Bullet::bullets;
+std::vector<Bullet> Bullet::bullets;
 
 Bullet::Bullet(const Texture& texture, const IntRect& rectangle, float x, float y, float velocityX, float velocityY)
     : Entity(texture, rectangle) {
@@ -24,11 +24,6 @@ void Bullet::update(float delta) {
     gravityScale = 0.0f;
     Entity::update(delta);
     if (getVelocity().x != oldVelocity.x || getVelocity().y != oldVelocity.y) {
-        auto it = std::find(bullets.begin(), bullets.end(), this);
-        if (it != bullets.end()) {
-            bullets.erase(it);
-            delete this; // yeetus yeetus commit self deletus
-        }
-        return;
+        setActive(false);
     }
 }

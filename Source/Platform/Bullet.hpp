@@ -22,7 +22,7 @@ class Bullet : public Entity {
         
         virtual void update(float delta) override;
         
-        static std::vector<Bullet*> bullets;
+        static std::vector<Bullet> bullets;
         
 };
 

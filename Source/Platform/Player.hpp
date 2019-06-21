@@ -24,7 +24,7 @@ class Player : public Entity {
         virtual void event(const Event& e) override;
         
         ////////////////////////////////////////////////////////////////////////
-        //virtual void collide(CollisionMode mode) override;
+        virtual void collide(CollisionMode mode) override;
         
     private:
         ////////////////////////////////////////////////////////////////////////
