@@ -61,6 +61,7 @@ bool Entity::getActive() const {
 
 void Entity::setActive(bool value) {
     active = value;
+    
 }
 
 Vector2f Entity::alignPosition() {

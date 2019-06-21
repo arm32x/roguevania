@@ -199,20 +199,14 @@ void Program::main(int argc, char** argv) {
                 if (room.tilemap->getPosition().y >= camera.view.getCenter().y + 180.0f) continue;
                 if (room.tilemap->getPosition().y + room.tilemap->height * room.tilemap->tileSize <= camera.view.getCenter().y - 180.0f) continue;
                 for (Entity* entity : room.entities) {
-                    if (!entity->getActive()) {
-                        room.entities.erase(std::remove(room.entities.begin(), room.entities.end(), entity), room.entities.end());
-                    } else {
-                        entity->update(delta);
-                    }
+                    entity->update(delta);
                 }
+                room.entities.erase(std::remove_if(room.entities.begin(), room.entities.end(), [](const Entity* entity) -> bool { bool active = entity->getActive(); if (!active) delete entity; return !active; }), room.entities.end());
             }
             for (Bullet& bullet : Bullet::bullets) {
-                if (!bullet.getActive()) {
-                    Bullet::bullets.erase(std::remove_if(Bullet::bullets.begin(), Bullet::bullets.end(), [&bullet](const Bullet& other) -> bool { return &bullet == &other; }), Bullet::bullets.end());
-                } else {
-                    bullet.update(delta);
-                }
+                bullet.update(delta);
             }
+            Bullet::bullets.erase(std::remove_if(Bullet::bullets.begin(), Bullet::bullets.end(), [](const Bullet& bullet) -> bool { return !bullet.getActive(); }), Bullet::bullets.end());
 #if ROOM_TEST_MODE
             camera.update(delta, Vector2f(startingRoom.x * 640.0f + 320.0f, startingRoom.y * 368.0f + 188.0f));
 #else
