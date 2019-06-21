@@ -22,6 +22,7 @@
 #include "Maps/Room.hpp"
 #include "Maps/Section.hpp"
 #include "Maps/Tilemap.hpp"
+#include "Platform/Bullet.hpp"
 #include "Platform/Entity.hpp"
 #include "Platform/HorizontalFlyingEnemy.hpp"
 #include "Platform/Player.hpp"
@@ -201,6 +202,9 @@ void Program::main(int argc, char** argv) {
                     entity->update(delta);
                 }
             }
+            for (Bullet* bullet : Bullet::bullets) {
+                bullet->update(delta);
+            }
 #if ROOM_TEST_MODE
             camera.update(delta, Vector2f(startingRoom.x * 640.0f + 320.0f, startingRoom.y * 368.0f + 188.0f));
 #else
@@ -235,9 +239,16 @@ void Program::main(int argc, char** argv) {
                 if (room.tilemap->getPosition().y + room.tilemap->height * room.tilemap->tileSize <= camera.view.getCenter().y - 180.0f) continue;
                 window.draw(*room.tilemap);
                 for (Entity* entity : room.entities) {
+                    Vector2f entityOldPosition = entity->alignPosition();
                     window.draw(*entity);
+                    entity->setPosition(entityOldPosition);
                 }
             }
+        }
+        for (Bullet* bullet : Bullet::bullets) {
+            Vector2f bulletOldPosition = bullet->alignPosition();
+            window.draw(*bullet);
+            bullet->setPosition(bulletOldPosition);
         }
         {
             Vector2f playerOldPosition = player.alignPosition();
