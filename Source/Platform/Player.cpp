@@ -111,5 +111,4 @@ void Player::collide(CollisionMode mode) {
     if (mode == CollisionMode::Damaging) {
         Program::window.close();
     }
-    Entity::collide(mode);
 }

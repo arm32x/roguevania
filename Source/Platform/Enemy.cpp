@@ -30,5 +30,4 @@ void Enemy::collide(CollisionMode mode) {
             }
         }
     }
-    Entity::collide(mode);
 }
