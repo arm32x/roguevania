@@ -19,7 +19,6 @@ class Bullet : public Entity {
     public:
         Bullet(const Texture& texture, const IntRect& rectangle, float x, float y, float velocityX, float velocityY);
         Bullet(const Texture& texture, const IntRect& rectangle, const Vector2f& position, const Vector2f& velocity);
-        ~Bullet();
         
         virtual void update(float delta) override;
         
