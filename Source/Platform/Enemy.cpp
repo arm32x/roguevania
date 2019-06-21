@@ -7,6 +7,16 @@ using namespace Roguevania::Collision;
 using namespace Roguevania::Platform;
 using namespace sf;
 
+Enemy::Enemy(const Texture& texture, const IntRect& rectangle)
+    : Entity(texture, rectangle) {
+    setCollisionMode(CollisionMode::Damaging);
+}
+
+Enemy::Enemy(const Texture& texture)
+    : Entity(texture) {
+    setCollisionMode(CollisionMode::Damaging);
+}
+
 void Enemy::collide(CollisionMode mode) {
     if (mode == CollisionMode::Bullet) {
         setActive(false);
