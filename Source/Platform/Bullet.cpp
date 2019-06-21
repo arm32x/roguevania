@@ -22,6 +22,10 @@ Bullet::Bullet(const Texture& texture, const IntRect& rectangle, const Vector2f&
     
 }
 
+Bullet::~Bullet() {
+    Program::log(Log::Debug, "Bullet") << "Bullet destroyed." << std::endl;
+}
+
 void Bullet::update(float delta) {
     gravityScale = 0.0f;
     Entity::update(delta);
