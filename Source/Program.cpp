@@ -99,7 +99,7 @@ void Program::main(int argc, char** argv) {
                 h += gen.getRandom().uniform(-0.01f, 0.01f);
                 s += gen.getRandom().uniform(-0.02f, 0.10f);
                 v += gen.getRandom().uniform(-0.00f, 0.05f);
-                room.tilemap->setTileColor(x, y, Utilities::HSVtoRGB(h, s, v));
+                room.tilemap->setTileColor(x, y, Utilities::HSVtoRGB(std::fmod(h, 1.0f), std::fmod(s, 1.0f), std::fmod(v, 1.0f)));
             }
         }
     }
