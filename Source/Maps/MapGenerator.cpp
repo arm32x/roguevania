@@ -369,12 +369,8 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                         stream.read(reinterpret_cast<char*>(&distanceY), 1);
                         stream.read(reinterpret_cast<char*>(&speedX), 1);
                         stream.read(reinterpret_cast<char*>(&speedY), 1);
-                        Vector2f distance((distanceX < 0 ? -1 : 1) * std::pow(2.0f, std::abs(distanceX)), (distanceY < 0 ? -1 : 1) * std::pow(2.0f, std::abs(distanceY)));
-                        Vector2f speed(std::pow(2.0f, std::abs(speedX)), std::pow(2.0f, std::abs(speedY)));
-                        Program::log(Log::Debug, "MapGenerator") << "Distance:  (2^" << +distanceX << " = " << distance.x << ", 2^" << +distanceY << " = " << distance.y << ")." << std::endl;
-                        Program::log(Log::Debug, "MapGenerator") << "Speed:  (2^" << +speedX << " = " << speed.x << ", 2^" << +speedY << " = " << speed.y << ")." << std::endl;
                         
-                        room.entities.push_back(new SineWaveEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), (room.x * room.tilemap->width + x) * room.tilemap->tileSize, (room.y * room.tilemap->height + y) * room.tilemap->tileSize, speed, distance));
+                        room.entities.push_back(new SineWaveEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), (room.x * room.tilemap->width + x) * room.tilemap->tileSize, (room.y * room.tilemap->height + y) * room.tilemap->tileSize, Vector2f(speedX, speedY), Vector2f(distanceX, distanceY)));
                         
                         stream.ignore(2);
                         break;
