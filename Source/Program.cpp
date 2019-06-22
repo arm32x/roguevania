@@ -67,6 +67,7 @@ void Program::main(int argc, char** argv) {
     constexpr uint16_t width = 32, height = 16;
     
     MapGenerator gen;
+    gen.setSeed(5358619643572018027u);
     
     Program::log(Log::Trace, "MapGenerator") << "Generating map..." << std::endl;
     Program::log(Log::Info, "MapGenerator") << "Using seed " << gen.getSeed() << "u." << std::endl;
