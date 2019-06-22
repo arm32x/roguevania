@@ -88,10 +88,10 @@
 		<Unit filename="Source/Platform/Enemy.hpp" />
 		<Unit filename="Source/Platform/Entity.cpp" />
 		<Unit filename="Source/Platform/Entity.hpp" />
-		<Unit filename="Source/Platform/HorizontalFlyingEnemy.cpp" />
-		<Unit filename="Source/Platform/HorizontalFlyingEnemy.hpp" />
 		<Unit filename="Source/Platform/Player.cpp" />
 		<Unit filename="Source/Platform/Player.hpp" />
+		<Unit filename="Source/Platform/SineWaveEnemy.cpp" />
+		<Unit filename="Source/Platform/SineWaveEnemy.hpp" />
 		<Unit filename="Source/Program.cpp" />
 		<Unit filename="Source/Program.hpp" />
 		<Unit filename="Source/Utilities/HSVtoRGB.cpp" />

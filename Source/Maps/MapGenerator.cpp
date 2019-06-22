@@ -1,6 +1,7 @@
 #include "MapGenerator.hpp"
 
 #include <bitset>
+#include <cmath>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -358,20 +359,28 @@ void MapGenerator::generateRoomLayoutFromStream(Room& room, std::istream& stream
                 uint8_t enemyType;
                 stream.read(reinterpret_cast<char*>(&enemyType), 1);
                 switch (enemyType) {
-                    case 0x01: // Horizontal flying enemy.
-                        float x, y, distanceMultiplier;
+                    case 0x01: { // Horizontal flying enemy.
+                        float x, y;
                         stream.read(reinterpret_cast<char*>(&x), 4);
                         stream.read(reinterpret_cast<char*>(&y), 4);
-                        stream.read(reinterpret_cast<char*>(&distanceMultiplier), 4);
                         
-                        room.entities.push_back(new SineWaveEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), (room.x * room.tilemap->width + x) * room.tilemap->tileSize, (room.y * room.tilemap->height + y) * room.tilemap->tileSize, distanceMultiplier));
+                        int8_t distanceX, distanceY, speedX, speedY;
+                        stream.read(reinterpret_cast<char*>(&distanceX), 1);
+                        stream.read(reinterpret_cast<char*>(&distanceY), 1);
+                        stream.read(reinterpret_cast<char*>(&speedX), 1);
+                        stream.read(reinterpret_cast<char*>(&speedY), 1);
+                        Vector2f distance(std::pow(2.0f, distanceX), std::pow(2.0f, distanceY)), speed(std::pow(2.0f, speedX), std::pow(2.0f, speedY));
+                        
+                        room.entities.push_back(new SineWaveEnemy(Entity::spritesheet, IntRect(32, 16, 16, 16), (room.x * room.tilemap->width + x) * room.tilemap->tileSize, (room.y * room.tilemap->height + y) * room.tilemap->tileSize, speed, distance));
                         
                         stream.ignore(2);
                         break;
-                    default:
+                    }
+                    default: {
                         Program::log(Log::Error, "MapGenerator") << "Undefined entity type " << std::hex << std::uppercase << std::setfill('0') << std::setw(2) << +enemyType << std::dec << std::nouppercase << std::setfill(' ') << std::setw(0) << "." << std::endl;
                         throw Exceptions::ParseException("Undefined entity type.");
                         break;
+                    }
                 }
                 break;
             case '\xFF':

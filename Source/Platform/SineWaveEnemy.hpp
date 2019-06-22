@@ -22,17 +22,17 @@ class SineWaveEnemy final : public Enemy {
             Left, Right
         };
         
-        SineWaveEnemy(const Texture& texture, const IntRect& rectangle, float x, float y, float distanceMultiplier = 64.0f);
-        SineWaveEnemy(const Texture& texture, const IntRect& rectangle, const Vector2f& position, float distanceMultiplier = 64.0f);
-        SineWaveEnemy(const Texture& texture, float x, float y, float distanceMultiplier = 64.0f);
-        SineWaveEnemy(const Texture& texture, const Vector2f& position, float distanceMultiplier = 64.0f);
+        SineWaveEnemy(const Texture& texture, const IntRect& rectangle, float x, float y, const Vector2f& speed = Vector2f(32.0f, 8.0f), const Vector2f& distance = Vector2f(64.0f, 4.0f));
+        SineWaveEnemy(const Texture& texture, const IntRect& rectangle, const Vector2f& position, const Vector2f& speed = Vector2f(32.0f, 8.0f), const Vector2f& distance = Vector2f(64.0f, 4.0f));
+        SineWaveEnemy(const Texture& texture, float x, float y, const Vector2f& speed = Vector2f(32.0f, 8.0f), const Vector2f& distance = Vector2f(64.0f, 4.0f));
+        SineWaveEnemy(const Texture& texture, const Vector2f& position, const Vector2f& speed = Vector2f(32.0f, 8.0f), const Vector2f& distance = Vector2f(64.0f, 4.0f));
         
         virtual void update(float delta) override;
         
     private:
         Vector2f base;
         float cycle = 0.0f;
-        float distanceMultiplier;
+        Vector2f speed, distance;
         
 };
 
