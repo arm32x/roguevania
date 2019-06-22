@@ -26,6 +26,7 @@
 #include "Platform/Entity.hpp"
 #include "Platform/SineWaveEnemy.hpp"
 #include "Platform/Player.hpp"
+#include "Utilities/clamp.hpp"
 #include "Utilities/HSVtoRGB.hpp"
 #include "Utilities/RGBtoHSV.hpp"
 
@@ -96,6 +97,7 @@ void Program::main(int argc, char** argv) {
             for (uint16_t x = 0; x < room.tilemap->width; x++) {
                 float h, s, v;
                 std::tie(h, s, v) = Utilities::RGBtoHSV(room.section->color);
+                float(&clamp)(float, float, float) = Utilities::clamp<float>;
                 h += gen.getRandom().uniform(-0.01f, 0.01f);
                 s += gen.getRandom().uniform(-0.02f, 0.10f);
                 v += gen.getRandom().uniform(-0.00f, 0.05f);
