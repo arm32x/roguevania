@@ -202,26 +202,27 @@ void MapGenerator::connectRooms(std::deque<Room>& rooms, uint16_t width, uint16_
     #endif
 }
 
+// TODO:  Make at least one connection between sequential sections (‘A’ and ‘B’).
 void MapGenerator::connectSections(std::deque<Room>& rooms, uint16_t width, uint16_t height) {
     for (uint16_t y = 0; y < height; y++) {
         for (uint16_t x = 0; x < width; x++) {
             if (rooms[(x    ) + width * (y    )].section == nullptr) continue;
-            if (x > 0          && rooms[(x - 1) + width * (y    )].section != nullptr && rooms[(x - 1) + width * (y    )].section < rooms[(x    ) + width * (y    )].section && random.uniform(0, 3) == 0) {
+            if (x > 0          && rooms[(x - 1) + width * (y    )].section != nullptr && rooms[(x - 1) + width * (y    )].section < rooms[(x    ) + width * (y    )].section && random.uniform(0, 1) == 0) {
                 rooms[(x    ) + width * (y    )].doors |= 0b0001;
                 rooms[(x - 1) + width * (y    )].doors |= 0b0100;
                 continue;
             }
-            if (y < height - 1 && rooms[(x    ) + width * (y + 1)].section != nullptr && rooms[(x    ) + width * (y + 1)].section < rooms[(x    ) + width * (y    )].section && random.uniform(0, 3) == 0) {
+            if (y < height - 1 && rooms[(x    ) + width * (y + 1)].section != nullptr && rooms[(x    ) + width * (y + 1)].section < rooms[(x    ) + width * (y    )].section && random.uniform(0, 1) == 0) {
                 rooms[(x    ) + width * (y    )].doors |= 0b0010;
                 rooms[(x    ) + width * (y + 1)].doors |= 0b1000;
                 continue;
             }
-            if (x < width - 1  && rooms[(x + 1) + width * (y    )].section != nullptr && rooms[(x + 1) + width * (y    )].section < rooms[(x    ) + width * (y    )].section && random.uniform(0, 3) == 0) {
+            if (x < width - 1  && rooms[(x + 1) + width * (y    )].section != nullptr && rooms[(x + 1) + width * (y    )].section < rooms[(x    ) + width * (y    )].section && random.uniform(0, 1) == 0) {
                 rooms[(x    ) + width * (y    )].doors |= 0b0100;
                 rooms[(x + 1) + width * (y    )].doors |= 0b0001;
                 continue;
             }
-            if (y > 0          && rooms[(x    ) + width * (y - 1)].section != nullptr && rooms[(x    ) + width * (y - 1)].section < rooms[(x    ) + width * (y    )].section && random.uniform(0, 3) == 0) {
+            if (y > 0          && rooms[(x    ) + width * (y - 1)].section != nullptr && rooms[(x    ) + width * (y - 1)].section < rooms[(x    ) + width * (y    )].section && random.uniform(0, 1) == 0) {
                 rooms[(x    ) + width * (y    )].doors |= 0b1000;
                 rooms[(x    ) + width * (y - 1)].doors |= 0b0010;
                 continue;
