@@ -151,7 +151,7 @@ class MapGenerator {
         ///     A deque of rooms, given in the format returned by
         ///     ‘generateRooms’
         /////////////////////////////////////////////////////////////////////////
-        void connectSections(std::deque<Room>& rooms, uint16_t width, uint16_t height);
+        void connectSections(std::deque<Room>& rooms, std::deque<Section>& sections, uint16_t width, uint16_t height);
         
         ////////////////////////////////////////////////////////////////////////
         /// The random number generator to use for generating this map.
